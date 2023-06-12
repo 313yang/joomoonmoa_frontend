@@ -1,0 +1,25 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow: auto;
+  font-family: "Pretendard", "Noto Sans KR", arial, sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+button,
+input {
+  font-family: "Pretendard", "Noto Sans KR", arial, sans-serif;
+}
+
+* {
+  -webkit-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/*# sourceMappingURL=index.css.map */

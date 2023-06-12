@@ -1,0 +1,28 @@
+@import "variable";
+@import "util";
+@import "mixin";
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow: auto;
+    font-family: $font;
+    font-weight: 400;
+    font-size: $fontSize;
+}
+
+button,
+input {
+    font-family: $font;
+}
+
+* {
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    outline: none;
+}
