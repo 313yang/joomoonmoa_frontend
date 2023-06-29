@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "style": "sass --watch src/themes/scss:src/themes/css && sass --no-source-map src/themes/scss src/themes/css",
     "dev": "vite --port 8080 --host",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

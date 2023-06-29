@@ -1,3 +1,4 @@
+/** colors */
 html,
 body {
   margin: 0;
@@ -8,11 +9,13 @@ body {
   font-family: "Pretendard", "Noto Sans KR", arial, sans-serif;
   font-weight: 400;
   font-size: 15px;
+  color: #212529;
 }
 
 button,
 input {
   font-family: "Pretendard", "Noto Sans KR", arial, sans-serif;
+  color: #212529;
 }
 
 * {
@@ -20,6 +23,58 @@ input {
   appearance: none;
   box-sizing: border-box;
   outline: none;
+}
+
+#container {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+a {
+  cursor: pointer;
+}
+
+ul,
+li,
+ol {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 22px;
+}
+
+h5 {
+  font-size: 18px;
+}
+
+h6 {
+  font-size: 16px;
+}
+
+p {
+  font-size: 13px;
+  font-weight: 400;
+  margin: 0;
 }
 
 /*# sourceMappingURL=index.css.map */

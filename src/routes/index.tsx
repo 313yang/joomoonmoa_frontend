@@ -5,7 +5,7 @@ const Login = () => {
     return <div>
         <input />
         <input />
-        <button onClick={() => route("/main")}>Login</button>
+        <button onClick={() => route("/dashbord")}>Login</button>
 
     </div>;
 };

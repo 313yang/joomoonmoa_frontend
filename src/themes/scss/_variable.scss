@@ -6,3 +6,36 @@ $position: top;
 
 $tabletSize: 1000px;
 $mobileSize: 500px;
+
+/** colors */
+$gray50: #f8fafb;
+$gray100: #f1f3f5;
+$gray200: #e9ecef;
+$gray300: #dee2e6;
+$gray400: #bcc4cc;
+$gray500: #868e96;
+$gray600: #656d75;
+$gray700: #495057;
+$gray800: #343a40;
+$gray900: #212529;
+$purple400: #EBEDFF;
+$purple400: #D5D4FF;
+$purple400: #BEB8FF;
+$purple400: #A192FF;
+$purple400: #7A5AF8;
+$primary: #519cff;
+$white: #ffffff;
+$black: #000000;
+$danger: #f55f54;
+$warning: #ffbe5b;
+$green: #19bc85;
+
+$white: var(--theme-white);
+$white-elevated: var(--theme-white-elevated);
+$black: var(--theme-black);
+$danger: var(--theme-danger);
+$warning: var(--theme-warning);
+$green: var(--theme-green);
+$primary: var(--theme-primary);
+
+$borderface: 1px solid #E9ECEF;
