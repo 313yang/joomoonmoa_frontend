@@ -1,9 +1,10 @@
 import { Table } from "@/components/Styled/Table";
 import data from "./data.json";
+import style from "../style.module.scss";
 
 /** 메인페이지 > 요청 컴포넌트 */
 const DashboardRequest = () => {
-  return <div>
+  return <div className={style.Container}>
     <h3>요청</h3>
     <Table thead={["문의", "교환", "반품"]}>
       <tr>

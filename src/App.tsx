@@ -12,10 +12,9 @@ function App() {
       <Router>
         {isLogin ? <Baselayout /> :
           <Routes>
-            <Route path="/login" Component={Login} />
+            <Route path="/" Component={Login} />
           </Routes>
         }
-        {isLogin ? <Dashboard /> : <Login />}
       </Router>
     </div>
   );

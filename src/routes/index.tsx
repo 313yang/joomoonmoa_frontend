@@ -6,7 +6,6 @@ const Login = () => {
     <input />
     <input />
     <button onClick={() => route("/dashbord")}>Login</button>
-
   </div>;
 };
 

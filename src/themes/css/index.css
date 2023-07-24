@@ -30,6 +30,10 @@ input {
   margin: 0 auto;
 }
 
+#main_container {
+  padding: 18px;
+}
+
 a {
   cursor: pointer;
 }
@@ -127,6 +131,19 @@ table.table tbody td.right {
 table.table th:not(:last-child),
 table.table tr > td:not(:last-child) {
   border-right: 1px solid #e9ecef;
+}
+
+div.box {
+  border: 1px solid #e9ecef;
+}
+div.box.box-md {
+  padding: 18px;
+}
+div.box.box-round {
+  border-radius: 16px;
+}
+div.box.box-borderless {
+  border: none;
 }
 
 /*# sourceMappingURL=index.css.map */

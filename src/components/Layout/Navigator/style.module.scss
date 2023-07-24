@@ -1,0 +1,40 @@
+.Navigator {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    width: 100%;
+    max-width: 680px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 2px;
+    padding: 0px 16px 22px;
+    flex-shrink: 0;
+    border-radius: 24px 24px 0px 0px;
+    background: #fff;
+    box-shadow: 0px -8px 16px 0px rgba(0, 0, 0, 0.10);
+    > a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        padding: 11px 0px;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 600;
+        color: #212529;
+        &.selected {
+            color: #7A5AF8;
+            > svg {
+                > path {
+                    stroke: #7A5AF8; 
+                }
+            }
+        }
+        > svg {
+            > path {
+                stroke: #212529; 
+            }
+        }   
+    }
+}
