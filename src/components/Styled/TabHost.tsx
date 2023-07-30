@@ -10,10 +10,10 @@ interface TabHostType<T> {
 }
 
 const TabHost = ({ items, onClick, selected }: TabHostType<any>) => {
-    return <div>
+    return <div className="tabhost">
         {items.map(x =>
-            <button className={selected ? "selected" : ""} onClick={() => onClick && onClick(x.value)} key={x.value}>
-                <h2>{x.name}</h2>
+            <button className={x.value === selected ? "selected" : ""} onClick={() => onClick && onClick(x.value)} key={x.value}>
+                <h3>{x.name}</h3>
             </button>)}
     </div>;
 };

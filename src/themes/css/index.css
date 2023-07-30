@@ -146,4 +146,74 @@ div.box.box-borderless {
   border: none;
 }
 
+div.tabhost {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+div.tabhost > button {
+  padding: 9px 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  color: #bcc4cc;
+}
+div.tabhost > button.selected {
+  color: #212529;
+}
+div.tabhost > button:not(.selected) > h3 {
+  font-weight: 400;
+}
+
+.checkbox {
+  display: inline-flex;
+  vertical-align: top;
+  flex-direction: row;
+  align-items: center;
+}
+.checkbox.checkbox-block {
+  display: flex;
+}
+.checkbox.checkbox-block label {
+  width: 100%;
+}
+.checkbox.checkbox-disabled, .checkbox.checkbox-readonly {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.checkbox:hover label :first-child {
+  border-color: #D5D4FF;
+}
+.checkbox label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 500;
+  color: #212529;
+}
+.checkbox label :first-child {
+  flex: 0 0 24px;
+  content: " ";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  border: 1px solid #bcc4cc;
+  cursor: pointer;
+  margin-right: 8px;
+}
+.checkbox input {
+  display: none;
+}
+.checkbox input:checked + label :first-child {
+  background: #7A5AF8;
+  border: 0;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m11.06 15.46 5.4-5.4a.65.65 0 1 0-.919-.919l-4.941 4.94-2.818-2.818a.65.65 0 1 0-.919.919l3.278 3.278a.651.651 0 0 0 .919 0" style="fill:%23ffffff"/></svg>');
+  background-position: 50% 50%;
+}
+
 /*# sourceMappingURL=index.css.map */

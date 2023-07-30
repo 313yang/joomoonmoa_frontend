@@ -18,7 +18,7 @@ const Baselayout: FunctionComponent = () => {
         <Route path="/request" Component={Request} />
         <Route path="/setting" Component={Setting} />
       </Routes>
-    </section>;
+    </section>
     <Navigator />
   </>;
 };
