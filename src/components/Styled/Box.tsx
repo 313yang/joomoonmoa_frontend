@@ -1,3 +1,4 @@
+import { BuildClass } from "@/libs/Function";
 import { ReactNode, createElement } from "react";
 
 interface BoxProps {
@@ -9,7 +10,13 @@ interface BoxProps {
   className?: string;
 }
 
-export const Box = ({ children, size, radius, borderless, style, className }: BoxProps) => createElement("div", {
-  className: `box box-${size || "none"} box-${radius || "round"}  ${borderless ? "box-borderless" : "" } ${className && className}`,
+export const Box = ({
+  children,
+  size = "md",
+  radius = "round",
+  borderless,
   style,
-}, children);
+  className }: BoxProps) => createElement("div", {
+    className: BuildClass("box", `box-${size}`, `box-${radius}`, borderless && "box-borderless", className),
+    style,
+  }, children);

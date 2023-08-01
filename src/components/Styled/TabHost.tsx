@@ -9,7 +9,7 @@ interface TabHostType<T> {
     selected: T;
 }
 
-const TabHost = ({ items, onClick, selected }: TabHostType<any>) => {
+export const TabHost = ({ items, onClick, selected }: TabHostType<any>) => {
     return <div className="tabhost">
         {items.map(x =>
             <button className={x.value === selected ? "selected" : ""} onClick={() => onClick && onClick(x.value)} key={x.value}>
@@ -17,4 +17,3 @@ const TabHost = ({ items, onClick, selected }: TabHostType<any>) => {
             </button>)}
     </div>;
 };
-export default TabHost;

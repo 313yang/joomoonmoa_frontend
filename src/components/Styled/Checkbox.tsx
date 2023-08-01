@@ -1,3 +1,4 @@
+import { BuildClass } from "@/libs/Function";
 import { PropsWithChildren, useRef } from "react";
 
 export interface CheckboxProps<T> {
@@ -36,14 +37,13 @@ export function Checkbox<T extends string | number | string[]>({
     };
 
     return <div
-        className={`
-        checkbox
-        ${readonly ? "checkbox-readonly" : ""}
-        ${disabled ? "checkbox-disabled" : ""}
-        ${checked ? "checkbox-checked" : ""}
-        ${block ? "checkbox-block" : ""}
-        ${!!className ? className : ""}
-      `}
+        className={BuildClass(
+            "checkbox",
+            readonly && "checkbox-readonly",
+            disabled && "checkbox-disabled",
+            checked && "checkbox-checked",
+            block && "checkbox-block",
+            className)}
         style={style}
     >
         <input
@@ -64,4 +64,3 @@ export function Checkbox<T extends string | number | string[]>({
     </div>;
 };
 
-export default Checkbox;

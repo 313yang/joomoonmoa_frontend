@@ -1,11 +1,10 @@
-import TabHost from "@/components/Styled/TabHost";
 import { OrderTabHostItemType } from "./defines";
 import { useState } from "react";
 import Header from "@/components/Layout/Header";
 import { Subtract } from "@/components/Icons";
 import style from "./style.module.scss";
 import { Box } from "@/components/Styled/Box";
-import Checkbox from "@/components/Styled/Checkbox";
+import { Checkbox, TabHost,Button } from "@/components/Styled";
 
 const tabItems = [
     {
@@ -27,7 +26,12 @@ const Order = () => {
             selected={selected}
             onClick={setSelected} />
         <Box className={style.OrderContainer} size="md">
-            <Checkbox name="order_checkbox_all" defaultChecked={checkedList} onChange={() => setCheckedList(!checkedList)} />
+            <Checkbox
+                name="order_checkbox_all"
+                defaultChecked={checkedList}
+                onChange={() => setCheckedList(!checkedList)}
+            />
+            <Button />
 
         </Box>
 
