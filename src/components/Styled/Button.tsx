@@ -3,23 +3,23 @@ import { PropsWithChildren, createElement } from "react";
 
 interface BoxProps {
     style?: { [key: string]: string; };
-    size?: "none" | "md",
     radius?: "round" | "square",
     borderless?: boolean;
     className?: string;
     type?: "submit" | "button";
+    width?: number;
 }
 
 export const Button = ({
     children,
-    size = "md",
     radius = "round",
     borderless,
     style,
     className,
-    type = "button"
+    type = "button",
+    width
 }: PropsWithChildren<BoxProps>) => createElement("button", {
-    className: BuildClass("button", `button-${size}`, `button-${radius}`, borderless && "button-borderless", className),
-    style,
+    className: BuildClass("button", `button-${radius}`, borderless && "button-borderless", className),
+    style: !!width ? { ...style, width } : style,
     type: type
 }, children);

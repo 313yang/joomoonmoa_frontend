@@ -216,4 +216,25 @@ div.tabhost > button:not(.selected) > h3 {
   background-position: 50% 50%;
 }
 
+button.button {
+  background-color: #7A5AF8;
+  border: 1px solid #7A5AF8;
+  padding: 9px 0;
+  width: 100px;
+  color: #ffffff;
+}
+button.button > p {
+  font-size: 14px;
+  font-weight: 600;
+}
+button.button.button-round {
+  border-radius: 6px;
+}
+button.button.button-square {
+  border-radius: 2px;
+}
+button.button.button-borderless {
+  border: none;
+}
+
 /*# sourceMappingURL=index.css.map */

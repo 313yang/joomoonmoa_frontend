@@ -4,7 +4,7 @@ import Header from "@/components/Layout/Header";
 import { Subtract } from "@/components/Icons";
 import style from "./style.module.scss";
 import { Box } from "@/components/Styled/Box";
-import { Checkbox, TabHost,Button } from "@/components/Styled";
+import { Checkbox, TabHost, Button } from "@/components/Styled";
 
 const tabItems = [
     {
@@ -31,7 +31,10 @@ const Order = () => {
                 defaultChecked={checkedList}
                 onChange={() => setCheckedList(!checkedList)}
             />
-            <Button />
+
+            <Button>
+                <p>선택 발주확인</p>
+            </Button>
 
         </Box>
 
