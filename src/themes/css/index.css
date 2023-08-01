@@ -236,5 +236,48 @@ button.button.button-square {
 button.button.button-borderless {
   border: none;
 }
+button.button:disabled {
+  background-color: #D5D4FF;
+  border-color: #D5D4FF;
+}
+
+.input-line {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+.input-line .input,
+.input-line .dropdown {
+  flex: 1 1;
+}
+.input-line.label-position-top {
+  flex-wrap: wrap;
+}
+.input-line.label-position-top .input-label {
+  width: 100%;
+  flex: 1 1 100%;
+}
+.input-line:not(:last-child) {
+  border-bottom: 1px solid #e9ecef;
+}
+
+.input-label {
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+  background-color: #f8fafb;
+  color: #868e96;
+  flex: 0 75px;
+  padding: 12px;
+  border-right: 1px solid #e9ecef;
+}
+.input-label.input-label-center {
+  align-self: center;
+}
+.input-label.input-label-flex-end {
+  align-self: flex-end;
+}
 
 /*# sourceMappingURL=index.css.map */

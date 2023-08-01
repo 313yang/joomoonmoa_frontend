@@ -1,4 +1,4 @@
-import { Table } from "@/components/Styled/Table";
+import { Table } from "@/components/Styled";
 import data from "./data.json";
 import style from "../style.module.scss";
 

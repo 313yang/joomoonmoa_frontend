@@ -17,4 +17,8 @@ button.button {
     &.button-borderless {
         border: none;
     }
+    &:disabled {
+        background-color: $purple100;
+        border-color: $purple100;
+    }
 }

@@ -8,6 +8,7 @@ interface BoxProps {
     className?: string;
     type?: "submit" | "button";
     width?: number;
+    disabled?: boolean;
 }
 
 export const Button = ({
@@ -17,9 +18,11 @@ export const Button = ({
     style,
     className,
     type = "button",
-    width
+    width,
+    disabled
 }: PropsWithChildren<BoxProps>) => createElement("button", {
     className: BuildClass("button", `button-${radius}`, borderless && "button-borderless", className),
     style: !!width ? { ...style, width } : style,
-    type: type
+    type: type,
+    disabled
 }, children);
