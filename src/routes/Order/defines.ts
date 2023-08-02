@@ -2,7 +2,7 @@ export enum OrderTabHostItemType {
   New = 1,
   Pre = 2,
 }
-export interface OrderProductItemType {
+export interface OrderProductNewItemType {
   id: number,
   storeTitle: string,
   paymentDate: string,

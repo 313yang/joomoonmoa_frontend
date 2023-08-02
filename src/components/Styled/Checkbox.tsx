@@ -9,14 +9,13 @@ export interface CheckboxProps<T> {
     disabled?: boolean;
     checked?: boolean;
     defaultChecked?: boolean;
-    onChange?: (value?: T) => void;
+    onChange: (value: T) => void;
     style?: { [key: string]: string; };
     className?: string;
 }
 
-export function Checkbox<T extends string | number | string[]>({
+export function Checkbox<T extends string | number | string[] | boolean>({
     name,
-    value,
     children,
     block,
     readonly,
@@ -50,7 +49,6 @@ export function Checkbox<T extends string | number | string[]>({
             type="checkbox"
             id={id.current}
             name={name}
-            value={value}
             onChange={ChangeHandler}
             readOnly={readonly}
             disabled={disabled}

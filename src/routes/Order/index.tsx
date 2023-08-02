@@ -1,11 +1,11 @@
-import { OrderTabHostItemType } from "./defines";
+import { OrderProductNewItemType, OrderTabHostItemType } from "./defines";
 import { useState } from "react";
 import Header from "@/components/Layout/Header";
 import { Subtract } from "@/components/Icons";
 import style from "./style.module.scss";
 import { Box } from "@/components/Styled";
 import { Checkbox, TabHost, Button } from "@/components/Styled";
-import { OrderProductUserItem } from "./item";
+import { OrderNewList } from "./NewList";
 
 const tabItems = [
     {
@@ -34,7 +34,21 @@ const dummy = [
 ];
 const Order = () => {
     const [selected, setSelected] = useState<OrderTabHostItemType>(OrderTabHostItemType.New);
-    const [checkedList, setCheckedList] = useState<boolean>(true);
+    const [checkedList, setCheckedList] = useState<number[]>([]);
+    const [newList, setNewList] = useState<OrderProductNewItemType[]>(dummy);
+
+    const handleAllChecked = (checked:boolean)=>{
+        console.log(checked)
+    }
+    const handleChecked = (val: number) => {
+        let cloneList = [...checkedList];
+        if (!!checkedList.find(x => x === val)) {
+            cloneList = checkedList.filter(x => x !== val);
+        } else {
+            cloneList.push(val);
+        }
+        setCheckedList(cloneList);
+    };
     return <div>
         <Header title={<div className={style.flexCenter}><h3>주문</h3><Subtract /></div>} />
         <TabHost
@@ -45,23 +59,20 @@ const Order = () => {
             <div className={style.OrderCheckboxContainer}>
                 <Checkbox
                     name="order_checkbox_all"
-                    defaultChecked={checkedList}
-                    onChange={() => setCheckedList(!checkedList)}
+                    checked={checkedList.length === newList.length}
+                    value={checkedList.length === newList.length}
+                    onChange={handleAllChecked}
                 />
                 <Button disabled={!checkedList}>
                     <p>선택 발주확인</p>
                 </Button>
             </div>
-            {dummy.map(x =>
-                <div className={style.OrderListContainer}>
-                    <Checkbox
-                        name={`order_checkbox_${x.id}`}
-                        defaultChecked={checkedList}
-                        onChange={() => setCheckedList(!checkedList)}
-                    />
-                    <OrderProductUserItem item={x} />
-                    <Button style={{ margin: "0 0 0 calc(100% - 100px)" }}>발주확인</Button>
-                </div>)}
+            {selected === OrderTabHostItemType.New &&
+                <OrderNewList
+                    items={newList}
+                    checkedList={checkedList}
+                    setCheckedList={handleChecked} />
+            }
         </Box>
 
     </div>;
