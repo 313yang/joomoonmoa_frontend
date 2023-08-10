@@ -1,0 +1,29 @@
+.JoinInputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 36px;
+    gap: 16px;
+    > div {
+        width: 100%;
+        margin-bottom: 6px;
+    }
+    .JoinButton {
+        height: 58px;
+        font-weight: 700;
+        font-size: 20px;
+        width: 100%;
+    }
+}
+.JoinPhoneNumberInput {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    > div {
+        width: 80%;
+    }
+    > button {
+        height: 48px;
+        width: 80px;
+    }
+}

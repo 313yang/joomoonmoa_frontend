@@ -1,15 +1,7 @@
-import { Box } from "./Box";
-import { Button } from "./Button";
-import { Checkbox } from "./Checkbox";
-import { TabHost } from "./TabHost";
-import { Table } from "./Table";
-import { InputLine, InputLabel } from "./InputLine";
-export {
-    Box,
-    Button,
-    Checkbox,
-    TabHost,
-    Table,
-    InputLine,
-    InputLabel
-};
+export * from "./Box";
+export * from "./Button";
+export * from "./Checkbox";
+export * from "./TabHost";
+export * from "./Table";
+export * from "./InputLine";
+export * from "./Input";

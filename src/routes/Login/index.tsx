@@ -1,8 +1,7 @@
-import { Button } from "@/components/Styled";
+import { Button, Input } from "@/components/Styled";
 import { Link, useNavigate } from "react-router-dom";
 import style from "./style.module.scss";
 import { BuildClass } from "@/libs/Function";
-import Input from "@/components/Styled/Input";
 import { useState } from "react";
 
 const Login = () => {
@@ -15,15 +14,15 @@ const Login = () => {
     <Input
       className={style.LoginInput}
       defaultValue={id}
-      onInput={setId} 
+      onInput={setId}
       placeholder="아이디"
-      />
+    />
     <Input
       className={style.LoginInput}
       defaultValue={password}
       onInput={setPassword}
-      placeholder="비밀번호" 
-      />
+      placeholder="비밀번호"
+    />
     <Button
       className={style.LoginButton}
       width="100%"

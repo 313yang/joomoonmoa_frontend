@@ -26,11 +26,10 @@ interface CommonInputProps<T extends string> {
     placeholder?: string | Promise<string | null>;
     /** 캡션 */
     caption?: JSX.Element;
-
-    /** 입력값 앞에 컴포넌트 추가 */
-    postfix?: ReactNode|any;
+    /** 라벨 */
+    label?: string;
     /** 입력값 뒤에 컴포넌트 추가 */
-    prefix?: ReactNode|any;
+    prefix?: ReactNode | any;
 
     formatCallback?: (value: T) => string;
     /** 입력값검증 */
@@ -95,8 +94,8 @@ export function Input<T extends string>({
     caption,
     maxLength,
     type,
+    label,
 
-    postfix: Postfix,
     prefix: Prefix,
 
     formatCallback = (value: T) => value.toString(),
@@ -172,8 +171,9 @@ export function Input<T extends string>({
         )}
         style={style}
     >
+        {!!label && <span className="input_with-label">{label}</span>}
         <div className="input-container">
-            {Postfix && <Postfix  />}
+
             <input
                 name={name}
                 type={type}

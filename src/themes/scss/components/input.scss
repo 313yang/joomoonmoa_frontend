@@ -52,7 +52,13 @@
         font-weight: 500;
       }
     }
-  
+    .input_with-label {
+      display: block;
+      font-weight: 500;
+      color: $gray500;
+      margin-left: 4px;
+      margin-bottom: 6px;
+    }
     input {
       flex: 1 1;
       border: 0;
@@ -92,7 +98,7 @@
       top: 100%;
   
       font-size: 13px;
-      line-height: 1.85;
+      line-height: 1.4;
     }
   }
   

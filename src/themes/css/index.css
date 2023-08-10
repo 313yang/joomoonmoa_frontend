@@ -316,12 +316,19 @@ button.button:disabled {
 }
 .input.input-error .input-container {
   border-width: 2px;
-  border-color: var(--theme-danger);
+  border-color: #f55f54;
   padding: 13px;
 }
 .input.input-error .input-caption {
-  color: var(--theme-danger);
+  color: #f55f54;
   font-weight: 500;
+}
+.input .input_with-label {
+  display: block;
+  font-weight: 500;
+  color: #868e96;
+  margin-left: 4px;
+  margin-bottom: 6px;
 }
 .input input {
   flex: 1 1;
@@ -353,7 +360,7 @@ button.button:disabled {
   left: 4px;
   top: 100%;
   font-size: 13px;
-  line-height: 1.85;
+  line-height: 1.4;
 }
 
 /*# sourceMappingURL=index.css.map */
