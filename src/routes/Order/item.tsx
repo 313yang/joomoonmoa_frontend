@@ -1,8 +1,8 @@
 import { Box, InputLine, InputLabel } from "@/components/Styled";
-import { OrderProductItemType } from "./defines";
+import { OrderProductNewItemType } from "./defines";
 import style from "./style.module.scss";
 
-export const OrderProductUserItem = ({ item }: { item: OrderProductItemType; }) => {
+export const OrderProductUserItem = ({ item }: { item: OrderProductNewItemType; }) => {
     return <div className={style.OrderProductUserItem}>
         <Box size="none" style={{ borderRadius: "4px" }}>
             <InputLine>
