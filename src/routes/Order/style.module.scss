@@ -1,0 +1,29 @@
+.flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  > h3 {
+    margin-right: 16px;
+  }
+}
+.OrderContainer {
+  margin-top: 11px;
+}
+.OrderCheckboxContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e9ecef;
+}
+.OrderListContainer {
+  margin: 16px 0;
+  >:global(.checkbox){
+    margin-bottom: 9px;
+  }
+}
+.OrderProductUserItem {
+  >div {
+    margin-bottom: 8px;
+  }
+}

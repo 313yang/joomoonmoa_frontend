@@ -1,0 +1,24 @@
+button.button {
+    background-color: $purple400;
+    border: 1px solid $purple400;
+    padding: 9px 0;
+    width: 100px;
+    color: $white;
+    > p {
+        font-size: 14px;
+        font-weight: 600;
+    }
+    &.button-round {
+        border-radius: 6px;
+    }
+    &.button-square {
+        border-radius: 2px;
+    }
+    &.button-borderless {
+        border: none;
+    }
+    &:disabled {
+        background-color: $purple100;
+        border-color: $purple100;
+    }
+}

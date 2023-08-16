@@ -1,0 +1,12 @@
+div.box {
+    border: $borderface;
+    &.box-md {
+        padding: 18px;
+    }
+    &.box-round {
+        border-radius: 16px;
+    }
+    &.box-borderless {
+        border: none;
+    }
+}

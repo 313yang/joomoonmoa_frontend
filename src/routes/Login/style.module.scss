@@ -1,0 +1,25 @@
+.LoginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    > .logo {
+        margin: 30px auto 90px;
+    }
+    >.LoginInput {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    >.LoginButton {
+        height: 58px;
+        font-weight: 700;
+        font-size: 20px;
+    }
+    >.JoinLink {
+        position: absolute;
+        bottom: 30px;
+        font-size: 18px;
+        > a {
+            font-weight: 600;
+        }
+    }
+}

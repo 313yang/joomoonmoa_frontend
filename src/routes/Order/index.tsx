@@ -1,0 +1,80 @@
+import { OrderProductNewItemType, OrderTabHostItemType } from "./defines";
+import { useState } from "react";
+import Header from "@/components/Layout/Header";
+import { Subtract } from "@/components/Icons";
+import style from "./style.module.scss";
+import { Box } from "@/components/Styled";
+import { Checkbox, TabHost, Button } from "@/components/Styled";
+import { OrderNewList } from "./NewList";
+
+const tabItems = [
+    {
+        name: "신규",
+        value: OrderTabHostItemType.New
+    },
+    {
+        name: "발송준비",
+        value: OrderTabHostItemType.Pre
+    }
+];
+
+const dummy = [
+    {
+        id: 1,
+        storeTitle: "스토어1",
+        paymentDate: "2023.01.02 03:35:32",
+        productName: "아이패드 케이스",
+        productOption: "주황",
+        quantity: "1",
+        userName: "yang",
+        tel: "01012341234",
+        address: "서울시 송파구 가나다로 25"
+
+    }
+];
+const Order = () => {
+    const [selected, setSelected] = useState<OrderTabHostItemType>(OrderTabHostItemType.New);
+    const [checkedList, setCheckedList] = useState<number[]>([]);
+    const [newList, setNewList] = useState<OrderProductNewItemType[]>(dummy);
+
+    const handleAllChecked = (checked:boolean)=>{
+        console.log(checked)
+    }
+    const handleChecked = (val: number) => {
+        let cloneList = [...checkedList];
+        if (!!checkedList.find(x => x === val)) {
+            cloneList = checkedList.filter(x => x !== val);
+        } else {
+            cloneList.push(val);
+        }
+        setCheckedList(cloneList);
+    };
+    return <div>
+        <Header title={<div className={style.flexCenter}><h3>주문</h3><Subtract /></div>} />
+        <TabHost
+            items={tabItems}
+            selected={selected}
+            onClick={setSelected} />
+        <Box className={style.OrderContainer} size="md">
+            <div className={style.OrderCheckboxContainer}>
+                <Checkbox
+                    name="order_checkbox_all"
+                    checked={checkedList.length === newList.length}
+                    value={checkedList.length === newList.length}
+                    onChange={handleAllChecked}
+                />
+                <Button disabled={!checkedList}>
+                    <p>선택 발주확인</p>
+                </Button>
+            </div>
+            {selected === OrderTabHostItemType.New &&
+                <OrderNewList
+                    items={newList}
+                    checkedList={checkedList}
+                    setCheckedList={handleChecked} />
+            }
+        </Box>
+
+    </div>;
+};
+export default Order;
