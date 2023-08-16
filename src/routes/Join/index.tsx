@@ -42,6 +42,7 @@ const Join = () => {
     try {
       // TODO:: 회원가입 api 연동
       const resp = await signup({ email: id, password, phoneNumber, name: "" });
+      console.log(resp)
     } catch (err) {
       console.error(err);
     }
