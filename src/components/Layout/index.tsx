@@ -10,17 +10,12 @@ import Navigator from "./Navigator";
  * 로그인 후 기본 베이스 레이어
  */
 const Baselayout: FunctionComponent = () => {
-  return <>
-    <section id="main_container">
-      <Routes>
+  return <Routes>
         <Route path="/dashboard" Component={Dashboard} />
         <Route path="/order" Component={Order} />
         <Route path="/request" Component={Request} />
         <Route path="/setting" Component={Setting} />
-      </Routes>
-    </section>
-    <Navigator />
-  </>;
+  </Routes>;
 };
 
 export default Baselayout;

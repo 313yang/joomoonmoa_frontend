@@ -41,8 +41,8 @@ const Join = () => {
     if (password !== passwordConfirm) return alert("비밀번호가 일치하지 않습니다.");
     try {
       // TODO:: 회원가입 api 연동
-      const resp = await signup({ email: id, password, phoneNumber, name: "" });
-      console.log(resp)
+      const resp = await signup({ id, password, phoneNumber });
+      console.log(resp);
     } catch (err) {
       console.error(err);
     }
