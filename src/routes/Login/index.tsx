@@ -1,13 +1,28 @@
 import { Button, Input } from "@/components/Styled";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import style from "./style.module.scss";
 import { BuildClass } from "@/libs/Function";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { login } from "@/libs/api/auth";
+import { useUserAuthAction } from "@/libs/store/useAuthStore";
 
 const Login = () => {
-  const route = useNavigate();
+  // const route = useNavigate();
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const { setAccessToken, setRefreshToken } = useUserAuthAction();
+
+  const handleLogin = async () => {
+    const { accessToken, refreshToken } = await login({ id, password });
+    setAccessToken(accessToken);
+    setRefreshToken(refreshToken);
+    window.location.href = "/dashboard";
+  };
+
+  useEffect(() => {
+    setAccessToken("");
+    setRefreshToken("");
+  }, []);
 
   return <div className={style.LoginContainer}>
     <h2 className={BuildClass(style.logo, "text-primary")}>주문모아</h2>
@@ -26,7 +41,7 @@ const Login = () => {
     <Button
       className={style.LoginButton}
       width="100%"
-      onClick={() => route("/dashbord")}>
+      onClick={handleLogin}>
       로그인
     </Button>
     <span className={style.JoinLink}>계정이 없으신가요? <Link to={"/join"} className="text-primary">회원가입</Link></span>
