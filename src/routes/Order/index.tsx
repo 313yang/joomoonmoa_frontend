@@ -1,5 +1,5 @@
 import { OrderProductNewItemType, OrderTabHostItemType } from "./defines";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "@/components/Layout/Header";
 import { Subtract } from "@/components/Icons";
 import style from "./style.module.scss";
@@ -37,9 +37,13 @@ const Order = () => {
     const [checkedList, setCheckedList] = useState<number[]>([]);
     const [newList, setNewList] = useState<OrderProductNewItemType[]>(dummy);
 
-    const handleAllChecked = (checked:boolean)=>{
-        console.log(checked)
-    }
+    const getNewList = async () => {
+        //TODO:: api 연동
+        setNewList(dummy);
+    };
+    const handleAllChecked = (checked: boolean) => {
+        console.log(checked);
+    };
     const handleChecked = (val: number) => {
         let cloneList = [...checkedList];
         if (!!checkedList.find(x => x === val)) {
@@ -49,6 +53,10 @@ const Order = () => {
         }
         setCheckedList(cloneList);
     };
+
+    useEffect(() => {
+        getNewList();
+    }, []);
     return <div>
         <Header title={<div className={style.flexCenter}><h3>주문</h3><Subtract /></div>} />
         <TabHost
