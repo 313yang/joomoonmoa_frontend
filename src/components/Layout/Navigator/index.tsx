@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 
 import style from "./style.module.scss";
-import { Hamburger, Home, Search, Setting } from "@/components/Icons";
+import { Chat, Hamburger, Home, List, Search, Setting } from "@/components/Icons";
 
 const Navigator = () => {
     const { pathname } = useLocation();
@@ -15,11 +15,11 @@ const Navigator = () => {
             <span>홈</span>
         </Link>
         <Link to={"/order"} className={checkingPathname("/order") ? style.selected : ""}>
-            <Search />
+            <List />
             <span>주문</span>
         </Link>
         <Link to={"/request"} className={checkingPathname("/request") ? style.selected : ""}>
-            <Hamburger />
+            <Chat />
             <span>요청</span>
         </Link>
         <Link to={"/setting"} className={checkingPathname("/setting") ? style.selected : ""}>

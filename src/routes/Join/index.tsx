@@ -3,31 +3,37 @@ import { Button, Input } from "@/components/Styled";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "./style.module.scss";
-import { signup } from "@/libs/api/auth";
+import { sendOTP, signup } from "@/libs/api/auth";
 
 const Join = () => {
   const route = useNavigate();
-  const [id, setId] = useState<string>("");
+  const [account, setAccount] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const [phoneNumber, setPhoneNumberber] = useState<string>("");
   const [certNum, setCertNum] = useState<string>("");
+  const [showSendOTP, setShowSendOTP] = useState<boolean>(false);
   const [showOTP, setShowOTP] = useState<boolean>(false);
   const [isCertOk, setIsCertOk] = useState<boolean>(false);
 
   const regExp = /^[A-Za-z0-9]{2,12}$/;
 
-  const submitDisabled = !id || !password || !regExp.test(id) || !passwordConfirm || password !== passwordConfirm || !isCertOk;
+  const submitDisabled = !account || !password || !regExp.test(account) || !passwordConfirm || password !== passwordConfirm || !isCertOk;
 
   const onSendOTP = async () => {
     try {
-      // TODO::인증번호 전송 api 연동
-      setShowOTP(true);
+      const { status } = await sendOTP(phoneNumber);
+      if (status === 200)
+        setShowOTP(true);
+      setShowSendOTP(true);
+      setTimeout(() => setShowSendOTP(false), 3000);
     } catch (err) {
+      alert("인증번호 전송에 실패했습니다.");
       console.error(err);
     }
   };
   const onCertPhoneNumber = async () => {
+    console.log("onCert");
     try {
       // TODO::phoneNumber 인증 api 연동
       setIsCertOk(true);
@@ -41,9 +47,14 @@ const Join = () => {
     if (password !== passwordConfirm) return alert("비밀번호가 일치하지 않습니다.");
     try {
       // TODO:: 회원가입 api 연동
-      const resp = await signup({ id, password, phoneNumber });
-      console.log(resp);
+      const {status} = await signup({ account, password, phoneNumber });
+      if(status===200) {
+        alert("회원가입에 성공했습니다!")
+        route("/")
+      }
+      
     } catch (err) {
+      alert((err as any).response.data.message)
       console.error(err);
     }
   };
@@ -54,11 +65,11 @@ const Join = () => {
       <Input
         label="아이디"
         placeholder="영어·숫자만 2~12자 입력"
-        defaultValue={id}
-        onInput={setId}
-        validateCallback={(value) => {
-          if (!id) return "아이디를 입력해주세요.";
-          if (!regExp.test(value)) return "아이디는 영어·숫자만 2~12자로 입력해주세요.";
+        defaultValue={account}
+        onInput={setAccount}
+        validateCallback={() => {
+          if (!account) return "아이디를 입력해주세요.";
+          if (!regExp.test(account)) return "아이디는 영어·숫자만 2~12자로 입력해주세요.";
         }}
         maxLength={12} />
       <Input
@@ -88,16 +99,17 @@ const Join = () => {
           defaultValue={passwordConfirm}
           onInput={setPhoneNumberber}
           maxLength={11} />
-        <Button disabled={phoneNumber.length !== 11} onClick={onSendOTP}>인증</Button>
+        <Button disabled={phoneNumber.length !== 11 || showSendOTP} onClick={onSendOTP}>인증번호 전송</Button>
       </div>
       {showOTP &&
-        <div className={style.JoinPhoneNumberInput}>
-          <Input
-            label="인증번호"
-            defaultValue={certNum}
-            onInput={setCertNum} />
-          <Button onClick={onCertPhoneNumber}>인증확인</Button>
-        </div>
+        <Input
+          label="인증번호"
+          defaultValue={certNum}
+          onInput={(val) => {
+            setCertNum(val);
+            if (val.length === 4) onCertPhoneNumber();
+          }}
+        />
       }
       <Button
         className={style.JoinButton}
@@ -105,14 +117,14 @@ const Join = () => {
         disabled={submitDisabled}>
         가입하기
       </Button>
-      <h5>또는</h5>
+      {/* <h5>또는</h5>
       <Button
         borderless
         style={{ backgroundColor: "#03C759" }}
         className={style.JoinButton}
         onClick={() => route("/dashbord")}>
         네이버로 간편가입
-      </Button>
+      </Button> */}
     </div>
   </div>;
 };

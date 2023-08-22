@@ -1,15 +1,8 @@
-import { Home } from "@/components/Icons/Home";
-import { Search } from "@/components/Icons/Search";
-import { Hamburger } from "@/components/Icons/Hamburger";
-import { Setting } from "@/components/Icons/Setting";
-import { Arrow } from "@/components/Icons/Arrow";
-import { Subtract } from "@/components/Icons/Subtract";
-
-export {
-    Home,
-    Search,
-    Hamburger,
-    Setting,
-    Arrow,
-    Subtract
-};
+export * from "@/components/Icons/Home";
+export * from "@/components/Icons/Search";
+export * from "@/components/Icons/Hamburger";
+export * from "@/components/Icons/Setting";
+export * from "@/components/Icons/Arrow";
+export * from "@/components/Icons/Subtract";
+export * from "@/components/Icons/List"
+export * from "@/components/Icons/Chat"
