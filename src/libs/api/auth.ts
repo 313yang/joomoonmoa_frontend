@@ -9,15 +9,7 @@ interface SignupType extends LoginType {
     phoneNumber: string;
 }
 
-export const login = async (data: LoginType) => {
-    const res = await auth.post("/login", data);
-    console.log(data);
-    return {
-        accessToken: "11111",
-        refreshToken: "2222222222"
-    };
-
-};
+export const login = async (data: LoginType) => await auth.post("/login", data);
 export const signup = async (data: SignupType) => await auth.post("/signup", data);
 
 export const sendOTP = async (phoneNumber: string) => await auth.post("/otp", { phoneNumber });

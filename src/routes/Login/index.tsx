@@ -7,16 +7,25 @@ import { login } from "@/libs/api/auth";
 import { useUserAuthAction } from "@/libs/store/useAuthStore";
 
 const Login = () => {
-  // const route = useNavigate();
   const [account, setAccount] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { setAccessToken, setRefreshToken } = useUserAuthAction();
 
   const handleLogin = async () => {
-    const { accessToken, refreshToken } = await login({ account, password });
-    setAccessToken(accessToken);
-    setRefreshToken(refreshToken);
-    window.location.href = "/dashboard";
+    try {
+      const { status, data } = await login({ account, password });
+      if (status === 200){
+        setAccessToken("1111");
+        setRefreshToken("222");
+        window.location.href = "/dashboard";
+      }
+
+    } catch (err) {
+      alert((err as any).response.data)
+      console.error(err);
+    }
+  
+
   };
 
   useEffect(() => {
