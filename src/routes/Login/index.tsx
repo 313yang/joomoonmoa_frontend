@@ -8,12 +8,12 @@ import { useUserAuthAction } from "@/libs/store/useAuthStore";
 
 const Login = () => {
   // const route = useNavigate();
-  const [id, setId] = useState<string>("");
+  const [account, setAccount] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { setAccessToken, setRefreshToken } = useUserAuthAction();
 
   const handleLogin = async () => {
-    const { accessToken, refreshToken } = await login({ id, password });
+    const { accessToken, refreshToken } = await login({ account, password });
     setAccessToken(accessToken);
     setRefreshToken(refreshToken);
     window.location.href = "/dashboard";
@@ -28,11 +28,12 @@ const Login = () => {
     <h2 className={BuildClass(style.logo, "text-primary")}>주문모아</h2>
     <Input
       className={style.LoginInput}
-      defaultValue={id}
-      onInput={setId}
+      defaultValue={account}
+      onInput={setAccount}
       placeholder="아이디"
     />
     <Input
+      type="password"
       className={style.LoginInput}
       defaultValue={password}
       onInput={setPassword}

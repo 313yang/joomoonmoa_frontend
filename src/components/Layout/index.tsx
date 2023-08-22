@@ -4,6 +4,7 @@ import Dashboard from "@/routes/Dashboard";
 import Request from "@/routes/Request";
 import Order from "@/routes/Order";
 import Setting from "@/routes/Setting";
+import Navigator from "./Navigator";
 
 /**
  * 로그인 후 기본 베이스 레이어

@@ -1,7 +1,7 @@
 import { auth } from ".";
 
 interface LoginType {
-    id: string;
+    account: string;
     password: string;
 }
 
@@ -10,7 +10,7 @@ interface SignupType extends LoginType {
 }
 
 export const login = async (data: LoginType) => {
-    // const res = await auth.post("/login", data);
+    const res = await auth.post("/login", data);
     console.log(data);
     return {
         accessToken: "11111",
@@ -19,3 +19,5 @@ export const login = async (data: LoginType) => {
 
 };
 export const signup = async (data: SignupType) => await auth.post("/signup", data);
+
+export const sendOTP = async (phoneNumber: string) => await auth.post("/otp", { phoneNumber });

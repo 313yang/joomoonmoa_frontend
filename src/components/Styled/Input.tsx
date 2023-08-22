@@ -33,7 +33,7 @@ interface CommonInputProps<T extends string> {
 
     formatCallback?: (value: T) => string;
     /** 입력값검증 */
-    validateCallback?: (value: T) => ReactNode;
+    validateCallback?: (value?: T) => void;
 
     /**
      * 타겟 input에서 `input` 이벤트가 감지되면 발생하는 이벤트입니다.
@@ -70,15 +70,8 @@ interface CommonInputProps<T extends string> {
     onBlur?: (value: string, target?: HTMLElement, relatedTarget?: HTMLElement | null) => void;
 }
 
-interface InputValueProps<T extends string> extends CommonInputProps<T> {
-    value: T;
-}
 
-interface InputDefaultValueProps<T extends string> extends CommonInputProps<T> {
-    defaultValue: T;
-}
-
-export type InputProps<T extends string> = InputValueProps<T> | InputDefaultValueProps<T>;
+export type InputProps<T extends string> = CommonInputProps<T>;
 
 export function Input<T extends string>({
     defaultValue,
