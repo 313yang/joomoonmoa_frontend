@@ -14,3 +14,13 @@ export function BuildClass(...classList: Array<string | undefined | null | true 
 	if (keep) return "";
 	return undefined;
 }
+
+/**  `초` -> `분:초` 로 변환하는 함수 */
+export const secondsToMs = (d: number) => {
+	const m = Math.floor(d % 3600 / 60);
+	const s = Math.floor(d % 3600 % 60);
+
+	const mDisplay = m;
+	const sDisplay = s < 10 ? `0${s}` : s;
+	return `${mDisplay}:${sDisplay}`;
+};

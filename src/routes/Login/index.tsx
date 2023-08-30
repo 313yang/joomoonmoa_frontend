@@ -14,18 +14,16 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const { status, data } = await login({ account, password });
-      if (status === 200){
+      if (status === 200) {
         setAccessToken("1111");
         setRefreshToken("222");
         window.location.href = "/dashboard";
       }
 
     } catch (err) {
-      alert((err as any).response.data)
+      alert((err as any).response.data);
       console.error(err);
     }
-  
-
   };
 
   useEffect(() => {

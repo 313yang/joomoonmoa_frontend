@@ -85,6 +85,14 @@ p {
   color: #7A5AF8;
 }
 
+.text-danger {
+  color: #f55f54;
+}
+
+.text-green {
+  color: #19bc85;
+}
+
 table.table {
   width: 100%;
   border-collapse: collapse;

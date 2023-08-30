@@ -31,6 +31,8 @@ interface CommonInputProps<T extends string> {
     /** 입력값 뒤에 컴포넌트 추가 */
     prefix?: ReactNode | any;
 
+    autocomplete?: boolean;
+
     formatCallback?: (value: T) => string;
     /** 입력값검증 */
     validateCallback?: (value?: T) => void;
@@ -88,6 +90,7 @@ export function Input<T extends string>({
     maxLength,
     type,
     label,
+    autocomplete,
 
     prefix: Prefix,
 
@@ -168,6 +171,7 @@ export function Input<T extends string>({
         <div className="input-container">
 
             <input
+                autoComplete={!!autocomplete ? "new-password" : ""}
                 name={name}
                 type={type}
                 value={formatCallback(value)}

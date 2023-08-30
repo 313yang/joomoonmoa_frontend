@@ -1,11 +1,9 @@
 import { Table } from "@/components/Styled";
 import style from "../style.module.scss";
-import { useEffect, useState } from "react";
-import { getDashboardOrder } from "@/libs/api/dashboard";
 import { PlaceOrderStatuses } from "@/libs/Defines";
 
 /** 메인페이지 > 주문 컴포넌트 */
-const DashboardOrder = ({data}:{data:PlaceOrderStatuses}) => {
+const DashboardOrder = ({ data }: { data: PlaceOrderStatuses; }) => {
 
   return <div className={style.Container}>
     <h3>주문</h3>
