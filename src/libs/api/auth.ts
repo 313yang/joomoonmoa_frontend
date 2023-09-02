@@ -1,4 +1,6 @@
+import { AxiosResponse } from "axios";
 import { auth } from ".";
+import { LoginPayload } from "../Defines";
 
 interface LoginType {
     account: string;

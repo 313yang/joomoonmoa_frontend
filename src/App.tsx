@@ -1,27 +1,24 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Login from "./routes/Login";
-import Join from "./routes/Join";
-import Baselayout from "./components/Layout";
+import { BrowserRouter as Router } from "react-router-dom";
+import BaseLayout from "./components/Layout";
 import "./themes/css/index.css";
 import { useUserAuth } from "./libs/store/useAuthStore";
 import Navigator from "./components/Layout/Navigator";
+import { Toaster } from "react-hot-toast";
 
 function App() {
-  const { accessToken } = useUserAuth();
-
 
   return (
     <div id="container">
       <Router>
         <section id="main_container">
-          <Routes>
-            <Route path="/" Component={Login} />
-            <Route path="/join" Component={Join} />
-          </Routes>
-          {!!accessToken && <Baselayout />}
+          <BaseLayout />
         </section>
-        {window.location.pathname !== "/" && <Navigator />}
+        <Navigator />
       </Router>
+      <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+      />
     </div>
   );
 }

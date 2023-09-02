@@ -4,7 +4,7 @@ import { useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "./style.module.scss";
 import { sendOTP, signup, verifyOTP } from "@/libs/api/auth";
-import { BuildClass, secondsToMs } from "@/libs/Function";
+import { BuildClass, ToastState, secondsToMs, toast } from "@/libs/Function";
 import { AxiosError, AxiosResponse } from "axios";
 
 const INIT_SECOND = 3 * 60;
@@ -25,6 +25,7 @@ const Join = () => {
 
   const submitDisabled = !account || !password || !regExp.test(account) || !passwordConfirm || password !== passwordConfirm || !isCertOk;
 
+  const errorToast = (err: AxiosError | unknown) => toast(((err as AxiosError).response as AxiosResponse).data.message);
   const onSendOTP = async () => {
     try {
       const { status } = await sendOTP(phoneNumber);
@@ -35,9 +36,7 @@ const Join = () => {
         setTimeout(() => setShowSendOTP(false), 3000);
       }
     } catch (err) {
-      const error = ((err as AxiosError).response as AxiosResponse).data;
-      alert(error.message);
-      console.error(err);
+      errorToast(err);
     }
   };
   const onCertPhoneNumber = async () => {
@@ -49,35 +48,33 @@ const Join = () => {
         setCountTime(0);
       }
     } catch (err) {
-      alert("인증번호가 일치하지 않습니다.");
-      console.error(err);
+      errorToast(err);
     }
   };
 
   const onSubmit = async () => {
-    if (password !== passwordConfirm) return alert("비밀번호가 일치하지 않습니다.");
+    if (password !== passwordConfirm) return toast("비밀번호가 일치하지 않습니다.");
     try {
       const { status } = await signup({ account, password, phoneNumber });
       if (status === 200) {
-        alert("회원가입에 성공했습니다!");
+        toast("회원가입에 성공했습니다!", ToastState.Success);
         route("/");
       }
 
     } catch (err) {
-      alert((err as any).response.data.message);
-      console.error(err);
+      errorToast(err);
     }
   };
 
   useLayoutEffect(() => {
-    if (!!showOTP) {
+    if (!!showOTP && !isCertOk) {
       const countdown = window.setTimeout(() => {
         const time = INIT_SECOND - Math.floor((Date.now() - countTime) / 1000);
         if (time <= 0) {
           setShowOTP(false);
           setCount(INIT_SECOND);
           setCountTime(0);
-          alert("시간초과. 다시 발송해주세요");
+          toast("시간초과. 다시 발송해주세요");
         } else {
           setCount(time);
         }
@@ -85,6 +82,10 @@ const Join = () => {
       return () => window.clearTimeout(countdown);
     }
   }, [showOTP, count, countTime]);
+
+  useLayoutEffect(() => {
+    if (certNum.length === 4) onCertPhoneNumber();
+  }, [certNum]);
 
   return <div>
     <Header prev={" "} title="회원가입" />
@@ -128,7 +129,8 @@ const Join = () => {
           placeholder="-없이 숫자만 입력"
           defaultValue={passwordConfirm}
           onInput={setPhoneNumberber}
-          maxLength={11} />
+          maxLength={11}
+        />
         <Button disabled={phoneNumber.length !== 11 || showSendOTP || isCertOk} onClick={onSendOTP}>인증번호 전송</Button>
       </div>
       {showOTP && <div style={{ position: "relative" }}>
@@ -136,9 +138,10 @@ const Join = () => {
           label="인증번호"
           defaultValue={certNum}
           disabled={isCertOk}
+          maxLength={4}
           onInput={(val) => {
             setCertNum(val);
-            if (certNum.length === 4) onCertPhoneNumber();
+
           }}
         />
         {showOTP &&

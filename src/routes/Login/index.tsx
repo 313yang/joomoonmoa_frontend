@@ -1,7 +1,7 @@
 import { Button, Input } from "@/components/Styled";
 import { Link } from "react-router-dom";
 import style from "./style.module.scss";
-import { BuildClass } from "@/libs/Function";
+import { BuildClass, toast } from "@/libs/Function";
 import { useEffect, useState } from "react";
 import { login } from "@/libs/api/auth";
 import { useUserAuthAction } from "@/libs/store/useAuthStore";
@@ -15,13 +15,14 @@ const Login = () => {
     try {
       const { status, data } = await login({ account, password });
       if (status === 200) {
-        setAccessToken("1111");
-        setRefreshToken("222");
+        const { tokens } = data;
+        setAccessToken(tokens.access);
+        setRefreshToken(tokens.refresh);
         window.location.href = "/dashboard";
       }
 
     } catch (err) {
-      alert((err as any).response.data);
+      toast((err as any).response.data);
       console.error(err);
     }
   };
@@ -52,7 +53,11 @@ const Login = () => {
       onClick={handleLogin}>
       로그인
     </Button>
-    <span className={style.JoinLink}>계정이 없으신가요? <Link to={"/join"} className="text-primary">회원가입</Link></span>
+    <span className={style.FindAuthLink}>
+      <Link to={"/"} >아이디 찾기</Link>
+      <Link to={"/"} >비밀번호 찾기</Link>
+      <Link to={"/join"} >회원가입</Link>
+    </span>
   </div>;
 };
 

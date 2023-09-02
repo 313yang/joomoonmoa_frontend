@@ -15,3 +15,11 @@ export interface PlaceOrderStatuesMarket extends PlaceOrderStatuses {
     marketId: number,
     title: string,
 }
+
+/** 로그인 토큰 */
+export interface LoginPayload {
+    token : {
+      access: string;
+      refresh :string;
+    }
+  }

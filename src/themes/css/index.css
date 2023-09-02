@@ -234,6 +234,7 @@ button.button {
   padding: 9px 0;
   width: 100px;
   color: #ffffff;
+  cursor: pointer;
 }
 button.button > p {
   font-size: 14px;
@@ -251,6 +252,7 @@ button.button.button-borderless {
 button.button:disabled {
   background-color: #D5D4FF;
   border-color: #D5D4FF;
+  cursor: not-allowed;
 }
 
 .input-line {
