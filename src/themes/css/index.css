@@ -157,6 +157,9 @@ div.box.box-round {
 div.box.box-borderless {
   border: none;
 }
+div.box.box-gray50 {
+  background-color: #f8fafb;
+}
 
 div.tabhost {
   display: flex;

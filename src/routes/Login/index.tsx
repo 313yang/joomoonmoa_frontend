@@ -16,6 +16,8 @@ const Login = () => {
       const { status, data } = await login({ account, password });
       if (status === 200) {
         const { tokens } = data;
+        document.cookie = `access=${tokens.access}`;
+        document.cookie = `refresh=${tokens.refresh}`;
         setAccessToken(tokens.access);
         setRefreshToken(tokens.refresh);
         window.location.href = "/dashboard";
@@ -33,7 +35,7 @@ const Login = () => {
   }, []);
 
   return <div className={style.LoginContainer}>
-    <h2 className={BuildClass(style.logo, "text-primary")}>주문모아</h2>
+    <img className={style.logo} src="./logo.svg" />
     <Input
       className={style.LoginInput}
       defaultValue={account}

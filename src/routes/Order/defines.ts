@@ -3,13 +3,18 @@ export enum OrderTabHostItemType {
   Pre = 2,
 }
 export interface OrderProductNewItemType {
-  id: number,
-  storeTitle: string,
-  paymentDate: string,
+  purchasedItemId: number,
+  marketTitle: string,
+  orderDate: string,
   productName: string,
   productOption: string,
   quantity: string,
-  userName: string,
-  tel: string,
-  address: string;
+  receiverName: string,
+  receiverPhoneNumber: string,
+  baseAddress: string;
+  detailedAddress: string;
+}
+export interface OrderProductOkItemType extends OrderProductNewItemType {
+  deliveryType: string;
+  deliveryCode: string | number;
 }

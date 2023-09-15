@@ -6,7 +6,68 @@
 }
 .Container {
     margin-bottom: 55px;
-    > h3 {
+    .ConainterHeader {
+        display: flex;
+        align-items: center;
         margin-bottom: 16px;
+        gap: 12px;
+        > a {
+            display: flex;
+            align-items: center;
+            transform: rotate(180deg);
+            > svg{
+                width: 8px;
+            }
+        }
     }
+}
+.logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 36px;
+    .logo {
+        width: 150px;
+    }
+    >:global(.button) {
+        padding: 5px 10px;
+        font-size: 13px;
+    }
+}
+
+.DashboardOrderContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    >:global(.box){
+        min-width: 95px;
+    }
+}
+.DashboardOrdeBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    >span {
+        font-size: 16px;
+        font-weight: 500;
+        color: #656D75;
+    }
+}
+.DashboardOrdeBoxrContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    :global(.button) {
+        padding: 6px;
+    }
+}
+.DashboardOrderButtonCancel {
+    background-color: #ffecea;
+    padding: 6px;
+    text-align: center;
+    color: #F55F54;
+    cursor: default;
+    border-radius: 6px;
 }
