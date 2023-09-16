@@ -32,6 +32,7 @@ input {
 
 #main_container {
   padding: 18px;
+  padding-bottom: 60px;
 }
 
 a {

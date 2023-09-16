@@ -6,7 +6,7 @@
 }
 .Container {
     margin-bottom: 55px;
-    .ConainterHeader {
+    .ContainerHeader {
         display: flex;
         align-items: center;
         margin-bottom: 16px;
@@ -70,4 +70,10 @@
     color: #F55F54;
     cursor: default;
     border-radius: 6px;
+}
+
+.DashboardStoreHeader {
+    display: flex;
+    flex: auto 60px 60px 60px;
+    justify-content: flex-end;
 }

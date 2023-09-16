@@ -7,7 +7,7 @@ import { Arrow } from "@/components/Icons";
 /** 메인페이지 > 요청 컴포넌트 */
 const DashboardRequest = () => {
   return <div className={style.Container}>
-    <div className={style.ConainterHeader}>
+    <div className={style.ContainerHeader}>
       <h3>요청</h3>
       <Link to="/order"><Arrow /></Link>
     </div>

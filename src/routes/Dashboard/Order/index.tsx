@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const DashboardOrder = ({ data }: { data: PlaceOrderStatuses; }) => {
 
   return <div className={style.Container}>
-    <div className={style.ConainterHeader}>
+    <div className={style.ContainerHeader}>
       <h3>주문</h3>
       <Link to="/order"><Arrow /></Link>
     </div>
@@ -31,19 +31,6 @@ const DashboardOrder = ({ data }: { data: PlaceOrderStatuses; }) => {
         </div>
       </div>
     </div>
-    {/* <Table thead={["신규", "발송준비", "취소"]}>
-      <tr>
-        <td>
-          <span><h2>{data.notYet}</h2>건</span>
-        </td>
-        <td>
-          <span><h2>{data.ok}</h2>건</span>
-        </td>
-        <td>
-          <span><h2>{data.canceled}</h2>건</span>
-        </td>
-      </tr>
-    </Table> */}
   </div>;
 };
 
