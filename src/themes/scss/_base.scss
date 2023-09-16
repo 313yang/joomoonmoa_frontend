@@ -30,6 +30,7 @@ input {
 }
 #main_container {
     padding: 18px;
+    padding-bottom: 60px;
 }
 a {
     cursor: pointer;
@@ -85,4 +86,10 @@ p {
 }
 .text-primary {
     color: $purple400;
+}
+.text-danger {
+    color: $danger;
+}
+.text-green {
+    color: $green;
 }

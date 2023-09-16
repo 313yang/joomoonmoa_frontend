@@ -1,4 +1,4 @@
-import { OrderProductNewItemType, OrderTabHostItemType } from "./defines";
+import { OrderProductNewItemType, OrderProductOkItemType, OrderTabHostItemType } from "./defines";
 import { useEffect, useState } from "react";
 import Header from "@/components/Layout/Header";
 import { Subtract } from "@/components/Icons";
@@ -6,6 +6,7 @@ import style from "./style.module.scss";
 import { Box } from "@/components/Styled";
 import { Checkbox, TabHost, Button } from "@/components/Styled";
 import { OrderNewList } from "./NewList";
+import { getOrderNews } from "@/libs/api/orders";
 
 const tabItems = [
     {
@@ -20,7 +21,7 @@ const tabItems = [
 
 const dummy = [
     {
-        id: 1,
+        purchasedItemId: 1,
         storeTitle: "스토어1",
         paymentDate: "2023.01.02 03:35:32",
         productName: "아이패드 케이스",
@@ -32,14 +33,31 @@ const dummy = [
 
     }
 ];
+const dummy1 = [
+    {
+        id: 1,
+        storeTitle: "스토어1",
+        paymentDate: "2023.01.02 03:35:32",
+        productName: "아이패드 케이스",
+        productOption: "주황",
+        quantity: "1",
+        userName: "yang",
+        tel: "01012341234",
+        address: "서울시 송파구 가나다로 25",
+        deliveryType: "",
+        deliveryCode: ""
+    }
+];
 const Order = () => {
     const [selected, setSelected] = useState<OrderTabHostItemType>(OrderTabHostItemType.New);
     const [checkedList, setCheckedList] = useState<number[]>([]);
-    const [newList, setNewList] = useState<OrderProductNewItemType[]>(dummy);
+    const [newList, setNewList] = useState<OrderProductNewItemType[]>([]);
+    const [orderList, setOrderList] = useState<OrderProductOkItemType[]>([]);
 
     const getNewList = async () => {
-        //TODO:: api 연동
-        setNewList(dummy);
+        const { status, data } = await getOrderNews();
+        if (status === 200)
+            setNewList(data);
     };
     const handleAllChecked = (checked: boolean) => {
         console.log(checked);
@@ -62,8 +80,10 @@ const Order = () => {
         <TabHost
             items={tabItems}
             selected={selected}
-            onClick={setSelected} />
-        <Box className={style.OrderContainer} size="md">
+            onClick={setSelected}
+        />
+
+        {newList.length > 0 ? <Box className={style.OrderContainer} size="md">
             <div className={style.OrderCheckboxContainer}>
                 <Checkbox
                     name="order_checkbox_all"
@@ -79,10 +99,18 @@ const Order = () => {
                 <OrderNewList
                     items={newList}
                     checkedList={checkedList}
-                    setCheckedList={handleChecked} />
+                    setCheckedList={handleChecked}
+                />
             }
-        </Box>
-
-    </div>;
+            {selected === OrderTabHostItemType.Pre &&
+                <OrderNewList
+                    items={orderList}
+                    checkedList={checkedList}
+                    setCheckedList={handleChecked}
+                />
+            }
+        </Box> : <h4>신규 주문 건이 없습니다.</h4>
+        }
+    </div >;
 };
 export default Order;

@@ -4,6 +4,7 @@
     align-items: center;
     > .logo {
         margin: 30px auto 90px;
+        width: 200px;
     }
     >.LoginInput {
         width: 100%;
@@ -14,12 +15,20 @@
         font-weight: 700;
         font-size: 20px;
     }
-    >.JoinLink {
-        position: absolute;
-        bottom: 30px;
+    >span {
+        margin-top: 26px;
         font-size: 18px;
+        a:not(:last-child){
+            &::after{
+                content: "|";
+                margin: 0 16px;
+            }
+        }
         > a {
             font-weight: 600;
+            color: #656D75;
+           
         }
     }
+   
 }

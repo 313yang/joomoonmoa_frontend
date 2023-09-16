@@ -32,6 +32,7 @@ input {
 
 #main_container {
   padding: 18px;
+  padding-bottom: 60px;
 }
 
 a {
@@ -83,6 +84,14 @@ p {
 
 .text-primary {
   color: #7A5AF8;
+}
+
+.text-danger {
+  color: #f55f54;
+}
+
+.text-green {
+  color: #19bc85;
 }
 
 table.table {
@@ -148,6 +157,9 @@ div.box.box-round {
 }
 div.box.box-borderless {
   border: none;
+}
+div.box.box-gray50 {
+  background-color: #f8fafb;
 }
 
 div.tabhost {
@@ -226,6 +238,7 @@ button.button {
   padding: 9px 0;
   width: 100px;
   color: #ffffff;
+  cursor: pointer;
 }
 button.button > p {
   font-size: 14px;
@@ -243,6 +256,7 @@ button.button.button-borderless {
 button.button:disabled {
   background-color: #D5D4FF;
   border-color: #D5D4FF;
+  cursor: not-allowed;
 }
 
 .input-line {

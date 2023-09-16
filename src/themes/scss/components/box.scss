@@ -9,4 +9,7 @@ div.box {
     &.box-borderless {
         border: none;
     }
+    &.box-gray50 {
+        background-color: $gray50;
+    }
 }

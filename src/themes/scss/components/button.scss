@@ -4,6 +4,7 @@ button.button {
     padding: 9px 0;
     width: 100px;
     color: $white;
+    cursor: pointer;
     > p {
         font-size: 14px;
         font-weight: 600;
@@ -20,5 +21,6 @@ button.button {
     &:disabled {
         background-color: $purple100;
         border-color: $purple100;
+        cursor: not-allowed;
     }
 }
