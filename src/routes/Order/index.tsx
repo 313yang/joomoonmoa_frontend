@@ -1,5 +1,5 @@
 import { OrderProductNewItemType, OrderProductOkItemType, OrderTabHostItemType } from "./defines";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Header from "@/components/Layout/Header";
 import { Subtract } from "@/components/Icons";
 import style from "./style.module.scss";
@@ -7,6 +7,7 @@ import { Box } from "@/components/Styled";
 import { Checkbox, TabHost, Button } from "@/components/Styled";
 import { OrderNewList } from "./NewList";
 import { getOrderNews } from "@/libs/api/orders";
+import { RequestGet } from "@/libs/Function";
 
 const tabItems = [
     {
@@ -35,17 +36,16 @@ const dummy = [
 ];
 const dummy1 = [
     {
-        id: 1,
-        storeTitle: "스토어1",
-        paymentDate: "2023.01.02 03:35:32",
+        purchasedItemId: 1,
+        marketTitle: "스토어1",
+        orderDate: "2023.01.02 03:35:32",
         productName: "아이패드 케이스",
         productOption: "주황",
         quantity: "1",
-        userName: "yang",
-        tel: "01012341234",
-        address: "서울시 송파구 가나다로 25",
-        deliveryType: "",
-        deliveryCode: ""
+        receiverName: "yang",
+        receiverPhoneNumber: "01012341234",
+        baseAddress: "서울시 송파구 가나다로 25",
+        detailedAddress: "",
     }
 ];
 const Order = () => {
@@ -55,16 +55,19 @@ const Order = () => {
     const [orderList, setOrderList] = useState<OrderProductOkItemType[]>([]);
 
     const getNewList = async () => {
-        const { status, data } = await getOrderNews();
-        if (status === 200)
-            setNewList(data);
+        const data = await RequestGet(getOrderNews) || [];
+        setNewList(data);
+        setCheckedList(data.map(x => x.purchasedItemId));
     };
     const handleAllChecked = (checked: boolean) => {
+        if (checked)
+            setCheckedList(newList.map(x => x.purchasedItemId));
+        else setCheckedList([]);
         console.log(checked);
     };
     const handleChecked = (val: number) => {
         let cloneList = [...checkedList];
-        if (!!checkedList.find(x => x === val)) {
+        if (checkedList.some(x => x === val)) {
             cloneList = checkedList.filter(x => x !== val);
         } else {
             cloneList.push(val);
@@ -83,7 +86,7 @@ const Order = () => {
             onClick={setSelected}
         />
 
-        {newList.length > 0 ? <Box className={style.OrderContainer} size="md">
+        {newList.length > 0 ? <div className={style.OrderContainer} >
             <div className={style.OrderCheckboxContainer}>
                 <Checkbox
                     name="order_checkbox_all"
@@ -102,14 +105,16 @@ const Order = () => {
                     setCheckedList={handleChecked}
                 />
             }
-            {selected === OrderTabHostItemType.Pre &&
-                <OrderNewList
-                    items={orderList}
-                    checkedList={checkedList}
-                    setCheckedList={handleChecked}
-                />
-            }
-        </Box> : <h4>신규 주문 건이 없습니다.</h4>
+            {selected === OrderTabHostItemType.Pre && <>
+                {/* {orderList.map(item =>
+                    <OrderNewList
+                        item={item}
+                        checkedList={checkedList}
+                        setCheckedList={handleChecked}
+                    />
+                )} */}
+            </>}
+        </div> : <h4>신규 주문 건이 없습니다.</h4>
         }
     </div >;
 };

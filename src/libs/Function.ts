@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { toast as reactHotToast } from "react-hot-toast";
 
 
@@ -41,3 +42,16 @@ export const toast = (message: string, state: ToastState = ToastState.Error) => 
 		color: '#fff',
 	},
 });
+let isFetch = false;
+export const RequestGet = async<T>(api: () => Promise<T>) => {
+	if (isFetch) return;
+	isFetch = true;
+	try {
+		const resp = await api();
+		isFetch = false;
+		return resp;
+	} catch (err) {
+		console.error(err);
+		isFetch = false;
+	}
+};

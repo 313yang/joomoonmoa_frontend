@@ -6,8 +6,8 @@ import { getDashboardOrder, getDashboardOrderMarket } from "@/libs/api/dashboard
 import { PlaceOrderStatuesMarket, PlaceOrderStatuses, PlaceOrderStatusesInit } from "@/libs/Defines";
 import style from "./style.module.scss";
 import { Button } from "@/components/Styled";
+import { RequestGet } from "@/libs/Function";
 
-let isFetch = false;
 
 const Main = () => {
   const [data, setData] = useState<{
@@ -16,16 +16,13 @@ const Main = () => {
   }>({ order: PlaceOrderStatusesInit, market: [] });
 
   const getAllData = async () => {
-    if (isFetch) return;
-    isFetch = true;
-    const orderRes = await getDashboardOrder();
-    const marketRes = await getDashboardOrderMarket();
+    const orderRes = await RequestGet(getDashboardOrder) || PlaceOrderStatusesInit;
+    const marketRes = await RequestGet(getDashboardOrderMarket) || [];
 
     setData({
       order: orderRes,
       market: marketRes,
     });
-    isFetch = false;
   };
   useEffect(() => {
     getAllData();

@@ -16,20 +16,13 @@
       flex: 1 1 100%;
     }
   }
-  &:not(:last-child){
-    border-bottom: $borderface;
-  }
 }
 
 .input-label {
   display: flex;
-  justify-content: center;
   font-weight: 500;
-  background-color: $gray50;
-  color: $gray500;
   flex: 0 75px;
-  padding: 12px;
-  border-right: $borderface;
+  padding: 8px 0;
 
   &.input-label-center {
     align-self: center;

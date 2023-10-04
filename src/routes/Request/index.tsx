@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import style from "./style.module.scss";
 import DashboardStore from "../Dashboard/Store";
 import { Table } from "@/components/Styled";
+import { RequestGet } from "@/libs/Function";
 
 const Request = () => {
     const [market, setMarket] = useState<PlaceOrderStatuesMarket[]>([]);
 
     // TODO:: 스토어 문의/교환/반품 api로 교체
     const getMarket = async () => {
-        const marketRes = await getDashboardOrderMarket();
+        const marketRes = await RequestGet(getDashboardOrderMarket) || [];
         setMarket(marketRes);
     };
 

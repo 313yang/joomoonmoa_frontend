@@ -8,7 +8,7 @@ interface BoxProps {
   radius?: "round" | "square",
   borderless?: boolean;
   className?: string;
-  color?: "gray50";
+  color?: "white" | "gray50";
 }
 
 export const Box = ({

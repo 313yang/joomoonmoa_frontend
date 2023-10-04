@@ -13,11 +13,11 @@ const Navigator = () => {
     if (!accessToken) return <></>;
     
     return <nav className={style.Navigator}>
-        <Link to={"/dashboard"} className={checkingPathname("/dashboard") ? style.selected : ""}>
+        <Link to="/dashboard" className={checkingPathname("/dashboard") ? style.selected : ""}>
             <Home />
             <span>홈</span>
         </Link>
-        <Link to={"/order"} className={checkingPathname("/order") ? style.selected : ""}>
+        <Link to="/order" className={checkingPathname("/order") ? style.selected : ""}>
             <List />
             <span>주문</span>
         </Link>

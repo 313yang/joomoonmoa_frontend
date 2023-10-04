@@ -4,42 +4,34 @@ import style from "./style.module.scss";
 
 export const OrderProductUserItem = ({ item }: { item: OrderProductNewItemType; }) => {
     return <div className={style.OrderProductUserItem}>
-        <Box size="none" style={{ borderRadius: "4px" }}>
-            <InputLine>
-                <InputLabel>스토어</InputLabel>
-                {item.storeTitle}
-            </InputLine>
-            <InputLine>
-                <InputLabel>주문시간</InputLabel>
-                {item.paymentDate}
-            </InputLine>
-            <InputLine>
-                <InputLabel>상품</InputLabel>
-                {item.storeTitle}
-            </InputLine>
-            <InputLine>
-                <InputLabel>옵션</InputLabel>
-                {item.productOption}
-            </InputLine>
-            <InputLine>
-                <InputLabel>수량</InputLabel>
-                {item.quantity}
-            </InputLine>
-        </Box>
+        <strong>
+            {item.productName}
+        </strong>
 
-        <Box size="none" style={{ borderRadius: "4px" }}>
-            <InputLine>
-                <InputLabel>수령인</InputLabel>
-                {item.userName}
-            </InputLine>
-            <InputLine>
-                <InputLabel>전화번호</InputLabel>
-                {item.tel}
-            </InputLine>
-            <InputLine>
-                <InputLabel>주소</InputLabel>
-                {item.address}
-            </InputLine>
-        </Box>
+        <InputLine>
+            <InputLabel>옵션</InputLabel>
+            <strong>{item.productOption}</strong>
+        </InputLine>
+        <InputLine>
+            <InputLabel>수량</InputLabel>
+            <strong>{item.quantity}</strong>
+        </InputLine>
+
+
+
+        <InputLine>
+            <InputLabel>수령인</InputLabel>
+            <strong>{item.receiverName}</strong>
+        </InputLine>
+        <InputLine>
+            <InputLabel>전화번호</InputLabel>
+            <strong>{item.receiverPhoneNumber}</strong>
+        </InputLine>
+        <InputLine>
+            <InputLabel>주소</InputLabel>
+            <strong>{item.baseAddress} <br />
+                {item.detailedAddress}</strong>
+        </InputLine>
+
     </div>;
 };
