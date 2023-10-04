@@ -4,7 +4,7 @@ export enum OrderTabHostItemType {
 }
 export interface OrderProductNewItemType {
   purchasedItemId: number,
-  marketTitle: string,
+  marketAlias: string,
   orderDate: string,
   productName: string,
   productOption: string,

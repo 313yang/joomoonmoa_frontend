@@ -32,8 +32,12 @@ input {
 }
 
 #main_container {
-  padding: 18px;
-  padding-bottom: 60px;
+  padding: 60px 18px;
+}
+@media screen and (max-width: 600px) {
+  #main_container {
+    padding: 18px 18px 60px;
+  }
 }
 
 a {
@@ -319,6 +323,7 @@ button.button:disabled {
   border-color: #7A5AF8;
   border-width: 2px;
   padding: 13px;
+  transition: border-color 0.3s, padding 0.3s;
 }
 .input.input-disabled .input-container, .input.input-readonly .input-container {
   border-width: 0;

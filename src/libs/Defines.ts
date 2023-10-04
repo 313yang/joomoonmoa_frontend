@@ -13,7 +13,7 @@ export const PlaceOrderStatusesInit = {
 /**  대시보드 > 스토어 현황 */
 export interface PlaceOrderStatuesMarket extends PlaceOrderStatuses {
     marketId: number,
-    title: string,
+    marketAlias: string,
 }
 
 /** 로그인 토큰 */

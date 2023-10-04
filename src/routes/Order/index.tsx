@@ -20,24 +20,10 @@ const tabItems = [
     }
 ];
 
-const dummy = [
-    {
-        purchasedItemId: 1,
-        storeTitle: "스토어1",
-        paymentDate: "2023.01.02 03:35:32",
-        productName: "아이패드 케이스",
-        productOption: "주황",
-        quantity: "1",
-        userName: "yang",
-        tel: "01012341234",
-        address: "서울시 송파구 가나다로 25"
-
-    }
-];
 const dummy1 = [
     {
         purchasedItemId: 1,
-        marketTitle: "스토어1",
+        marketAlias: "스토어1",
         orderDate: "2023.01.02 03:35:32",
         productName: "아이패드 케이스",
         productOption: "주황",

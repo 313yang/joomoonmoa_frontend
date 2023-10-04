@@ -24,7 +24,7 @@ const Request = () => {
         <Table thead={["스토어", "문의", "교환", "반품"]}>
             {market.map(x =>
                 <tr key={x.marketId}>
-                    <td>{x.title}</td>
+                    <td>{x.marketAlias}</td>
                     <td>{x.notYet}</td>
                     <td>{x.ok}</td>
                     <td>{x.canceled}</td>

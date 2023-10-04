@@ -21,7 +21,7 @@ export const OrderNewList = ({ items, checkedList, setCheckedList }: OrderNewLis
                 />
                 <div>
                     <span>{item.orderDate}</span>
-                    <span>{item.marketTitle}</span>
+                    <span>{item.marketAlias}</span>
                 </div>
             </div>
             <OrderProductUserItem item={item} />
