@@ -35,6 +35,19 @@
             > path {
                 stroke: #212529; 
             }
-        }   
+        }  
+        
+        &:hover { // 마우스 오버
+            transform: scale(1.15); // 1.15배 확대
+            transition: transform 0.15s ease-out; // 0.15초 동안 부드럽게
+        }
+
+        &:active { // 클릭 시
+            transform: scale(1); //원래 크기
+        }
+        
+        transition: transform 0.2s ease-out;
+
+
     }
 }
