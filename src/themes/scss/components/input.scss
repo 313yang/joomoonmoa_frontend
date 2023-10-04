@@ -12,6 +12,8 @@
       padding: 14px;
       font-size: 15px;
       height: 48px;
+      
+    
     }
   
     &:hover {
@@ -19,6 +21,7 @@
         border-color: $purple100;
         border-width: 2px;
         padding: 13px;
+        
       }
     }
   
@@ -28,6 +31,7 @@
         border-color: $purple400;
         border-width: 2px;
         padding: 13px;
+        transition: border-color 0.3s, padding 0.3s;
       }
     }
   
