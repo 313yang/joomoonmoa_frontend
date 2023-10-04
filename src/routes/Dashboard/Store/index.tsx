@@ -21,7 +21,7 @@ const DashboardStore = ({ data }: { data: PlaceOrderStatuesMarket[]; }) => {
       {data.map(x =>
         <div key={`dashboardOrder_${x.marketId}`} className={style.DashboardStoreContent}>
           <div>
-          <small>네이버</small>
+          <p>네이버</p>
           <span>{x.marketAlias}</span>
           </div>
           <div>
