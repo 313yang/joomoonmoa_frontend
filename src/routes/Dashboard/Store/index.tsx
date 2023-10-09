@@ -24,9 +24,9 @@ const DashboardStore = ({ data }: { data: PlaceOrderStatuesMarket[]; }) => {
           <p>네이버</p>
           <span>{x.marketAlias}</span>
           </div>
-          <div>
+          <div className={style.DashboardStoreHeader}>
             <span>{x.notYet}</span>
-            <span>{x.notYet}</span>
+            <span>{x.ok}</span>
             <span>{x.canceled}</span>
             <span>{x.canceled}</span>
             <span>{x.canceled}</span>
@@ -34,15 +34,6 @@ const DashboardStore = ({ data }: { data: PlaceOrderStatuesMarket[]; }) => {
         </div>
       )}
     </div>
-    {/* <Table thead={["스토어", "신규", "준비", "취소"]}>
-      {data.map(x =>
-        <tr key={x.marketId}>
-          <td>{x.title}</td>
-          <td>{x.notYet}</td>
-          <td>{x.ok}</td>
-          <td>{x.canceled}</td>
-        </tr>)}
-    </Table> */}
   </div>;
 };
 

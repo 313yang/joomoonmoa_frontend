@@ -30,10 +30,7 @@ input {
     margin: 0 auto;
 }
 #main_container {
-    padding: 60px 18px;
-    @media screen   and (max-width: 600px)  {
-        padding: 18px 18px 60px;
-    }
+    padding: 18px 18px 60px;
 }
 a {
     cursor: pointer;

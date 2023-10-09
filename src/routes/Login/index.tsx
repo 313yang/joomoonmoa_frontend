@@ -47,6 +47,7 @@ const Login = () => {
       className={style.LoginInput}
       defaultValue={password}
       onInput={setPassword}
+      onEnter={handleLogin}
       placeholder="비밀번호"
     />
     <Button
