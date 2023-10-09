@@ -257,8 +257,8 @@ button.button.button-borderless {
   border: none;
 }
 button.button:disabled {
-  background-color: #D5D4FF;
-  border-color: #D5D4FF;
+  background-color: #bcc4cc;
+  border-color: #bcc4cc;
   cursor: not-allowed;
 }
 
@@ -372,6 +372,10 @@ button.button:disabled {
   top: 100%;
   font-size: 13px;
   line-height: 1.4;
+}
+
+.chevron-right {
+  transform: rotate(180deg);
 }
 
 /*# sourceMappingURL=index.css.map */

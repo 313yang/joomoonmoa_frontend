@@ -11,18 +11,16 @@
         align-items: center;
         margin-bottom: 16px;
         gap: 12px;
+        text-decoration: none;
+        color: inherit;
         &.AddMarketButton {
             justify-content: space-between;
+            >div {
+                display: flex;
+                gap: 12px;
+            }
             >span {
                 cursor: pointer;
-            }
-        }
-        > a {
-            display: flex;
-            align-items: center;
-            transform: rotate(180deg);
-            > svg{
-                width: 8px;
             }
         }
     }
@@ -44,7 +42,8 @@
 .DashboardOrderContainer {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    width: 100%;
     gap: 24px;
     >:global(.box){
         min-width: 95px;
@@ -54,42 +53,83 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
     gap: 12px;
-    >span {
-        font-size: 16px;
-        font-weight: 500;
-        color: #656D75;
+    >div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        >span {
+            font-size: 16px;
+            font-weight: 500;
+            color: #656D75;
+        }
     }
 }
 .DashboardOrdeBoxrContainer {
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 12px;
     :global(.button) {
-        padding: 6px;
+        width: 100%;
+        padding: 8px;
     }
 }
 .DashboardOrderButtonCancel {
-    background-color: #ffecea;
-    padding: 6px;
-    text-align: center;
-    color: #F55F54;
-    cursor: default;
-    border-radius: 6px;
+    >strong {
+        font-size: 18px;
+    }
+    &:global(.button){
+        background-color: #F55F54;
+        border-color: #F55F54;
+    }
 }
 
 .DashboardStoreHeader {
     display: flex;
     flex: auto 60px 60px 60px;
     justify-content: flex-end;
+    gap: 2px;
     >span {
         color: #656D75;
         font-weight: 500;
         font-size: 16px;
-        width: 50px;
+        width: 53px;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+    .StoreName {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        >p {
+            font-weight: 500;
+            &[data-type="naver"]{
+                color: #2EB500;
+            }
+            &[data-type="coopang"]{
+                color: #E4222A;
+            }
+            &[data-type="gmarket"]{
+                color: #0028AB;
+            }
+            &[data-type="11st"]{
+                color: #E53641;
+            }
+        }
+        >span {
+            color: #656D75;
+            font-size: 16px;
+            font-weight: 700;
+            display: inline-block;
+            width: 130px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
     }
 }
 .DashboardStoreContent {
@@ -97,4 +137,12 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+    >.DashboardStoreHeader {
+        width: calc(100% - 130px);
+        >span {
+            font-size: 18px;
+            color: inherit;
+            font-weight: bold;
+        }
+    }
 }

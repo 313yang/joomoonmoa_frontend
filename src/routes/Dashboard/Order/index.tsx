@@ -1,34 +1,40 @@
 import { Box, Button, Table } from "@/components/Styled";
 import { PlaceOrderStatuses } from "@/libs/Defines";
 import style from "../style.module.scss";
-import { Arrow } from "@/components/Icons";
+import { Chevron } from "@/components/Icons";
 import { Link } from "react-router-dom";
 
 /** 메인페이지 > 주문 컴포넌트 */
 const DashboardOrder = ({ data }: { data: PlaceOrderStatuses; }) => {
-
+  const { ok, notYet, canceled } = data;
   return <div className={style.Container}>
-    <div className={style.ContainerHeader}>
+    <Link to="/order" className={style.ContainerHeader}>
+      <img src="/assets/images/paper.png" />
       <h3>주문</h3>
-      <Link to="/order"><Arrow /></Link>
-    </div>
+      <Chevron direction="right" width={8} />
+    </Link>
     <div className={style.DashboardOrderContainer}>
       <div className={style.DashboardOrdeBoxrContainer}>
         <Box color="gray50" className={style.DashboardOrdeBox}>
-          <span>신규주문</span>
-          <h3>{data.notYet}</h3>
+          <div>
+            <span>신규주문</span>
+            <Chevron direction="right" width={8} />
+          </div>
+          <h2>{notYet}</h2>
         </Box>
-        <Button>모두 발주확인</Button>
+        <Button disabled={notYet === 0} >모두 발주확인</Button>
       </div>
-      <img src="./assets/images/arrow_right.svg" />
       <div className={style.DashboardOrdeBoxrContainer}>
         <Box color="gray50" className={style.DashboardOrdeBox}>
-          <span>발송준비</span>
-          <h3>{data.ok}</h3>
+          <div>
+            <span>발송준비</span>
+            <Chevron direction="right" width={8} />
+          </div>
+          <h2>{ok}</h2>
         </Box>
-        <div className={style.DashboardOrderButtonCancel}>
-          취소요청 : {data.canceled}
-        </div>
+        <Button disabled={canceled === 0} className={style.DashboardOrderButtonCancel}>
+          취소요청 : <strong>{canceled}</strong>
+        </Button>
       </div>
     </div>
   </div>;
