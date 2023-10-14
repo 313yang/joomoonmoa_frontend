@@ -37,17 +37,19 @@ const Login = () => {
   return <div className={style.LoginContainer}>
     <img className={style.logo} src="./logo.svg" />
     <Input
+      label="아이디"
       className={style.LoginInput}
       defaultValue={account}
       onInput={setAccount}
-      placeholder="아이디"
+      placeholder=""
     />
     <Input
+      label="비밀번호"
       type="password"
       className={style.LoginInput}
       defaultValue={password}
       onInput={setPassword}
-      placeholder="비밀번호"
+      placeholder=""
     />
     <Button
       className={style.LoginButton}
