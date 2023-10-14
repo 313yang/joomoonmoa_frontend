@@ -1,17 +1,17 @@
 import { OrderProductNewItemType, OrderProductOkItemType, OrderTabHostItemType } from "./defines";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "@/components/Layout/Header";
 import { Subtract } from "@/components/Icons";
 import style from "./style.module.scss";
-import { Box } from "@/components/Styled";
 import { Checkbox, TabHost, Button } from "@/components/Styled";
 import { OrderNewList } from "./NewList";
 import { getOrderNews } from "@/libs/api/orders";
 import { RequestGet } from "@/libs/Function";
+import { OrderPurchasedList } from "./Purchased";
 
 const tabItems = [
     {
-        name: "신규",
+        name: "신규주문",
         value: OrderTabHostItemType.New
     },
     {
@@ -22,16 +22,16 @@ const tabItems = [
 
 const dummy1 = [
     {
-        purchasedItemId: 1,
-        marketAlias: "스토어1",
-        orderDate: "2023.01.02 03:35:32",
-        productName: "아이패드 케이스",
-        productOption: "주황",
-        quantity: "1",
-        receiverName: "yang",
-        receiverPhoneNumber: "01012341234",
-        baseAddress: "서울시 송파구 가나다로 25",
-        detailedAddress: "",
+        baseAddress: "서울특별시 송파구 백제고분로18길 23-8 (잠실동)",
+        detailedAddress: "우민주택 402호",
+        marketAlias: "양벼리강윤구서연제",
+        orderDate: "2023-09-16T20:20:46.0+09:00",
+        productName: "SEEK COMPACT 스마트폰 누수탐지기 열화상카메라",
+        productOption: "모델: C타입 프로",
+        purchasedItemId: 17,
+        quantity: 1,
+        receiverName: "서연제",
+        receiverPhoneNumber: "010-4999-0234",
     }
 ];
 const Order = () => {
@@ -39,6 +39,7 @@ const Order = () => {
     const [checkedList, setCheckedList] = useState<number[]>([]);
     const [newList, setNewList] = useState<OrderProductNewItemType[]>([]);
     const [orderList, setOrderList] = useState<OrderProductOkItemType[]>([]);
+    const isNew = selected === OrderTabHostItemType.New;
 
     const getNewList = async () => {
         const data = await RequestGet(getOrderNews) || [];
@@ -72,7 +73,7 @@ const Order = () => {
             onClick={setSelected}
         />
 
-        {newList.length > 0 ? <div className={style.OrderContainer} >
+        {(isNew ? newList : orderList).length > 0 ? <div className={style.OrderContainer} >
             <div className={style.OrderCheckboxContainer}>
                 <Checkbox
                     name="order_checkbox_all"
@@ -80,8 +81,8 @@ const Order = () => {
                     value={checkedList.length === newList.length}
                     onChange={handleAllChecked}
                 />
-                <Button disabled={!checkedList}>
-                    <p>선택 발주확인</p>
+                <Button width="fit-content" disabled={checkedList.length === 0}>
+                    <p>선택 주문 발주확인</p>
                 </Button>
             </div>
             {selected === OrderTabHostItemType.New &&
@@ -92,15 +93,16 @@ const Order = () => {
                 />
             }
             {selected === OrderTabHostItemType.Pre && <>
-                {/* {orderList.map(item =>
-                    <OrderNewList
-                        item={item}
-                        checkedList={checkedList}
-                        setCheckedList={handleChecked}
-                    />
-                )} */}
-            </>}
-        </div> : <h4>신규 주문 건이 없습니다.</h4>
+                <OrderPurchasedList
+                    items={orderList}
+                    checkedList={checkedList}
+                    setCheckedList={handleChecked}
+                />
+            </>
+            }
+        </div> : <div className={style.NoDataList}>
+            <h4>{isNew ? "신규주문" : "발송준비"} 건이 없습니다.</h4>
+        </div>
         }
     </div >;
 };

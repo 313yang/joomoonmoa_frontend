@@ -7,13 +7,16 @@
   }
 }
 .OrderContainer {
-  margin-top: 11px;
+  margin-top: 14px;
 }
 .OrderCheckboxContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding-bottom: 10px;
+  gap: 12px;
+  margin-left: 16px;
+  >:global(.button) {
+    padding: 8px 12px;
+  }
 }
 .OrderListContainer {
   margin: 16px 0;
@@ -36,4 +39,13 @@
     display: block;
     padding: 12px 0;
   }
+  >.border {
+    height: 1px;
+    margin: 8px 0;
+    background-color: #E9ECEF;
+  }
+}
+.NoDataList {
+  text-align: center;
+  margin-top: 25vh;
 }

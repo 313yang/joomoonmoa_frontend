@@ -14,9 +14,9 @@ export const OrderProductUserItem = ({ item }: { item: OrderProductNewItemType; 
         </InputLine>
         <InputLine>
             <InputLabel>수량</InputLabel>
-            <strong>{item.quantity}</strong>
+            <strong className={item.quantity > 1 ? "text-danger" : ""}>{item.quantity}</strong>
         </InputLine>
-
+        <div className={style.border} />
 
 
         <InputLine>

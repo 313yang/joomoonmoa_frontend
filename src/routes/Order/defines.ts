@@ -8,7 +8,7 @@ export interface OrderProductNewItemType {
   orderDate: string,
   productName: string,
   productOption: string,
-  quantity: string,
+  quantity: number,
   receiverName: string,
   receiverPhoneNumber: string,
   baseAddress: string;
