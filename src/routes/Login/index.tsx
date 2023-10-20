@@ -41,7 +41,6 @@ const Login = () => {
       className={style.LoginInput}
       defaultValue={account}
       onInput={setAccount}
-      placeholder=""
     />
     <Input
       label="비밀번호"

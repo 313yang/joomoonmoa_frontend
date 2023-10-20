@@ -8,6 +8,7 @@ import { OrderNewList } from "./NewList";
 import { getOrderNews } from "@/libs/api/orders";
 import { RequestGet } from "@/libs/Function";
 import { OrderPurchasedList } from "./Purchased";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const tabItems = [
     {
@@ -16,7 +17,7 @@ const tabItems = [
     },
     {
         name: "발송준비",
-        value: OrderTabHostItemType.Pre
+        value: OrderTabHostItemType.Purchased
     }
 ];
 
@@ -35,12 +36,19 @@ const dummy1 = [
     }
 ];
 const Order = () => {
-    const [selected, setSelected] = useState<OrderTabHostItemType>(OrderTabHostItemType.New);
+    const { pathname } = useLocation();
+    const route = useNavigate();
+    const orderType = pathname.replace("/order/", "") as OrderTabHostItemType;
+    const [selected, setSelected] = useState<OrderTabHostItemType>(orderType || OrderTabHostItemType.New);
     const [checkedList, setCheckedList] = useState<number[]>([]);
     const [newList, setNewList] = useState<OrderProductNewItemType[]>([]);
     const [orderList, setOrderList] = useState<OrderProductOkItemType[]>([]);
     const isNew = selected === OrderTabHostItemType.New;
 
+    const setTabHost = (value: OrderTabHostItemType) => {
+        setSelected(value);
+        route(`/order/${value}`);
+    };
     const getNewList = async () => {
         const data = await RequestGet(getOrderNews) || [];
         setNewList(data);
@@ -70,7 +78,7 @@ const Order = () => {
         <TabHost
             items={tabItems}
             selected={selected}
-            onClick={setSelected}
+            onClick={setTabHost}
         />
 
         {(isNew ? newList : orderList).length > 0 ? <div className={style.OrderContainer} >
@@ -92,7 +100,7 @@ const Order = () => {
                     setCheckedList={handleChecked}
                 />
             }
-            {selected === OrderTabHostItemType.Pre && <>
+            {selected === OrderTabHostItemType.Purchased && <>
                 <OrderPurchasedList
                     items={orderList}
                     checkedList={checkedList}

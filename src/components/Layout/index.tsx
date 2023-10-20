@@ -29,9 +29,9 @@ const BaseLayout = () => {
       /** 로그인 후 기본 베이스 레이어 */
       <>
         <Route path="/dashboard" Component={Dashboard} />
-        <Route path="/order" Component={Order} />
+        <Route path="/order/*" Component={Order} />
         <Route path="/request" Component={Request} />
-        <Route path="/setting" Component={Setting} />
+        <Route path="/setting/*" Component={Setting} />
       </> :
       /**  회원가입 / 아이디 비번찾기 페이지 레이아웃 */
       <>

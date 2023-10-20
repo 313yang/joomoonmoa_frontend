@@ -93,36 +93,39 @@ const Join = () => {
       <Input
         autocomplete={true}
         label="아이디"
-        placeholder="영어·숫자만 2~12자 입력"
         defaultValue={account}
         onInput={setAccount}
         validateCallback={() => {
           if (!account) return "아이디를 입력해주세요.";
           if (!regExp.test(account)) return "아이디는 영어·숫자만 2~12자로 입력해주세요.";
         }}
-        maxLength={12} />
+        maxLength={12}
+        caption={<>영어·숫자만 2~12자 입력</>}
+      />
       <Input
         autocomplete={true}
         type="password"
         label="비밀번호"
-        placeholder="4~20자 입력"
         defaultValue={password}
         onInput={setPassword}
         maxLength={20}
         validateCallback={() => {
           if (password.length < 4 || password.length > 20) return "비밀번호는 4~20자로 입력해주세요.";
-        }} />
+        }}
+        caption={<>4~20자 입력</>}
+      />
       <Input
         autocomplete={true}
         type="password"
         label="비밀번호 확인"
-        placeholder="4~20자 입력"
         defaultValue={passwordConfirm}
         onInput={setPasswordConfirm}
         maxLength={20}
         validateCallback={() => {
           if (password !== passwordConfirm) return "비밀번호가 일치하지 않습니다.";
-        }} />
+        }}
+        caption={<p>4~20자 입력</p>}
+      />
       <div className={style.JoinPhoneNumberInput}>
         <Input
           label="전화번호"

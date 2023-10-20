@@ -1,0 +1,14 @@
+.SettingComponent {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    :global(.box.box-md){
+        padding: 24px 30px;
+    }
+  >header{
+      button {
+        font-size: 18px;
+        font-weight: 500;
+       }
+  } 
+}
