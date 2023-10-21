@@ -18,8 +18,13 @@ export interface PlaceOrderStatuesMarket extends PlaceOrderStatuses {
 
 /** 로그인 토큰 */
 export interface LoginPayload {
-    token : {
-      access: string;
-      refresh :string;
-    }
-  }
+    token: {
+        access: string;
+        refresh: string;
+    };
+}
+
+/** 스토어 리스트 */
+export enum StoreListType {
+    Naver = "naver"
+}

@@ -21,11 +21,13 @@ const headers = {
 const auth = axios.create({ timeout: 8000, baseURL: `${baseURL}/auth` });
 const dashboard = axios.create({ timeout: 8000, baseURL: `${baseURL}/items/dashboard` });
 const orders = axios.create({ timeout: 8000, baseURL: `${baseURL}/orders`, headers });
+const market = axios.create({ timeout: 8000, baseURL: `${baseURL}/market`, headers });
 
 axios.defaults.withCredentials = true;
 
 export {
     auth,
     dashboard,
-    orders
+    orders,
+    market
 };
