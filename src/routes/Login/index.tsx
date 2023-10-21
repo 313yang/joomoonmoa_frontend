@@ -5,15 +5,17 @@ import { BuildClass, toast } from "@/libs/Function";
 import { useEffect, useState } from "react";
 import { login } from "@/libs/api/auth";
 import { useUserAuthAction } from "@/libs/store/useAuthStore";
+import { AxiosError } from "axios";
 
 const Login = () => {
-  const [account, setAccount] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { setAccessToken, setRefreshToken } = useUserAuthAction();
 
   const handleLogin = async () => {
     try {
-      const { status, data } = await login({ account, password });
+      const { status, data } = await login({ phoneNumber, password });
+      console.log(status, data);
       if (status === 200) {
         const { tokens } = data;
         document.cookie = `access=${tokens.access}`;
@@ -24,8 +26,10 @@ const Login = () => {
       }
 
     } catch (err) {
-      toast((err as any).response.data);
-      console.error(err);
+      if (err instanceof AxiosError) {
+        toast(err?.response?.data?.message || "");
+      }
+      console.error("e", err);
     }
   };
 
@@ -37,10 +41,10 @@ const Login = () => {
   return <div className={style.LoginContainer}>
     <img className={style.logo} src="./logo.svg" />
     <Input
-      label="아이디"
+      label="전화번호"
       className={style.LoginInput}
-      defaultValue={account}
-      onInput={setAccount}
+      defaultValue={phoneNumber}
+      onInput={setPhoneNumber}
     />
     <Input
       label="비밀번호"
@@ -57,7 +61,6 @@ const Login = () => {
       로그인
     </Button>
     <span className={style.FindAuthLink}>
-      <Link to={"/"} >아이디 찾기</Link>
       <Link to={"/"} >비밀번호 찾기</Link>
       <Link to={"/join"} >회원가입</Link>
     </span>

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useUserAuth } from "../store/useAuthStore";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const baseURL = API_URL + "/api/v1";

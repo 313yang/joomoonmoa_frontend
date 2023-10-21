@@ -55,7 +55,7 @@ const Join = () => {
   const onSubmit = async () => {
     if (password !== passwordConfirm) return toast("비밀번호가 일치하지 않습니다.");
     try {
-      const { status } = await signup({ account, password, phoneNumber });
+      const { status } = await signup({ password, phoneNumber });
       if (status === 200) {
         toast("회원가입에 성공했습니다!", ToastState.Success);
         route("/");
@@ -90,18 +90,43 @@ const Join = () => {
   return <div>
     <Header prev={" "} title="회원가입" />
     <div className={style.JoinInputContainer}>
-      <Input
+      {/* <Input
         autocomplete={true}
-        label="아이디"
+        label="전화번호"
         defaultValue={account}
         onInput={setAccount}
         validateCallback={() => {
-          if (!account) return "아이디를 입력해주세요.";
+          if (!account) return "전화번호를 입력해주세요.";
           if (!regExp.test(account)) return "아이디는 영어·숫자만 2~12자로 입력해주세요.";
         }}
-        maxLength={12}
-        caption={<>영어·숫자만 2~12자 입력</>}
-      />
+        maxLength={11}
+      /> */}
+      <div className={style.JoinPhoneNumberInput}>
+        <Input
+          label="전화번호"
+          placeholder="-없이 숫자만 입력"
+          defaultValue={passwordConfirm}
+          onInput={setPhoneNumberber}
+          maxLength={11}
+        />
+        <Button disabled={phoneNumber.length !== 11 || showSendOTP || isCertOk} onClick={onSendOTP}>인증번호 전송</Button>
+      </div>
+      <div style={{ position: "relative" }}>
+        <Input
+          label="인증번호"
+          defaultValue={certNum}
+          disabled={!showOTP || isCertOk}
+          maxLength={4}
+          onInput={(val) => {
+            setCertNum(val);
+          }}
+        />
+        {showOTP &&
+          <span className={BuildClass(`text-${isCertOk ? "green" : "danger"}`, style.Counter)}>
+            {isCertOk ? "인증성공!" : secondsToMs(count)}
+          </span>
+        }
+      </div>
       <Input
         autocomplete={true}
         type="password"
@@ -126,34 +151,8 @@ const Join = () => {
         }}
         caption={<p>4~20자 입력</p>}
       />
-      <div className={style.JoinPhoneNumberInput}>
-        <Input
-          label="전화번호"
-          placeholder="-없이 숫자만 입력"
-          defaultValue={passwordConfirm}
-          onInput={setPhoneNumberber}
-          maxLength={11}
-        />
-        <Button disabled={phoneNumber.length !== 11 || showSendOTP || isCertOk} onClick={onSendOTP}>인증번호 전송</Button>
-      </div>
-      {showOTP && <div style={{ position: "relative" }}>
-        <Input
-          label="인증번호"
-          defaultValue={certNum}
-          disabled={isCertOk}
-          maxLength={4}
-          onInput={(val) => {
-            setCertNum(val);
 
-          }}
-        />
-        {showOTP &&
-          <span className={BuildClass(`text-${isCertOk ? "green" : "danger"}`, style.Counter)}>
-            {isCertOk ? "인증성공!" : secondsToMs(count)}
-          </span>
-        }
-      </div>
-      }
+
       <Button
         className={style.JoinButton}
         onClick={onSubmit}
