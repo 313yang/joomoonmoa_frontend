@@ -19,9 +19,10 @@ const headers = {
     Authorization: "bearer " + getToken()
 };
 const auth = axios.create({ timeout: 8000, baseURL: `${baseURL}/auth` });
-const dashboard = axios.create({ timeout: 8000, baseURL: `${baseURL}/items/dashboard` });
+const dashboard = axios.create({ timeout: 8000, baseURL: `${baseURL}/items` });
 const orders = axios.create({ timeout: 8000, baseURL: `${baseURL}/orders`, headers });
-const market = axios.create({ timeout: 8000, baseURL: `${baseURL}/market`, headers });
+const common = axios.create({ timeout: 8000, baseURL: `${baseURL}/common`, headers });
+const markets = axios.create({ timeout: 8000, baseURL: `${baseURL}/markets`, headers });
 
 axios.defaults.withCredentials = true;
 
@@ -29,5 +30,6 @@ export {
     auth,
     dashboard,
     orders,
-    market
+    common,
+    markets
 };

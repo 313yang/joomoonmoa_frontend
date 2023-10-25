@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { toast as reactHotToast } from "react-hot-toast";
 
 
@@ -43,15 +43,20 @@ export const toast = (message: string, state: ToastState = ToastState.Error) => 
 	},
 });
 let isFetch = false;
-export const RequestGet = async<T>(api: () => Promise<T>) => {
+
+export const RequestGet = async<T>(api: () => Promise<AxiosResponse<T>>) => {
 	if (isFetch) return;
 	isFetch = true;
 	try {
-		const resp = await api();
+		const { data, status } = await api();
+		if (status === 200) return data;
 		isFetch = false;
-		return resp;
 	} catch (err) {
 		console.error(err);
 		isFetch = false;
+		if (err instanceof AxiosError) {
+			const errorMessage = !!err?.response ? err?.response?.data?.message : err.message || "";
+			toast(errorMessage);
+		}
 	}
 };

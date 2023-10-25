@@ -2,6 +2,11 @@ import { Box, Button, Checkbox } from "@/components/Styled";
 import { OrderProductOkItemType } from "../defines";
 import style from "../style.module.scss";
 import { OrderProductUserItem } from "../item";
+import { getDeliveryCompanies } from "@/libs/api/common";
+import { useEffect, useState } from "react";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
+import { RequestGet } from "@/libs/Function";
 
 interface OrderPurchasedListType {
     items: OrderProductOkItemType[];
@@ -10,6 +15,14 @@ interface OrderPurchasedListType {
 }
 
 export const OrderPurchasedList = ({ items, checkedList, setCheckedList }: OrderPurchasedListType) => {
+    const [deliveryList, setDeliveryList] = useState([]);
+    const getDeliveryCompanieList = async () => {
+        const data = await RequestGet(getDeliveryCompanies) || [];
+        setDeliveryList(data);
+    };
+    useEffect(() => {
+        getDeliveryCompanieList();
+    }, []);
     return <>{items.map(item => {
         const { purchasedItemId: id } = item;
         return <Box color="white" className={style.OrderListContainer} key={`order_checkbox_${item.purchasedItemId}`}>

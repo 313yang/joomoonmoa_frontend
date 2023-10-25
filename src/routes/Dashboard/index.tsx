@@ -13,14 +13,14 @@ const Main = () => {
   const [data, setData] = useState<{
     order: PlaceOrderStatuses,
     market: PlaceOrderStatuesMarket[];
-  }>({ order: PlaceOrderStatusesInit, market: [] });
+  }>({ order: PlaceOrderStatusesInit.placeOrderStatuses, market: [] });
 
   const getAllData = async () => {
     const orderRes = await RequestGet(getDashboardOrder) || PlaceOrderStatusesInit;
     const marketRes = await RequestGet(getDashboardOrderMarket) || [];
 
     setData({
-      order: orderRes,
+      order: orderRes.placeOrderStatuses,
       market: marketRes,
     });
   };

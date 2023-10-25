@@ -27,7 +27,8 @@ const Login = () => {
 
     } catch (err) {
       if (err instanceof AxiosError) {
-        toast(err?.response?.data?.message || "");
+        const errorMessage = !!err?.response ? err?.response?.data?.message : err.message || "";
+        toast(errorMessage);
       }
       console.error("e", err);
     }

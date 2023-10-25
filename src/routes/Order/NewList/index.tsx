@@ -11,6 +11,7 @@ interface OrderNewListType {
 
 export const OrderNewList = ({ items, checkedList, setCheckedList }: OrderNewListType) => {
     const checkingId = (id: number) => checkedList.some(purchasedItemId => purchasedItemId === id);
+    
     return <>{items.map(item => {
         const { purchasedItemId: id } = item;
         return <Box color="white" className={style.OrderListContainer} key={`order_checkbox_${item.purchasedItemId}`}>

@@ -58,7 +58,6 @@ const Order = () => {
         if (checked)
             setCheckedList(newList.map(x => x.purchasedItemId));
         else setCheckedList([]);
-        console.log(checked);
     };
     const handleChecked = (val: number) => {
         let cloneList = [...checkedList];
