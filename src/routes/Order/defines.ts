@@ -1,6 +1,6 @@
 export enum OrderTabHostItemType {
-  New = "new",
-  Purchased = "purchased",
+  New = "news",
+  Purchased = "wait",
 }
 export interface OrderProductNewItemType {
   purchasedItemId: number,

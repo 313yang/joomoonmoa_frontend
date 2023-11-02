@@ -4,6 +4,7 @@ import { addsMarkets, marketsSyncTest } from "@/libs/api/market";
 import { useState } from "react";
 import { StoreList } from "./defines";
 import { AxiosError } from "axios";
+import { useUserAuthAction } from "@/libs/store/useAuthStore";
 
 const storeInfoInit = {
     clientId: "",
@@ -12,10 +13,11 @@ const storeInfoInit = {
     platform: StoreList[0].value
 };
 
-export const useAddClient = () => {
+export const useSettingStore = () => {
     const [storeInfo, setStoreInfo] = useState<AddMarketsType>(storeInfoInit);
     const [loading, setLoading] = useState<boolean>(false);
     const { clientId, clientSecret } = storeInfo;
+    const { setAccessToken, setRefreshToken } = useUserAuthAction();
 
     const handleSetStoreInfo = (conf: Partial<AddMarketsType>) => {
         setStoreInfo({ ...storeInfo, ...conf });
@@ -66,11 +68,18 @@ export const useAddClient = () => {
         }
         setLoading(false);
     };
+
+    const handleLogout = () => {
+        setAccessToken("");
+        setRefreshToken("");
+        window.location.href = "/"
+    };
     return {
         loading,
         storeInfo,
         handleSetStoreInfo,
         submitMarketSyncTest,
         submitAddMarket,
+        handleLogout
     };
 };

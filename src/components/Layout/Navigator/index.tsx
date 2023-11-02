@@ -17,7 +17,7 @@ const Navigator = () => {
             <Home />
             <span>홈</span>
         </Link>
-        <Link to="/order/new" className={checkingPathname("/order") ? style.selected : ""}>
+        <Link to="/order/news" className={checkingPathname("/order") ? style.selected : ""}>
             <List />
             <span>주문</span>
         </Link>

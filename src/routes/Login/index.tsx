@@ -15,16 +15,12 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const { status, data } = await login({ phoneNumber, password });
-      console.log(status, data);
       if (status === 200) {
         const { tokens } = data;
-        document.cookie = `access=${tokens.access}`;
-        document.cookie = `refresh=${tokens.refresh}`;
         setAccessToken(tokens.access);
         setRefreshToken(tokens.refresh);
         window.location.href = "/dashboard";
       }
-
     } catch (err) {
       if (err instanceof AxiosError) {
         const errorMessage = !!err?.response ? err?.response?.data?.message : err.message || "";

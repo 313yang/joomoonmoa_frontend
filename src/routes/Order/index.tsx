@@ -5,10 +5,11 @@ import { Subtract } from "@/components/Icons";
 import style from "./style.module.scss";
 import { Checkbox, TabHost, Button } from "@/components/Styled";
 import { OrderNewList } from "./NewList";
-import { getOrderNews } from "@/libs/api/orders";
+import { getOrder } from "@/libs/api/orders";
 import { RequestGet } from "@/libs/Function";
 import { OrderPurchasedList } from "./Purchased";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { confirmItems } from "@/libs/api/dashboard";
 
 const tabItems = [
     {
@@ -35,6 +36,22 @@ const dummy1 = [
         receiverPhoneNumber: "010-4999-0234",
     }
 ];
+
+const testItem = [
+    {
+        "purchasedItemId": 10,
+        "marketAlias": "스마트스토어 테스트샵",
+        "orderDate": "2023.10.11 12:11:22",
+        "productName": "아이패드 케이스 투명 9 8 7세대 10.2인치 펜슬 수납 스마트 북커버 에어 수납 마그네틱",
+        "productOption": "주황",
+        "quantity": 2,
+        "receiverPhoneNumber": "010-1234-5678",
+        "receiverName": "서연제",
+        "baseAddress": "서울시 송파구 가나다로 25",
+        "detailedAddress": "서울시 송파구 가나다로 25"
+    }
+];
+
 const Order = () => {
     const { pathname } = useLocation();
     const route = useNavigate();
@@ -42,23 +59,27 @@ const Order = () => {
     const [selected, setSelected] = useState<OrderTabHostItemType>(orderType || OrderTabHostItemType.New);
     const [checkedList, setCheckedList] = useState<number[]>([]);
     const [newList, setNewList] = useState<OrderProductNewItemType[]>([]);
-    const [orderList, setOrderList] = useState<OrderProductOkItemType[]>([]);
+    const [orderList, setOrderList] = useState<OrderProductNewItemType[]>([]);
     const isNew = selected === OrderTabHostItemType.New;
 
     const setTabHost = (value: OrderTabHostItemType) => {
         setSelected(value);
         route(`/order/${value}`);
     };
+
     const getNewList = async () => {
-        const data = await RequestGet(getOrderNews) || [];
+        const data = await RequestGet(getOrder, selected) || [];
         setNewList(data);
+        setOrderList(data);
         setCheckedList(data.map(x => x.purchasedItemId));
     };
+
     const handleAllChecked = (checked: boolean) => {
         if (checked)
             setCheckedList(newList.map(x => x.purchasedItemId));
         else setCheckedList([]);
     };
+
     const handleChecked = (val: number) => {
         let cloneList = [...checkedList];
         if (checkedList.some(x => x === val)) {
@@ -69,9 +90,19 @@ const Order = () => {
         setCheckedList(cloneList);
     };
 
+    const handleConfirmItem = async () => {
+        try {
+            const resp = await selected === OrderTabHostItemType.New ? confirmItems(checkedList) : confirmItems(checkedList);
+            console.log(resp);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     useEffect(() => {
         getNewList();
-    }, []);
+    }, [selected]);
+
     return <div>
         <Header title={<div className={style.flexCenter}><h3>주문</h3><Subtract /></div>} />
         <TabHost
@@ -88,7 +119,7 @@ const Order = () => {
                     value={checkedList.length === newList.length}
                     onChange={handleAllChecked}
                 />
-                <Button width="fit-content" disabled={checkedList.length === 0}>
+                <Button width="fit-content" disabled={checkedList.length === 0} onClick={handleConfirmItem}>
                     <p>선택 주문 발주확인</p>
                 </Button>
             </div>

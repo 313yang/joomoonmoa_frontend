@@ -18,7 +18,7 @@ const DashboardOrder = ({ data }: { data: PlaceOrderStatuses; }) => {
     <div className={style.DashboardOrderContainer}>
       <div className={style.DashboardOrdeBoxrContainer}>
         <Box color="gray50" className={style.DashboardOrdeBox}>
-          <button onClick={() => route("/order/new")}>
+          <button onClick={() => route("/order/news")}>
             <span>신규주문</span>
             <Chevron direction="right" width={8} />
           </button>
@@ -28,7 +28,7 @@ const DashboardOrder = ({ data }: { data: PlaceOrderStatuses; }) => {
       </div>
       <div className={style.DashboardOrdeBoxrContainer}>
         <Box color="gray50" className={style.DashboardOrdeBox}>
-          <button onClick={() => route("/order/purchased")}>
+          <button onClick={() => route("/order/wait")}>
             <span>발송준비</span>
             <Chevron direction="right" width={8} />
           </button>

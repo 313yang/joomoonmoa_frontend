@@ -4,13 +4,13 @@ import { UserInfoType } from "../defines";
 import style from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 
-const SettingMain = ({ user }: { user: UserInfoType; }) => {
+const SettingMain = () => {
     const route = useNavigate();
 
     return <>
         <Box color="white" className={style.UserContainer}>
             <button>
-                <h5>{user.userName}님</h5>
+                <h5><strong className="text-primary">{"user5"}</strong> 님</h5>
                 <Chevron direction="right" />
             </button>
         </Box>

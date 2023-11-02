@@ -33,6 +33,16 @@
       margin-bottom: 9px;
     }
   }
+  .OrderPurchasedContainer {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+    :global(.dropdown-display),
+    :global(.input-container),
+    >button{
+      height: 36px;
+    }
+  }
 }
 .OrderProductUserItem {
   >strong {
@@ -43,6 +53,17 @@
     height: 1px;
     margin: 8px 0;
     background-color: #E9ECEF;
+  }
+  :global(.input-line){
+    >div{
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      >p{
+        cursor: pointer;
+        font-weight: 500;
+      }
+    }
   }
 }
 .NoDataList {

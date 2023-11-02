@@ -1,5 +1,6 @@
 .SettingComponent {
-    display: flex;
+  position: relative;
+  display: flex;
     flex-direction: column;
     gap: 16px;
     :global(.box.box-md){
@@ -11,4 +12,11 @@
         font-weight: 500;
        }
   } 
+  .Logout {
+    position: absolute;
+    top: 89vh;
+    font-size: 16px;
+    font-weight: 500;
+    right: 5px;
+  }
 }

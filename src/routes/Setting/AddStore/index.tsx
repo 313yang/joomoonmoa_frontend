@@ -1,20 +1,10 @@
-import { Chevron } from "@/components/Icons";
-import { Box, Switch, Button, Input } from "@/components/Styled";
+import { Button, Input } from "@/components/Styled";
 import { StoreList, UserInfoType } from "../defines";
-import style from "./style.module.scss";
-import { useNavigate } from "react-router-dom";
 import Dropdown from "@/components/Styled/Dropdown";
-import { useState } from "react";
-import { addsMarkets, marketsSyncTest } from "@/libs/api/market";
-import { AddMarketsType } from "@/libs/Defines";
-import { toast } from "@/libs/Function";
-import { useAddClient } from "../hooks";
+import { useSettingStore } from "../hooks";
 
-
-
-
-const SettingAddStore = ({ user }: { user: UserInfoType; }) => {
-    const { loading, storeInfo, handleSetStoreInfo, submitAddMarket, submitMarketSyncTest } = useAddClient();
+const SettingAddStore = () => {
+    const { loading, storeInfo, handleSetStoreInfo, submitAddMarket, submitMarketSyncTest } = useSettingStore();
     const { clientId, clientSecret, marketAlias, platform } = storeInfo;
 
     return <>

@@ -8,7 +8,7 @@ import { BuildClass, ToastState, secondsToMs, toast } from "@/libs/Function";
 import { AxiosError, AxiosResponse } from "axios";
 
 const INIT_SECOND = 3 * 60;
-
+let sendOTPCount = 0;
 const Join = () => {
   const route = useNavigate();
   const [account, setAccount] = useState<string>("");
@@ -27,16 +27,20 @@ const Join = () => {
 
   const errorToast = (err: AxiosError | unknown) => toast(((err as AxiosError).response as AxiosResponse).data.message);
   const onSendOTP = async () => {
+    sendOTPCount += 1;
+    if (sendOTPCount >= 4) return toast("59초만 스트레칭 후 다시 눌러주세요️ 🐥");
     try {
       const { status } = await sendOTP(phoneNumber);
       if (status === 200) {
+        toast("인증번호 발송했습니다. 📲");
         setShowOTP(true);
         setShowSendOTP(true);
         setCountTime(Date.now());
         setTimeout(() => setShowSendOTP(false), 3000);
+        setTimeout(() => sendOTPCount = 0, 60000);
       }
     } catch (err) {
-      errorToast(err);
+      toast("발송 실패 😓 다시 발송해주세요.");
     }
   };
   const onCertPhoneNumber = async () => {
@@ -48,7 +52,7 @@ const Join = () => {
         setCountTime(0);
       }
     } catch (err) {
-      errorToast(err);
+      toast("인증번호가 일치하지 않습니다 🚫");
     }
   };
 
@@ -57,7 +61,7 @@ const Join = () => {
     try {
       const { status } = await signup({ password, phoneNumber });
       if (status === 200) {
-        toast("회원가입에 성공했습니다!", ToastState.Success);
+        toast("✅ 회원가입에 성공했습니다!");
         route("/");
       }
 
@@ -74,7 +78,7 @@ const Join = () => {
           setShowOTP(false);
           setCount(INIT_SECOND);
           setCountTime(0);
-          toast("시간초과. 다시 발송해주세요");
+          toast("시간 초과 ⏳ 새로 발송해주세요.");
         } else {
           setCount(time);
         }

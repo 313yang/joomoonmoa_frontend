@@ -1,9 +1,10 @@
 .input-line {
   position: relative;
   display: flex;
-  align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-size: 14px;
+  padding: 6px 0;
+
   .input,
   .dropdown {
     flex: 1 1;
@@ -22,8 +23,7 @@
   display: flex;
   font-weight: 500;
   flex: 0 75px;
-  padding: 8px 0;
-
+  min-width: 75px;
   &.input-label-center {
     align-self: center;
   }
