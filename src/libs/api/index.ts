@@ -1,16 +1,14 @@
 import axios from "axios";
-import { useUserAuth } from "../store/useAuthStore";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const baseURL = API_URL + "/api/v1";
-
 
 const getToken = () => {
     if (document.cookie) {
         const cookies = document.cookie.split(`${decodeURIComponent("access")}=`);
         if (cookies.length >= 2) {
             const values = cookies[1].split(";");
-            return decodeURIComponent(values[0]);
+            return values[0];
         }
     }
 };
@@ -20,13 +18,17 @@ const headers = {
     Authorization: "bearer " + getToken()
 };
 const auth = axios.create({ timeout: 8000, baseURL: `${baseURL}/auth` });
-const dashboard = axios.create({ timeout: 8000, baseURL: `${baseURL}/items/dashboard` });
+const dashboard = axios.create({ timeout: 8000, baseURL: `${baseURL}/items`, headers });
 const orders = axios.create({ timeout: 8000, baseURL: `${baseURL}/orders`, headers });
+const common = axios.create({ timeout: 8000, baseURL: `${baseURL}/common`, headers });
+const markets = axios.create({ timeout: 8000, baseURL: `${baseURL}/markets`, headers });
 
 axios.defaults.withCredentials = true;
 
 export {
     auth,
     dashboard,
-    orders
+    orders,
+    common,
+    markets
 };

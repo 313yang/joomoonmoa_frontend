@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import style from "./style.module.scss";
 import DashboardStore from "../Dashboard/Store";
 import { Table } from "@/components/Styled";
+import { RequestGet } from "@/libs/Function";
 
 const Request = () => {
     const [market, setMarket] = useState<PlaceOrderStatuesMarket[]>([]);
 
     // TODO:: 스토어 문의/교환/반품 api로 교체
     const getMarket = async () => {
-        const marketRes = await getDashboardOrderMarket();
+        const marketRes = await RequestGet(getDashboardOrderMarket) || [];
         setMarket(marketRes);
     };
 
@@ -23,7 +24,7 @@ const Request = () => {
         <Table thead={["스토어", "문의", "교환", "반품"]}>
             {market.map(x =>
                 <tr key={x.marketId}>
-                    <td>{x.title}</td>
+                    <td>{x.marketAlias}</td>
                     <td>{x.notYet}</td>
                     <td>{x.ok}</td>
                     <td>{x.canceled}</td>

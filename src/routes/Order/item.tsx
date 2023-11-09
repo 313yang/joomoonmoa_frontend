@@ -1,45 +1,47 @@
 import { Box, InputLine, InputLabel } from "@/components/Styled";
 import { OrderProductNewItemType } from "./defines";
 import style from "./style.module.scss";
+import { copyToClipboard } from "@/libs/Function";
 
 export const OrderProductUserItem = ({ item }: { item: OrderProductNewItemType; }) => {
     return <div className={style.OrderProductUserItem}>
-        <Box size="none" style={{ borderRadius: "4px" }}>
-            <InputLine>
-                <InputLabel>스토어</InputLabel>
-                {item.storeTitle}
-            </InputLine>
-            <InputLine>
-                <InputLabel>주문시간</InputLabel>
-                {item.paymentDate}
-            </InputLine>
-            <InputLine>
-                <InputLabel>상품</InputLabel>
-                {item.storeTitle}
-            </InputLine>
-            <InputLine>
-                <InputLabel>옵션</InputLabel>
-                {item.productOption}
-            </InputLine>
-            <InputLine>
-                <InputLabel>수량</InputLabel>
-                {item.quantity}
-            </InputLine>
-        </Box>
+        <strong>
+            {item.productName}
+        </strong>
 
-        <Box size="none" style={{ borderRadius: "4px" }}>
-            <InputLine>
-                <InputLabel>수령인</InputLabel>
-                {item.userName}
-            </InputLine>
-            <InputLine>
-                <InputLabel>전화번호</InputLabel>
-                {item.tel}
-            </InputLine>
-            <InputLine>
-                <InputLabel>주소</InputLabel>
-                {item.address}
-            </InputLine>
-        </Box>
+        <InputLine>
+            <InputLabel>옵션</InputLabel>
+            <strong>{item.productOption}</strong>
+        </InputLine>
+        <InputLine>
+            <InputLabel>수량</InputLabel>
+            <strong className={item.quantity > 1 ? "text-danger" : ""}>{item.quantity}</strong>
+        </InputLine>
+        <div className={style.border} />
+
+
+        <InputLine>
+            <InputLabel>수령인</InputLabel>
+            <div>
+                <strong>{item.receiverName}</strong>
+                <p onClick={() => copyToClipboard(item.receiverName)} className="text-primary">복사</p>
+            </div>
+        </InputLine>
+        <InputLine>
+            <InputLabel>전화번호</InputLabel>
+            <div>
+                <strong>{item.receiverPhoneNumber}</strong>
+                <p onClick={() => copyToClipboard(item.receiverPhoneNumber)} className="text-primary">복사</p>
+            </div>
+        </InputLine>
+        <InputLine>
+            <InputLabel>주소</InputLabel>
+            <div>
+                <strong>{item.baseAddress} <br />
+                    {item.detailedAddress}</strong>
+                <p onClick={() => copyToClipboard(item.detailedAddress)} className="text-primary">복사</p>
+            </div>
+        </InputLine>
+
     </div>;
 };

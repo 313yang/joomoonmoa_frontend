@@ -31,8 +31,7 @@ export function Checkbox<T extends string | number | string[] | boolean>({
     const ChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (typeof onChange === "undefined") return;
         const target = e.target;
-
-        onChange(target.value as T);
+        onChange(target.checked as T);
     };
 
     return <div

@@ -15,9 +15,11 @@ const usePlayerStore = create<IUsePlayerStore>()(
             refreshToken: "",
 
             setAccessToken: (val: string) => {
+                document.cookie = `access=${val}`;
                 set({ accessToken: val });
             },
             setRefreshToken: (val: string) => {
+                document.cookie = `refresh=${val}`;
                 set({ refreshToken: val });
             },
 

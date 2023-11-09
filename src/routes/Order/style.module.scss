@@ -7,23 +7,66 @@
   }
 }
 .OrderContainer {
-  margin-top: 11px;
+  margin-top: 14px;
 }
 .OrderCheckboxContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e9ecef;
+  gap: 12px;
+  margin-left: 16px;
+  >:global(.button) {
+    padding: 8px 12px;
+  }
 }
 .OrderListContainer {
   margin: 16px 0;
-  >:global(.checkbox){
-    margin-bottom: 9px;
+  .OrderListHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    >div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    >:global(.checkbox){
+      margin-bottom: 9px;
+    }
+  }
+  .OrderPurchasedContainer {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+    :global(.dropdown-display),
+    :global(.input-container),
+    >button{
+      height: 36px;
+    }
   }
 }
 .OrderProductUserItem {
-  >div {
-    margin-bottom: 8px;
+  >strong {
+    display: block;
+    padding: 12px 0;
   }
+  >.border {
+    height: 1px;
+    margin: 8px 0;
+    background-color: #E9ECEF;
+  }
+  :global(.input-line){
+    >div{
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      >p{
+        cursor: pointer;
+        font-weight: 500;
+      }
+    }
+  }
+}
+.NoDataList {
+  text-align: center;
+  margin-top: 25vh;
 }

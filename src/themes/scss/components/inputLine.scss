@@ -1,9 +1,10 @@
 .input-line {
   position: relative;
   display: flex;
-  align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-size: 14px;
+  padding: 6px 0;
+
   .input,
   .dropdown {
     flex: 1 1;
@@ -16,21 +17,13 @@
       flex: 1 1 100%;
     }
   }
-  &:not(:last-child){
-    border-bottom: $borderface;
-  }
 }
 
 .input-label {
   display: flex;
-  justify-content: center;
   font-weight: 500;
-  background-color: $gray50;
-  color: $gray500;
   flex: 0 75px;
-  padding: 12px;
-  border-right: $borderface;
-
+  min-width: 75px;
   &.input-label-center {
     align-self: center;
   }

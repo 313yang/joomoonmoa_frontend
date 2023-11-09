@@ -1,23 +1,23 @@
 import { Link, useLocation } from "react-router-dom";
 
 import style from "./style.module.scss";
-import { Chat, Hamburger, Home, List, Search, Setting } from "@/components/Icons";
+import { Chat, Home, List, Setting } from "@/components/Icons";
 import { useUserAuth } from "@/libs/store/useAuthStore";
 
 const Navigator = () => {
     const { pathname } = useLocation();
     const { accessToken } = useUserAuth();
     const checkingPathname = (url: string) => {
-        if (pathname === url) return true;
+        if (pathname.includes(url)) return true;
     };
     if (!accessToken) return <></>;
     
     return <nav className={style.Navigator}>
-        <Link to={"/dashboard"} className={checkingPathname("/dashboard") ? style.selected : ""}>
+        <Link to="/dashboard" className={checkingPathname("/dashboard") ? style.selected : ""}>
             <Home />
             <span>홈</span>
         </Link>
-        <Link to={"/order"} className={checkingPathname("/order") ? style.selected : ""}>
+        <Link to="/order/news" className={checkingPathname("/order") ? style.selected : ""}>
             <List />
             <span>주문</span>
         </Link>

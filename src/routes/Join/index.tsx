@@ -8,7 +8,7 @@ import { BuildClass, ToastState, secondsToMs, toast } from "@/libs/Function";
 import { AxiosError, AxiosResponse } from "axios";
 
 const INIT_SECOND = 3 * 60;
-
+let sendOTPCount = 0;
 const Join = () => {
   const route = useNavigate();
   const [account, setAccount] = useState<string>("");
@@ -27,16 +27,20 @@ const Join = () => {
 
   const errorToast = (err: AxiosError | unknown) => toast(((err as AxiosError).response as AxiosResponse).data.message);
   const onSendOTP = async () => {
+    sendOTPCount += 1;
+    if (sendOTPCount >= 4) return toast("59초만 스트레칭 후 다시 눌러주세요️ 🐥");
     try {
       const { status } = await sendOTP(phoneNumber);
       if (status === 200) {
+        toast("인증번호 발송했습니다. 📲");
         setShowOTP(true);
         setShowSendOTP(true);
         setCountTime(Date.now());
         setTimeout(() => setShowSendOTP(false), 3000);
+        setTimeout(() => sendOTPCount = 0, 60000);
       }
     } catch (err) {
-      errorToast(err);
+      toast("발송 실패 😓 다시 발송해주세요.");
     }
   };
   const onCertPhoneNumber = async () => {
@@ -48,16 +52,16 @@ const Join = () => {
         setCountTime(0);
       }
     } catch (err) {
-      errorToast(err);
+      toast("인증번호가 일치하지 않습니다 🚫");
     }
   };
 
   const onSubmit = async () => {
     if (password !== passwordConfirm) return toast("비밀번호가 일치하지 않습니다.");
     try {
-      const { status } = await signup({ account, password, phoneNumber });
+      const { status } = await signup({ password, phoneNumber });
       if (status === 200) {
-        toast("회원가입에 성공했습니다!", ToastState.Success);
+        toast("✅ 회원가입에 성공했습니다!");
         route("/");
       }
 
@@ -74,7 +78,7 @@ const Join = () => {
           setShowOTP(false);
           setCount(INIT_SECOND);
           setCountTime(0);
-          toast("시간초과. 다시 발송해주세요");
+          toast("시간 초과 ⏳ 새로 발송해주세요.");
         } else {
           setCount(time);
         }
@@ -90,39 +94,17 @@ const Join = () => {
   return <div>
     <Header prev={" "} title="회원가입" />
     <div className={style.JoinInputContainer}>
-      <Input
+      {/* <Input
         autocomplete={true}
-        label="아이디"
-        placeholder="영어·숫자만 2~12자 입력"
+        label="전화번호"
         defaultValue={account}
         onInput={setAccount}
         validateCallback={() => {
-          if (!account) return "아이디를 입력해주세요.";
+          if (!account) return "전화번호를 입력해주세요.";
           if (!regExp.test(account)) return "아이디는 영어·숫자만 2~12자로 입력해주세요.";
         }}
-        maxLength={12} />
-      <Input
-        autocomplete={true}
-        type="password"
-        label="비밀번호"
-        placeholder="4~20자 입력"
-        defaultValue={password}
-        onInput={setPassword}
-        maxLength={20}
-        validateCallback={() => {
-          if (password.length < 4 || password.length > 20) return "비밀번호는 4~20자로 입력해주세요.";
-        }} />
-      <Input
-        autocomplete={true}
-        type="password"
-        label="비밀번호 확인"
-        placeholder="4~20자 입력"
-        defaultValue={passwordConfirm}
-        onInput={setPasswordConfirm}
-        maxLength={20}
-        validateCallback={() => {
-          if (password !== passwordConfirm) return "비밀번호가 일치하지 않습니다.";
-        }} />
+        maxLength={11}
+      /> */}
       <div className={style.JoinPhoneNumberInput}>
         <Input
           label="전화번호"
@@ -133,15 +115,14 @@ const Join = () => {
         />
         <Button disabled={phoneNumber.length !== 11 || showSendOTP || isCertOk} onClick={onSendOTP}>인증번호 전송</Button>
       </div>
-      {showOTP && <div style={{ position: "relative" }}>
+      <div style={{ position: "relative" }}>
         <Input
           label="인증번호"
           defaultValue={certNum}
-          disabled={isCertOk}
+          disabled={!showOTP || isCertOk}
           maxLength={4}
           onInput={(val) => {
             setCertNum(val);
-
           }}
         />
         {showOTP &&
@@ -150,7 +131,32 @@ const Join = () => {
           </span>
         }
       </div>
-      }
+      <Input
+        autocomplete={true}
+        type="password"
+        label="비밀번호"
+        defaultValue={password}
+        onInput={setPassword}
+        maxLength={20}
+        validateCallback={() => {
+          if (password.length < 4 || password.length > 20) return "비밀번호는 4~20자로 입력해주세요.";
+        }}
+        caption={<>4~20자 입력</>}
+      />
+      <Input
+        autocomplete={true}
+        type="password"
+        label="비밀번호 확인"
+        defaultValue={passwordConfirm}
+        onInput={setPasswordConfirm}
+        maxLength={20}
+        validateCallback={() => {
+          if (password !== passwordConfirm) return "비밀번호가 일치하지 않습니다.";
+        }}
+        caption={<p>4~20자 입력</p>}
+      />
+
+
       <Button
         className={style.JoinButton}
         onClick={onSubmit}

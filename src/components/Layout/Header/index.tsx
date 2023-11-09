@@ -1,4 +1,4 @@
-import { Arrow } from "@/components/Icons";
+import { Chevron } from "@/components/Icons";
 import { ReactNode } from "react";
 import style from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ const Header = ({ prev, title }: HeaderProps) => {
   const route = useNavigate();
   return <header className={style.Header}>
     {!!prev ? <div>
-      <button onClick={() => route(-1)}><Arrow /></button>
+      <button onClick={() => route(-1)}><Chevron /></button>
       {prev}
     </div> : <div />}
     <div>

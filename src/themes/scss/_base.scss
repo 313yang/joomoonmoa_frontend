@@ -9,6 +9,7 @@ body {
     font-weight: 400;
     font-size: $fontSize;
     color: $gray900;
+    background-color: $gray100;
 }
 
 button,
@@ -29,8 +30,7 @@ input {
     margin: 0 auto;
 }
 #main_container {
-    padding: 18px;
-    padding-bottom: 60px;
+    padding: 18px 18px 60px;
 }
 a {
     cursor: pointer;
@@ -92,4 +92,9 @@ p {
 }
 .text-green {
     color: $green;
+}
+button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }

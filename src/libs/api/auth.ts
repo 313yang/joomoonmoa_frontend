@@ -3,12 +3,12 @@ import { auth } from ".";
 import { LoginPayload } from "../Defines";
 
 interface LoginType {
-    account: string;
     password: string;
+    phoneNumber: string;
 }
 
 interface SignupType extends LoginType {
-    phoneNumber: string;
+   
 }
 
 export const login = async (data: LoginType) => await auth.post("/login", data);

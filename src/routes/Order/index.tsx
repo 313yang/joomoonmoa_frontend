@@ -3,68 +3,86 @@ import { useEffect, useState } from "react";
 import Header from "@/components/Layout/Header";
 import { Subtract } from "@/components/Icons";
 import style from "./style.module.scss";
-import { Box } from "@/components/Styled";
 import { Checkbox, TabHost, Button } from "@/components/Styled";
 import { OrderNewList } from "./NewList";
-import { getOrderNews } from "@/libs/api/orders";
+import { getOrder } from "@/libs/api/orders";
+import { RequestGet } from "@/libs/Function";
+import { OrderPurchasedList } from "./Purchased";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { confirmItems } from "@/libs/api/dashboard";
 
 const tabItems = [
     {
-        name: "신규",
+        name: "신규주문",
         value: OrderTabHostItemType.New
     },
     {
         name: "발송준비",
-        value: OrderTabHostItemType.Pre
+        value: OrderTabHostItemType.Purchased
     }
 ];
 
-const dummy = [
-    {
-        purchasedItemId: 1,
-        storeTitle: "스토어1",
-        paymentDate: "2023.01.02 03:35:32",
-        productName: "아이패드 케이스",
-        productOption: "주황",
-        quantity: "1",
-        userName: "yang",
-        tel: "01012341234",
-        address: "서울시 송파구 가나다로 25"
-
-    }
-];
 const dummy1 = [
     {
-        id: 1,
-        storeTitle: "스토어1",
-        paymentDate: "2023.01.02 03:35:32",
-        productName: "아이패드 케이스",
-        productOption: "주황",
-        quantity: "1",
-        userName: "yang",
-        tel: "01012341234",
-        address: "서울시 송파구 가나다로 25",
-        deliveryType: "",
-        deliveryCode: ""
+        baseAddress: "서울특별시 송파구 백제고분로18길 23-8 (잠실동)",
+        detailedAddress: "우민주택 402호",
+        marketAlias: "양벼리강윤구서연제",
+        orderDate: "2023-09-16T20:20:46.0+09:00",
+        productName: "SEEK COMPACT 스마트폰 누수탐지기 열화상카메라",
+        productOption: "모델: C타입 프로",
+        purchasedItemId: 17,
+        quantity: 1,
+        receiverName: "서연제",
+        receiverPhoneNumber: "010-4999-0234",
     }
 ];
+
+const testItem = [
+    {
+        "purchasedItemId": 10,
+        "marketAlias": "스마트스토어 테스트샵",
+        "orderDate": "2023.10.11 12:11:22",
+        "productName": "아이패드 케이스 투명 9 8 7세대 10.2인치 펜슬 수납 스마트 북커버 에어 수납 마그네틱",
+        "productOption": "주황",
+        "quantity": 2,
+        "receiverPhoneNumber": "010-1234-5678",
+        "receiverName": "서연제",
+        "baseAddress": "서울시 송파구 가나다로 25",
+        "detailedAddress": "서울시 송파구 가나다로 25"
+    }
+];
+
 const Order = () => {
-    const [selected, setSelected] = useState<OrderTabHostItemType>(OrderTabHostItemType.New);
+    const { pathname } = useLocation();
+    const route = useNavigate();
+    const orderType = pathname.replace("/order/", "") as OrderTabHostItemType;
+    const [selected, setSelected] = useState<OrderTabHostItemType>(orderType || OrderTabHostItemType.New);
     const [checkedList, setCheckedList] = useState<number[]>([]);
     const [newList, setNewList] = useState<OrderProductNewItemType[]>([]);
-    const [orderList, setOrderList] = useState<OrderProductOkItemType[]>([]);
+    const [orderList, setOrderList] = useState<OrderProductNewItemType[]>([]);
+    const isNew = selected === OrderTabHostItemType.New;
+
+    const setTabHost = (value: OrderTabHostItemType) => {
+        setSelected(value);
+        route(`/order/${value}`);
+    };
 
     const getNewList = async () => {
-        const { status, data } = await getOrderNews();
-        if (status === 200)
-            setNewList(data);
+        const data = await RequestGet(getOrder, selected) || [];
+        setNewList(data);
+        setOrderList(data);
+        setCheckedList(data.map(x => x.purchasedItemId));
     };
+
     const handleAllChecked = (checked: boolean) => {
-        console.log(checked);
+        if (checked)
+            setCheckedList(newList.map(x => x.purchasedItemId));
+        else setCheckedList([]);
     };
+
     const handleChecked = (val: number) => {
         let cloneList = [...checkedList];
-        if (!!checkedList.find(x => x === val)) {
+        if (checkedList.some(x => x === val)) {
             cloneList = checkedList.filter(x => x !== val);
         } else {
             cloneList.push(val);
@@ -72,18 +90,28 @@ const Order = () => {
         setCheckedList(cloneList);
     };
 
+    const handleConfirmItem = async () => {
+        try {
+            const resp = await selected === OrderTabHostItemType.New ? confirmItems(checkedList) : confirmItems(checkedList);
+            console.log(resp);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     useEffect(() => {
         getNewList();
-    }, []);
+    }, [selected]);
+
     return <div>
         <Header title={<div className={style.flexCenter}><h3>주문</h3><Subtract /></div>} />
         <TabHost
             items={tabItems}
             selected={selected}
-            onClick={setSelected}
+            onClick={setTabHost}
         />
 
-        {newList.length > 0 ? <Box className={style.OrderContainer} size="md">
+        {(isNew ? newList : orderList).length > 0 ? <div className={style.OrderContainer} >
             <div className={style.OrderCheckboxContainer}>
                 <Checkbox
                     name="order_checkbox_all"
@@ -91,8 +119,8 @@ const Order = () => {
                     value={checkedList.length === newList.length}
                     onChange={handleAllChecked}
                 />
-                <Button disabled={!checkedList}>
-                    <p>선택 발주확인</p>
+                <Button width="fit-content" disabled={checkedList.length === 0} onClick={handleConfirmItem}>
+                    <p>선택 주문 발주확인</p>
                 </Button>
             </div>
             {selected === OrderTabHostItemType.New &&
@@ -102,14 +130,17 @@ const Order = () => {
                     setCheckedList={handleChecked}
                 />
             }
-            {selected === OrderTabHostItemType.Pre &&
-                <OrderNewList
+            {selected === OrderTabHostItemType.Purchased && <>
+                <OrderPurchasedList
                     items={orderList}
                     checkedList={checkedList}
                     setCheckedList={handleChecked}
                 />
+            </>
             }
-        </Box> : <h4>신규 주문 건이 없습니다.</h4>
+        </div> : <div className={style.NoDataList}>
+            <h4>{isNew ? "신규주문" : "발송준비"} 건이 없습니다.</h4>
+        </div>
         }
     </div >;
 };
