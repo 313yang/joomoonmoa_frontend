@@ -6,4 +6,5 @@ export * from "@/components/Icons/Chevron";
 export * from "@/components/Icons/Subtract";
 export * from "@/components/Icons/List"
 export * from "@/components/Icons/Chat"
+export * from "@/components/Icons/Delivery"
 export * from "@/components/Icons/Dropdown"

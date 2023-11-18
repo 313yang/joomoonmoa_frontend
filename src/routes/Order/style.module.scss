@@ -59,6 +59,9 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
+      >strong{
+        max-width: 90%;
+      }
       >p{
         cursor: pointer;
         font-weight: 500;

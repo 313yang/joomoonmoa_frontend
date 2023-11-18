@@ -1,69 +1,68 @@
+import { useState } from "react";
 import { Box, Button, Checkbox, Input } from "@/components/Styled";
-import { OrderProductNewItemType, OrderProductOkItemType } from "../defines";
-import style from "../style.module.scss";
+import { OrderProductNewItemType } from "../defines";
 import { OrderProductUserItem } from "../item";
-import { getDeliveryCompanies } from "@/libs/api/common";
-import { useEffect, useState } from "react";
-import { AxiosError } from "axios";
-import toast from "react-hot-toast";
-import { FormatDate, FormatNumber, RequestGet } from "@/libs/Function";
+import { FormatDate, FormatNumber, toast } from "@/libs/Function";
 import Dropdown from "@/components/Styled/Dropdown";
 import { confirmDeliveryItems } from "@/libs/api/dashboard";
+import deliveryList from "./deliveryCode.json";
+import style from "../style.module.scss";
 
 interface OrderPurchasedListType {
-    items: OrderProductNewItemType[];
+    item: OrderProductNewItemType;
     checkedList: number[];
     setCheckedList(val: number): void;
 }
 
-export const OrderPurchasedList = ({ items, checkedList, setCheckedList }: OrderPurchasedListType) => {
-    const [deliveryList, setDeliveryList] = useState([]);
-    
-    const getDeliveryCompanieList = async () => {
-        const data = await RequestGet(getDeliveryCompanies) || [];
-        setDeliveryList([]);
+export const OrderPurchasedList = ({ item, checkedList, setCheckedList }: OrderPurchasedListType) => {
+    const { purchasedItemId: id } = item;
+    const [trackingNumber, setTrackingNumber] = useState<string>("");
+    const [deliveryCompanyCode, setDeleveryCompanyCode] = useState<string>("");
+
+    const handleDeliveryItem = async (id: number) => {
+        const verifyDigit = deliveryList.find(x => x.value === deliveryCompanyCode)?.digit;
+        if (!deliveryCompanyCode) return toast("택배사를 선택해주세요!");
+        if (!!verifyDigit && verifyDigit?.length > 0 && !verifyDigit?.some(x => x === trackingNumber.length)) {
+            return toast("송장번호를 정확히 입력해주세요!");
+        }
+        try {
+            const resp = await confirmDeliveryItems(id, { deliveryCompanyCode: deliveryCompanyCode, trackingNumber });
+            console.log(resp);
+            toast("제품이 발송되었어요 🚚");
+        } catch (err) {
+            console.error(err);
+            toast("발송 실패 ❌ 송장번호를 확인해주세요");
+        }
     };
 
-    useEffect(() => {
-        getDeliveryCompanieList();
-    }, []);
-    return <>{items.map((item, idx) => {
-        const { purchasedItemId: id } = item;
-        const [trackingNumber, setTrackingNumber] = useState<string>("");
-            const handleDeliveryItem = async (id: number) => {
-                try {
-                    const resp = await confirmDeliveryItems(id, { deliveryCompanyCode: "", trackingNumber });
-                    console.log(resp);
-                } catch (err) {
-                    console.error(err);
-                }
-            };
-        return <Box color="white" className={style.OrderListContainer} key={`order_wait_checkbox_${item.purchasedItemId}_${idx}`}>
-            <div className={style.OrderListHeader}>
-                <Checkbox
-                    name={`order_wait_checkbox_${id}_${idx}`}
-                    checked={checkedList.some(purchasedItemId => purchasedItemId === id)}
-                    onChange={() => setCheckedList(id)}
-                />
-                <div>
-                    <span>{FormatDate(item.orderDate)}</span>
-                    <span>{item.marketAlias}</span>
-                </div>
+    return <Box color="white" className={style.OrderListContainer}>
+        <div className={style.OrderListHeader}>
+            <Checkbox
+                name={`order_wait_checkbox_${id}`}
+                checked={checkedList.some(purchasedItemId => purchasedItemId === id)}
+                onChange={() => setCheckedList(id)}
+            />
+            <div>
+                <span>{FormatDate(item.orderDate)}</span>
+                <span>{item.marketAlias}</span>
             </div>
-            <OrderProductUserItem item={item} />
-            <div className={style.OrderPurchasedContainer}>
-                <Dropdown items={deliveryList} placeholder="택배사" />
-                <Input
-                    value={trackingNumber}
-                    onInput={setTrackingNumber}
-                    formatCallback={(val) => FormatNumber(val)}
-                />
-                <Button onClick={() => handleDeliveryItem(item.purchasedItemId)}>
-                    발송
-                </Button>
-            </div>
-            {/* <Button style={{ margin: "0 0 0 calc(100% - 100px)" }}>발주확인</Button> */}
-        </Box>;
-    })
-    }</>;
+        </div>
+        <OrderProductUserItem item={item} />
+        <div className={style.OrderPurchasedContainer}>
+            <Dropdown
+                items={deliveryList}
+                placeholder="택배사"
+                onClick={setDeleveryCompanyCode}
+            />
+            <Input
+                value={trackingNumber}
+                onInput={setTrackingNumber}
+                formatCallback={(val) => FormatNumber(val)}
+            />
+            <Button onClick={() => handleDeliveryItem(item.purchasedItemId)}>
+                발송
+            </Button>
+        </div>
+        {/* <Button style={{ margin: "0 0 0 calc(100% - 100px)" }}>발주확인</Button> */}
+    </Box>;
 };

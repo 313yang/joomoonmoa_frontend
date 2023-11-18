@@ -1,12 +1,12 @@
 import { OrderProductNewItemType, OrderProductOkItemType, OrderTabHostItemType } from "./defines";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Header from "@/components/Layout/Header";
 import { Subtract } from "@/components/Icons";
 import style from "./style.module.scss";
 import { Checkbox, TabHost, Button } from "@/components/Styled";
 import { OrderNewList } from "./NewList";
 import { getOrder } from "@/libs/api/orders";
-import { RequestGet } from "@/libs/Function";
+import { RequestGet, toast } from "@/libs/Function";
 import { OrderPurchasedList } from "./Purchased";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { confirmItems } from "@/libs/api/dashboard";
@@ -90,10 +90,15 @@ const Order = () => {
         setCheckedList(cloneList);
     };
 
-    const handleConfirmItem = async () => {
+    const handleConfirmItems = async (id?: number) => {
         try {
-            const resp = await selected === OrderTabHostItemType.New ? confirmItems(checkedList) : confirmItems(checkedList);
+            const resp = await confirmItems(id ? [id] : checkedList);
             console.log(resp);
+            if (resp.status === 200) {
+                toast("발주 확인 완료. 제품을 발송해주세요 🚚");
+                getNewList();
+            }
+
         } catch (err) {
             console.error(err);
         }
@@ -119,23 +124,27 @@ const Order = () => {
                     value={checkedList.length === newList.length}
                     onChange={handleAllChecked}
                 />
-                <Button width="fit-content" disabled={checkedList.length === 0} onClick={handleConfirmItem}>
+                <Button width="fit-content" disabled={checkedList.length === 0} onClick={handleConfirmItems}>
                     <p>선택 주문 발주확인</p>
                 </Button>
             </div>
-            {selected === OrderTabHostItemType.New &&
-                <OrderNewList
-                    items={newList}
-                    checkedList={checkedList}
-                    setCheckedList={handleChecked}
-                />
-            }
+            {(isNew ? newList : orderList).map((item, idx) => <Fragment key={`order_${selected}_checkbox_${item.purchasedItemId}_${idx}`}>
+                {isNew ?
+                    <OrderNewList
+                        item={item}
+                        checkedList={checkedList}
+                        setCheckedList={handleChecked}
+                        handleConfirmItem={handleConfirmItems}
+                    />
+                    :
+                    <OrderPurchasedList
+                        item={item}
+                        checkedList={checkedList}
+                        setCheckedList={handleChecked}
+                    />
+                }
+            </Fragment>)}
             {selected === OrderTabHostItemType.Purchased && <>
-                <OrderPurchasedList
-                    items={orderList}
-                    checkedList={checkedList}
-                    setCheckedList={handleChecked}
-                />
             </>
             }
         </div> : <div className={style.NoDataList}>

@@ -2,34 +2,33 @@ import { Box, Button, Checkbox } from "@/components/Styled";
 import { OrderProductNewItemType } from "../defines";
 import style from "../style.module.scss";
 import { OrderProductUserItem } from "../item";
-import { FormatDate } from "@/libs/Function";
+import { FormatDate, toast } from "@/libs/Function";
+import { confirmItems } from "@/libs/api/dashboard";
 
 interface OrderNewListType {
-    items: OrderProductNewItemType[];
+    item: OrderProductNewItemType;
     checkedList: number[];
     setCheckedList(val: number): void;
+    handleConfirmItem: (id: number) => void;
 }
 
-export const OrderNewList = ({ items, checkedList, setCheckedList }: OrderNewListType) => {
+export const OrderNewList = ({ item, checkedList, setCheckedList, handleConfirmItem }: OrderNewListType) => {
     const checkingId = (id: number) => checkedList.some(purchasedItemId => purchasedItemId === id);
 
-    return <>{items.map((item, idx) => {
-        const { purchasedItemId: id } = item;
-        return <Box color="white" className={style.OrderListContainer} key={`order_news_checkbox_${item.purchasedItemId}_${idx}`}>
-            <div className={style.OrderListHeader}>
-                <Checkbox
-                    name={`order_new_checkbox_${id}_${idx}`}
-                    checked={checkingId(id)}
-                    onChange={() => setCheckedList(id)}
-                />
-                <div>
-                    <span>{FormatDate(item.orderDate)}</span>
-                    <span>{item.marketAlias}</span>
-                </div>
+    const { purchasedItemId: id } = item;
+    return <Box color="white" className={style.OrderListContainer} >
+        <div className={style.OrderListHeader}>
+            <Checkbox
+                name={`order_new_checkbox_${id}`}
+                checked={checkingId(id)}
+                onChange={() => setCheckedList(id)}
+            />
+            <div>
+                <span>{FormatDate(item.orderDate)}</span>
+                <span>{item.marketAlias}</span>
             </div>
-            <OrderProductUserItem item={item} />
-            <Button disabled={!checkingId(id)} style={{ margin: "0 0 0 calc(100% - 100px)" }}>발주확인</Button>
-        </Box>;
-    })
-    }</>;
+        </div>
+        <OrderProductUserItem item={item} />
+        <Button disabled={!checkingId(id)} style={{ margin: "0 0 0 calc(100% - 100px)" }} onClick={handleConfirmItem}>발주확인</Button>
+    </Box>;
 };

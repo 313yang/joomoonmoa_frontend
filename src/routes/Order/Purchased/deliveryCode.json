@@ -1,0 +1,77 @@
+[
+    {
+        "value": "CJGLS",
+        "name": "CJ대한통운",
+        "digit": [
+            10,
+            12
+        ]
+    },
+    {
+        "value": "KGB",
+        "name": "로젠택배",
+        "digit": [
+            10,
+            11
+        ]
+    },
+    {
+        "value": "EPOST",
+        "name": "우체국택배",
+        "digit": [
+            13
+        ]
+    },
+    {
+        "value": "HANJIN",
+        "name": "한진택배",
+        "digit": [
+            10,
+            12
+        ]
+    },
+    {
+        "value": "HYUNDAI",
+        "name": "롯데택배",
+        "digit": [
+            10,
+            12,
+            13
+        ]
+    },
+    {
+        "value": "KDEXP",
+        "name": "경동택배",
+        "digit": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+        ]
+    },
+    {
+        "value": "ILYANG",
+        "name": "일양택배",
+        "digit": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+        ]
+    },
+    {
+        "value": "DIRECT",
+        "name": "업체직송",
+        "digit": []
+    }
+]
