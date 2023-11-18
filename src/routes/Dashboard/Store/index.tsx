@@ -23,7 +23,7 @@ const DashboardStore = ({ data }: { data: PlaceOrderStatuesMarket[]; }) => {
         <span>교환</span>
         <span>반품</span>
       </div>
-      <div className={style.DashboardStoreHeader}>
+      <div className={BuildClass(style.DashboardStoreHeader, style.DashboardStoreContainer)}>
         {data.map(x =>
           <div key={`dashboardOrder_${x.marketId}`} className={style.DashboardStoreContent}>
             <div className={style.StoreName}>

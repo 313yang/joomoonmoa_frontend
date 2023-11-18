@@ -4,23 +4,12 @@ import Header from "@/components/Layout/Header";
 import { Subtract } from "@/components/Icons";
 import style from "./style.module.scss";
 import { Checkbox, TabHost, Button } from "@/components/Styled";
-import { OrderNewList } from "./NewList";
+import { OrderNewList } from "./New";
 import { getOrder } from "@/libs/api/orders";
 import { RequestGet, toast } from "@/libs/Function";
-import { OrderPurchasedList } from "./Purchased";
+import { OrderPurchasedList } from "./Wait";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { confirmItems } from "@/libs/api/dashboard";
-
-const tabItems = [
-    {
-        name: "신규주문",
-        value: OrderTabHostItemType.New
-    },
-    {
-        name: "발송준비",
-        value: OrderTabHostItemType.Purchased
-    }
-];
 
 const dummy1 = [
     {
@@ -54,21 +43,14 @@ const testItem = [
 
 const Order = () => {
     const { pathname } = useLocation();
-    const route = useNavigate();
     const orderType = pathname.replace("/order/", "") as OrderTabHostItemType;
-    const [selected, setSelected] = useState<OrderTabHostItemType>(orderType || OrderTabHostItemType.New);
     const [checkedList, setCheckedList] = useState<number[]>([]);
     const [newList, setNewList] = useState<OrderProductNewItemType[]>([]);
     const [orderList, setOrderList] = useState<OrderProductNewItemType[]>([]);
-    const isNew = selected === OrderTabHostItemType.New;
-
-    const setTabHost = (value: OrderTabHostItemType) => {
-        setSelected(value);
-        route(`/order/${value}`);
-    };
+    const isNew = orderType === OrderTabHostItemType.New;
 
     const getNewList = async () => {
-        const data = await RequestGet(getOrder, selected) || [];
+        const data = await RequestGet(getOrder, orderType) || [];
         setNewList(data);
         setOrderList(data);
         setCheckedList(data.map(x => x.purchasedItemId));
@@ -96,7 +78,7 @@ const Order = () => {
             console.log(resp);
             if (resp.status === 200) {
                 toast("발주 확인 완료. 제품을 발송해주세요 🚚");
-                getNewList();
+                await getNewList();
             }
 
         } catch (err) {
@@ -106,16 +88,10 @@ const Order = () => {
 
     useEffect(() => {
         getNewList();
-    }, [selected]);
+    }, [orderType]);
 
     return <div>
         <Header title={<div className={style.flexCenter}><h3>주문</h3><Subtract /></div>} />
-        <TabHost
-            items={tabItems}
-            selected={selected}
-            onClick={setTabHost}
-        />
-
         {(isNew ? newList : orderList).length > 0 ? <div className={style.OrderContainer} >
             <div className={style.OrderCheckboxContainer}>
                 <Checkbox
@@ -124,11 +100,11 @@ const Order = () => {
                     value={checkedList.length === newList.length}
                     onChange={handleAllChecked}
                 />
-                <Button width="fit-content" disabled={checkedList.length === 0} onClick={handleConfirmItems}>
-                    <p>선택 주문 발주확인</p>
+                <Button width="fit-content" disabled={checkedList.length === 0} onClick={() => handleConfirmItems()}>
+                    <p>선택 주문 {isNew ? "발주확인" : "발송"}</p>
                 </Button>
             </div>
-            {(isNew ? newList : orderList).map((item, idx) => <Fragment key={`order_${selected}_checkbox_${item.purchasedItemId}_${idx}`}>
+            {(isNew ? newList : orderList).map((item, idx) => <Fragment key={`order_${orderType}_checkbox_${item.purchasedItemId}_${idx}`}>
                 {isNew ?
                     <OrderNewList
                         item={item}
@@ -141,12 +117,11 @@ const Order = () => {
                         item={item}
                         checkedList={checkedList}
                         setCheckedList={handleChecked}
+                        fetchData={getNewList}
                     />
                 }
             </Fragment>)}
-            {selected === OrderTabHostItemType.Purchased && <>
-            </>
-            }
+
         </div> : <div className={style.NoDataList}>
             <h4>{isNew ? "신규주문" : "발송준비"} 건이 없습니다.</h4>
         </div>

@@ -73,3 +73,16 @@
   text-align: center;
   margin-top: 25vh;
 }
+.isCancel{
+  border-radius: 16px;
+  background-color: #FEE !important;
+  border: 2px solid #EF314E !important;
+}
+.CancelContainer {
+  border-top: 1px solid #C7C7C7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 12px;
+}

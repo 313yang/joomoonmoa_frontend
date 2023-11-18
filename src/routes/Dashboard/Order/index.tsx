@@ -24,7 +24,7 @@ const DashboardOrder = ({ data }: { data: PlaceOrderStatuses; }) => {
           </button>
           <h2>{notYet}</h2>
         </Box>
-        <Button disabled={notYet === 0} >모두 발주확인</Button>
+        <Button disabled={notYet === 0} >전체 발주확인</Button>
       </div>
       <div className={style.DashboardOrdeBoxrContainer}>
         <Box color="gray50" className={style.DashboardOrdeBox}>

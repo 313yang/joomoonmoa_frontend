@@ -17,17 +17,17 @@ const Navigator = () => {
             <Home />
             <span>홈</span>
         </Link>
-        <Link to="/order/news" className={checkingPathname("/order") ? style.selected : ""}>
+        <Link to="/order/news" className={checkingPathname("/order/news") ? style.selected : ""}>
             <List />
             <span>신규주문</span>
         </Link>
-        <Link to={"/request"} className={checkingPathname("/request") ? style.selected : ""}>
+        <Link to={"/order/wait"} className={checkingPathname("/order/wait") ? style.selected : ""}>
             <Delivery />
             <span>발송준비</span>
         </Link>
         <Link to={"/request"} className={checkingPathname("/request") ? style.selected : ""}>
             <Chat />
-            <span>요청</span>
+            <span>고객문의</span>
         </Link>
         <Link to={"/setting"} className={checkingPathname("/setting") ? style.selected : ""}>
             <Setting />

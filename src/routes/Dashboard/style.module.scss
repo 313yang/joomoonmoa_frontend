@@ -75,15 +75,18 @@
     :global(.button) {
         width: 100%;
         padding: 8px;
+        height: 39px;
+        font-weight: 700;
     }
 }
 .DashboardOrderButtonCancel {
     >strong {
         font-size: 18px;
+        margin-left: 5px;
     }
     &:global(.button){
-        background-color: #F55F54;
-        border-color: #F55F54;
+        background-color: #EF314E;
+        border-color: #EF314E;
     }
 }
 
@@ -130,6 +133,14 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+    }
+}
+.DashboardStoreContainer{
+    flex-direction: column;
+    gap: 16px;
+    >.DashboardStoreContent:not(:last-child){
+        padding-bottom: 16px;
+        border-bottom: 1px solid #f1f3f5;
     }
 }
 .DashboardStoreContent {

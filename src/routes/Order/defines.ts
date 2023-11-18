@@ -13,6 +13,9 @@ export interface OrderProductNewItemType {
   receiverPhoneNumber: string,
   baseAddress: string;
   detailedAddress: string;
+  claimType: string | null;
+  ordererTel: string;
+  ordererName: string;
 }
 export interface OrderProductOkItemType extends OrderProductNewItemType {
   deliveryType: string;
