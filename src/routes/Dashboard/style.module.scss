@@ -25,19 +25,7 @@
         }
     }
 }
-.logoContainer {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 36px;
-    .logo {
-        width: 150px;
-    }
-    >:global(.button) {
-        padding: 5px 10px;
-        font-size: 13px;
-    }
-}
+
 
 .DashboardOrderContainer {
     display: flex;

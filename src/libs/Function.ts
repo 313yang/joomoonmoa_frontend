@@ -82,11 +82,11 @@ export const FormatDate = (date: Date | string) => {
 };
 
 /** 클립보드 복사 */
-export const copyToClipboard = (text: string) => {
+export const copyToClipboard = (text: string, type: string) => {
 	if (navigator.clipboard) {
 		navigator.clipboard.writeText(text)
 			.then(() => {
-				toast("복사되었습니다.");
+				toast(`${type} 복사 완료 📋`);
 			})
 			.catch((err) => {
 				toast("클립보드 복사 오류:");

@@ -107,6 +107,7 @@ const Join = () => {
       /> */}
       <div className={style.JoinPhoneNumberInput}>
         <Input
+          type="number"
           label="전화번호"
           placeholder="-없이 숫자만 입력"
           defaultValue={passwordConfirm}

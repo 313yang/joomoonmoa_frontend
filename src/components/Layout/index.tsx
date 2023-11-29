@@ -7,6 +7,7 @@ import Setting from "@/routes/Setting";
 import Login from "@/routes/Login";
 import Join from "@/routes/Join";
 import { useUserAuth, useUserAuthAction } from "@/libs/store/useAuthStore";
+import Password from "@/routes/Join/password";
 
 
 const BaseLayout = () => {
@@ -36,6 +37,7 @@ const BaseLayout = () => {
       /**  회원가입 / 아이디 비번찾기 페이지 레이아웃 */
       <>
         <Route path="/join" Component={Join} />
+        <Route path="/password" Component={Password} />
       </>
     }
   </Routes>;

@@ -91,7 +91,6 @@ const Order = () => {
     }, [orderType]);
 
     return <div>
-        <Header title={<div className={style.flexCenter}><h3>주문</h3><Subtract /></div>} />
         {(isNew ? newList : orderList).length > 0 ? <div className={style.OrderContainer} >
             <div className={style.OrderCheckboxContainer}>
                 <Checkbox

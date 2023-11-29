@@ -24,14 +24,14 @@ export const OrderProductUserItem = ({ item }: { item: OrderProductNewItemType; 
             <InputLabel>수령인</InputLabel>
             <div>
                 <strong>{item.receiverName}</strong>
-                <p onClick={() => copyToClipboard(item.receiverName)} className="text-primary">복사</p>
+                <p onClick={() => copyToClipboard(item.receiverName, "수령인")} className="text-primary">복사</p>
             </div>
         </InputLine>
         <InputLine>
             <InputLabel>전화번호</InputLabel>
             <div>
                 <strong>{item.receiverPhoneNumber}</strong>
-                <p onClick={() => copyToClipboard(item.receiverPhoneNumber)} className="text-primary">복사</p>
+                <p onClick={() => copyToClipboard(item.receiverPhoneNumber, "연락처")} className="text-primary">복사</p>
             </div>
         </InputLine>
         <InputLine>
@@ -39,9 +39,17 @@ export const OrderProductUserItem = ({ item }: { item: OrderProductNewItemType; 
             <div>
                 <strong>{item.baseAddress} <br />
                     {item.detailedAddress}</strong>
-                <p onClick={() => copyToClipboard(item.detailedAddress)} className="text-primary">복사</p>
+                <p onClick={() => copyToClipboard(`${item.baseAddress} ${item.detailedAddress}`, "주소")} className="text-primary">복사</p>
             </div>
         </InputLine>
-
+        {!!item.shippingMemo &&
+            <InputLine>
+                <InputLabel>배송메모</InputLabel>
+                <div>
+                    <strong>{item.shippingMemo}</strong>
+                    <p onClick={() => copyToClipboard(`${item.shippingMemo}`, "배송메모")} className="text-primary">복사</p>
+                </div>
+            </InputLine>
+        }
     </div>;
 };

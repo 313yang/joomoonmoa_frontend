@@ -34,6 +34,20 @@ input {
 #main_container {
   padding: 18px 18px 90px;
 }
+#main_container > .logo_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+#main_container > .logo_container .logo {
+  width: 150px;
+}
+#main_container > .logo_container > :global(.button) {
+  padding: 5px 10px;
+  font-size: 13px;
+}
 
 a {
   cursor: pointer;

@@ -39,6 +39,7 @@ const Login = () => {
     <img className={style.logo} src="./logo.svg" />
     <Input
       label="전화번호"
+      type="number"
       className={style.LoginInput}
       defaultValue={phoneNumber}
       onInput={setPhoneNumber}
@@ -58,7 +59,7 @@ const Login = () => {
       로그인
     </Button>
     <span className={style.FindAuthLink}>
-      <Link to={"/"} >비밀번호 찾기</Link>
+      <Link to={"/password"} >비밀번호 찾기</Link>
       <Link to={"/join"} >회원가입</Link>
     </span>
   </div>;

@@ -16,6 +16,7 @@ export interface OrderProductNewItemType {
   claimType: string | null;
   ordererTel: string;
   ordererName: string;
+  shippingMemo: string | null;
 }
 export interface OrderProductOkItemType extends OrderProductNewItemType {
   deliveryType: string;

@@ -30,10 +30,6 @@ const Main = () => {
 
 
   return <div>
-    <div className={style.logoContainer}>
-      <img className={style.logo} src="./logo.svg" />
-      <Button width="fit-content" >새로고침</Button>
-    </div>
     <DashboardOrder data={data.order} />
     <DashboardRequest />
     <DashboardStore data={data.market} />

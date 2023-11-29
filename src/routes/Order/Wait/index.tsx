@@ -15,7 +15,7 @@ interface OrderPurchasedListType {
     fetchData(): void;
 }
 
-export const OrderPurchasedList = ({ item, checkedList, setCheckedList,fetchData }: OrderPurchasedListType) => {
+export const OrderPurchasedList = ({ item, checkedList, setCheckedList, fetchData }: OrderPurchasedListType) => {
     const { purchasedItemId: id } = item;
     const [trackingNumber, setTrackingNumber] = useState<string>("");
     const [deliveryCompanyCode, setDeleveryCompanyCode] = useState<string>("");
@@ -31,6 +31,7 @@ export const OrderPurchasedList = ({ item, checkedList, setCheckedList,fetchData
             const { status } = await confirmDeliveryItems(id, { deliveryCompanyCode: deliveryCompanyCode, trackingNumber });
             if (status === 200) {
                 toast("제품이 발송되었어요 🚚");
+                setTimeout(() => fetchData(), 1000);
             }
         } catch (err) {
             console.error(err);
