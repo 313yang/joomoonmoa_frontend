@@ -1,13 +1,17 @@
 $color: #000;
 $font: "Pretendard", "Noto Sans KR", arial, sans-serif;
 $fontSize: 15px;
-$color-accent: #0080ff;
 $position: top;
 
 $tabletSize: 1000px;
 $mobileSize: 500px;
 
 /** colors */
+$background: #F2F3F5;
+$gray20: #E2E2E2;
+$gray40: #AFAFAF;
+$gray60: #545454;
+$gray80: #1F1F1F;
 $gray50: #f8fafb;
 $gray100: #f1f3f5;
 $gray200: #e9ecef;
@@ -22,11 +26,10 @@ $purple50: #EBEDFF;
 $purple100: #D5D4FF;
 $purple200: #BEB8FF;
 $purple300: #A192FF;
-$purple400: #7A5AF8;
-$primary: #519cff;
+$primary: #7A5AF8;
 $white: #ffffff;
 $black: #000000;
-$danger: #f55f54;
+$danger: #EF314E;
 $warning: #ffbe5b;
 $green: #19bc85;
 
@@ -37,4 +40,4 @@ $green: #19bc85;
 // $green: var(--theme-green);
 // $primary: var(--theme-primary);
 
-$borderface: 1px solid #e9ecef;
+$borderface: 1px solid #E2E2E2;

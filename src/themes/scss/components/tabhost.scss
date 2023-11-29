@@ -14,8 +14,8 @@ div.tabhost {
     color: $gray400;
     cursor: pointer;
     &.selected {
-      color: $purple400;
-      border-color: $purple400;
+      color: $primary;
+      border-color: $primary;
     }
     &:not(.selected){
       > h3 {

@@ -42,5 +42,14 @@
            
         }
     }
-   
+   @media (max-width:600px) {
+    height: auto;
+   }
+   .AutoLoginContainer {
+    // float: left;
+    width: 100%;
+    margin-bottom: 18px;
+    margin-left: 4px;
+    margin-top: -8px;
+   }
 }

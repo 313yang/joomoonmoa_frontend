@@ -1,3 +1,9 @@
+@mixin inputFocusLabel {
+  .input_with-label {
+    font-size: 12px;
+    top: 13px;
+  }
+}
 .input {
     position: relative;
   
@@ -5,33 +11,36 @@
       display: flex;
       align-items: center;
       flex-direction: row;
-  
-      background: $gray50;
+      background: $white;
       border: $borderface;
-      border-radius: 8px;
-      padding: 14px;
+      border-radius: 12px;
+      padding: 22px 16px ;
       font-size: 15px;
-      height: 48px;
-      
-    
+      height: 64px;
+      transition: border-color 0.2s ease-in;
     }
-  
+    .input_with-label {
+      display: block;
+      position: absolute;
+      font-weight: 700;
+      color: $gray60;
+      top: 22px;
+      left: 16px;
+      transition: top 0.1s ease-in;
+    }
     &:hover {
       .input-container {
-        border-color: $purple100;
-        border-width: 2px;
-        padding: 13px;
-        
+        border-color: $primary;
       }
+      @include inputFocusLabel;
     }
-  
+    &.input-label-focus {
+      @include inputFocusLabel;
+    }
     &.input-focus {
       .input-container {
         background: $white;
-        border-color: $purple400;
-        border-width: 2px;
-        padding: 13px;
-        transition: border-color 0.3s, padding 0.3s;
+        border-color: $primary;
       }
     }
   
@@ -40,7 +49,7 @@
       .input-container {
         border-width: 0;
         background-color: $gray50;
-        padding: 15px;
+        // padding: 15px;
       }
     }
   
@@ -48,7 +57,7 @@
       .input-container {
         border-width: 2px;
         border-color: $danger;
-        padding: 13px;
+        // padding: 13px;
       }
   
       .input-caption {
@@ -56,29 +65,25 @@
         font-weight: 500;
       }
     }
-    .input_with-label {
-      display: block;
-      font-weight: 500;
-      color: $gray500;
-      margin-left: 4px;
-      margin-bottom: 6px;
-    }
+    
     input {
+
       flex: 1 1;
       border: 0;
       padding: 0;
       width: 100%;
       background: rgba(0, 0, 0, 0);
-      font-size: 15px;
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 16px;
       line-height: normal;
       line-height: normal;
       letter-spacing: normal;
       text-align: left;
-      color: $gray900;
       text-align: left;
   
       &::placeholder {
-        color: $gray500;
+        color: $gray40;
       }
   
       &::-ms-clear,

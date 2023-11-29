@@ -1,16 +1,17 @@
-import { Button, Input } from "@/components/Styled";
+import { Button, Checkbox, Input } from "@/components/Styled";
 import { Link } from "react-router-dom";
 import style from "./style.module.scss";
 import { BuildClass, toast } from "@/libs/Function";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { login } from "@/libs/api/auth";
-import { useUserAuthAction } from "@/libs/store/useAuthStore";
+import { useUserAuth, useUserAuthAction } from "@/libs/store/useAuthStore";
 import { AxiosError } from "axios";
 
 const Login = () => {
+  const { accessToken, isAutoLogin } = useUserAuth();
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { setAccessToken, setRefreshToken } = useUserAuthAction();
+  const { setAccessToken, setRefreshToken, setIsAutoLogin } = useUserAuthAction();
 
   const handleLogin = async () => {
     try {
@@ -30,9 +31,8 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    setAccessToken("");
-    setRefreshToken("");
+  useLayoutEffect(() => {
+    if (!!accessToken && isAutoLogin) window.location.replace("/dashboard");
   }, []);
 
   return <div className={style.LoginContainer}>
@@ -52,6 +52,14 @@ const Login = () => {
       onInput={setPassword}
       onEnter={handleLogin}
     />
+    <Checkbox
+      className={style.AutoLoginContainer}
+      value={isAutoLogin}
+      onChange={setIsAutoLogin}
+      name="isAutoLogin"
+    >
+      자동로그인
+    </Checkbox>
     <Button
       className={style.LoginButton}
       width="100%"

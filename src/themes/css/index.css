@@ -9,14 +9,14 @@ body {
   font-family: "Pretendard", "Noto Sans KR", arial, sans-serif;
   font-weight: 400;
   font-size: 15px;
-  color: #212529;
-  background-color: #f1f3f5;
+  color: #000000;
+  background-color: #F2F3F5;
 }
 
 button,
 input {
   font-family: "Pretendard", "Noto Sans KR", arial, sans-serif;
-  color: #212529;
+  color: #000000;
 }
 
 * {
@@ -29,10 +29,12 @@ input {
 #container {
   max-width: 480px;
   margin: 0 auto;
+  height: 100vh;
 }
 
 #main_container {
   padding: 18px 18px 90px;
+  height: 100%;
 }
 #main_container > .logo_container {
   display: flex;
@@ -101,7 +103,7 @@ p {
 }
 
 .text-danger {
-  color: #f55f54;
+  color: #EF314E;
 }
 
 .text-green {
@@ -114,13 +116,26 @@ button {
   cursor: pointer;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 table.table {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid #e9ecef;
+  border: 1px solid #E2E2E2;
 }
 table.table thead {
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid #E2E2E2;
   background-color: #f8fafb;
 }
 table.table thead th {
@@ -138,7 +153,7 @@ table.table thead th.right {
   text-align: right;
 }
 table.table tbody tr {
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid #E2E2E2;
   height: 48px;
 }
 table.table tbody td {
@@ -163,11 +178,11 @@ table.table tbody td.right {
 }
 table.table th:not(:last-child),
 table.table tr > td:not(:last-child) {
-  border-right: 1px solid #e9ecef;
+  border-right: 1px solid #E2E2E2;
 }
 
 div.box {
-  border: 1px solid #e9ecef;
+  border: 1px solid #E2E2E2;
 }
 div.box.box-md {
   padding: 18px;
@@ -325,45 +340,49 @@ button.button:disabled {
   display: flex;
   align-items: center;
   flex-direction: row;
-  background: #f8fafb;
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
-  padding: 14px;
+  background: #ffffff;
+  border: 1px solid #E2E2E2;
+  border-radius: 12px;
+  padding: 22px 16px;
   font-size: 15px;
-  height: 48px;
+  height: 64px;
+  transition: border-color 0.2s ease-in;
+}
+.input .input_with-label {
+  display: block;
+  position: absolute;
+  font-weight: 700;
+  color: #545454;
+  top: 22px;
+  left: 16px;
+  transition: top 0.1s ease-in;
 }
 .input:hover .input-container {
-  border-color: #D5D4FF;
-  border-width: 2px;
-  padding: 13px;
+  border-color: #7A5AF8;
+}
+.input:hover .input_with-label {
+  font-size: 12px;
+  top: 13px;
+}
+.input.input-label-focus .input_with-label {
+  font-size: 12px;
+  top: 13px;
 }
 .input.input-focus .input-container {
   background: #ffffff;
   border-color: #7A5AF8;
-  border-width: 2px;
-  padding: 13px;
-  transition: border-color 0.3s, padding 0.3s;
 }
 .input.input-disabled .input-container, .input.input-readonly .input-container {
   border-width: 0;
   background-color: #f8fafb;
-  padding: 15px;
 }
 .input.input-error .input-container {
   border-width: 2px;
-  border-color: #f55f54;
-  padding: 13px;
+  border-color: #EF314E;
 }
 .input.input-error .input-caption {
-  color: #f55f54;
+  color: #EF314E;
   font-weight: 500;
-}
-.input .input_with-label {
-  display: block;
-  font-weight: 500;
-  color: #868e96;
-  margin-left: 4px;
-  margin-bottom: 6px;
 }
 .input input {
   flex: 1 1;
@@ -371,16 +390,17 @@ button.button:disabled {
   padding: 0;
   width: 100%;
   background: rgba(0, 0, 0, 0);
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 16px;
   line-height: normal;
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  color: #212529;
   text-align: left;
 }
 .input input::placeholder {
-  color: #868e96;
+  color: #AFAFAF;
 }
 .input input::-ms-clear, .input input::-ms-reveal {
   display: none;
@@ -472,16 +492,16 @@ button.button:disabled {
 }
 .dropdown.dropdown-error .dropdown-display {
   border-width: 2px;
-  border-color: #f55f54;
+  border-color: #EF314E;
   padding: 14px;
 }
 .dropdown.dropdown-error .dropdown-caption {
-  color: #f55f54;
+  color: #EF314E;
 }
 .dropdown .dropdown-display {
   height: 48px;
   border-radius: 8px;
-  border: 1px solid #e9ecef;
+  border: 1px solid #E2E2E2;
   padding: 14px;
   display: flex;
   flex-direction: row;

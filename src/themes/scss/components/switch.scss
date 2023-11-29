@@ -38,7 +38,7 @@
     }
   
     > input:checked + label {
-      background-color: $purple400;
+      background-color: $primary;
   
       &::before {
         left: calc(100% - 22px);

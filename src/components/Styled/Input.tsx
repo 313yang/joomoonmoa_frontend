@@ -160,6 +160,7 @@ export function Input<T extends string>({
         className={BuildClass(
             "input",
             isFocus && "input-focus",
+            !!value && "input-label-focus",
             disabled && "input-disabled",
             readonly && "input-readonly",
             isFirstInput && !!errorCaption && "input-error",
