@@ -109,7 +109,6 @@ const Join = () => {
         <Input
           type="number"
           label="전화번호"
-          placeholder="-없이 숫자만 입력"
           defaultValue={passwordConfirm}
           onInput={setPhoneNumberber}
           maxLength={11}

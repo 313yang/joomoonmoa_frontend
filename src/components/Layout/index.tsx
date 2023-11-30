@@ -8,6 +8,7 @@ import Login from "@/routes/Login";
 import Join from "@/routes/Join";
 import { useUserAuth, useUserAuthAction } from "@/libs/store/useAuthStore";
 import Password from "@/routes/Join/password";
+import { notLoginPath } from "@/libs/Defines";
 
 
 const BaseLayout = () => {
@@ -21,7 +22,7 @@ const BaseLayout = () => {
       setAccessToken("");
       setRefreshToken("");
     }
-    else if (accessToken && pathname === "/") window.location.href = "/dashboard";
+    else if (accessToken && notLoginPath.some(x => pathname === x)) window.location.href = "/dashboard";
   }, []);
 
   return <Routes>

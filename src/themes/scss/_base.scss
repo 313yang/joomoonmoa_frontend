@@ -31,7 +31,7 @@ input {
     height: 100vh;
 }
 #main_container {
-    padding: 18px 18px 90px;
+    padding: 18px 18px;
     height: 100%;
     >.logo_container {
         display: flex;
@@ -46,6 +46,10 @@ input {
             padding: 5px 10px;
             font-size: 13px;
         }
+    }
+    >div {
+        overflow-y: auto;
+        padding-bottom: 60px;
     }
 }
 a {

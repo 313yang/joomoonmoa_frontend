@@ -42,3 +42,4 @@ export interface AddMarketsType extends ClientType {
     marketAlias: string,
     platform: string;
 }
+export const notLoginPath = ["/", "/password", "/join"];
