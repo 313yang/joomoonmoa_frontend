@@ -1,7 +1,7 @@
 /** 대시보드 > 주문 */
 export interface DashboardItems {
     placeOrderStatuses: PlaceOrderStatuses;
-    notYetIdList: [];
+    notYetIdList: number[];
 }
 export interface PlaceOrderStatuses {
     ok: number,

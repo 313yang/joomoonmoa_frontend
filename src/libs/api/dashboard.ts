@@ -1,8 +1,8 @@
 import { dashboard } from ".";
-import { PlaceOrderStatuesMarket, PlaceOrderStatuses, PlaceOrderStatusesInit } from "../Defines";
+import { PlaceOrderStatuesMarket, DashboardItems, } from "../Defines";
 
 /** 대시보드 - 발주 상태 통계 */
-export const getDashboardOrder = async () => await dashboard.get<{ placeOrderStatuses: PlaceOrderStatuses; }>("/dashboard/order-item-statistics");
+export const getDashboardOrder = async () => await dashboard.get<DashboardItems>("/dashboard/order-item-statistics");
 
 /** 대시보드 - 발주 상태 통계, 스토어별 분류 */
 export const getDashboardOrderMarket = async () => await dashboard.get<PlaceOrderStatuesMarket[]>("/dashboard/order-item-status-group-by-market");
