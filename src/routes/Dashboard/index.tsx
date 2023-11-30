@@ -3,7 +3,7 @@ import DashboardOrder from "./Order";
 import DashboardRequest from "./Request";
 import DashboardStore from "./Store";
 import { getDashboardOrder, getDashboardOrderMarket } from "@/libs/api/dashboard";
-import { PlaceOrderStatuesMarket, PlaceOrderStatuses, PlaceOrderStatusesInit } from "@/libs/Defines";
+import { DashboardItems, PlaceOrderStatuesMarket, PlaceOrderStatuses, PlaceOrderStatusesInit } from "@/libs/Defines";
 import style from "./style.module.scss";
 import { Button } from "@/components/Styled";
 import { RequestGet } from "@/libs/Function";
@@ -11,16 +11,16 @@ import { RequestGet } from "@/libs/Function";
 
 const Main = () => {
   const [data, setData] = useState<{
-    order: PlaceOrderStatuses,
+    order: any,
     market: PlaceOrderStatuesMarket[];
-  }>({ order: PlaceOrderStatusesInit.placeOrderStatuses, market: [] });
+  }>({ order: PlaceOrderStatusesInit, market: [] });
 
   const getAllData = async () => {
     const orderRes = await RequestGet(getDashboardOrder) || PlaceOrderStatusesInit;
     const marketRes = await RequestGet(getDashboardOrderMarket) || [];
 
     setData({
-      order: orderRes.placeOrderStatuses,
+      order: orderRes,
       market: marketRes,
     });
   };
@@ -29,7 +29,7 @@ const Main = () => {
   }, []);
 
 
-  return <div>
+  return <div style={{marginBottom:60}}>
     <DashboardOrder data={data.order} />
     <DashboardRequest />
     <DashboardStore data={data.market} />

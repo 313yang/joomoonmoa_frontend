@@ -1,10 +1,16 @@
 /** 대시보드 > 주문 */
+export interface DashboardItems {
+    placeOrderStatuses: PlaceOrderStatuses;
+    notYetIdList: [];
+}
 export interface PlaceOrderStatuses {
     ok: number,
     notYet: number,
     canceled: number;
+
 }
 export const PlaceOrderStatusesInit = {
+    notYetIdList: [],
     placeOrderStatuses: {
         ok: 0,
         notYet: 0,

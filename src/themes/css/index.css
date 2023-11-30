@@ -52,7 +52,6 @@ input {
 }
 #main_container > div {
   overflow-y: auto;
-  padding-bottom: 60px;
 }
 
 a {
