@@ -70,6 +70,7 @@ export const OrderPurchasedList = ({ item, checkedList, setCheckedList, fetchDat
                 onClick={setDeleveryCompanyCode}
             />
             <Input
+                placeholder="송장번호"
                 value={trackingNumber}
                 onInput={setTrackingNumber}
                 formatCallback={(val) => FormatNumber(val)}

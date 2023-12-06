@@ -6,7 +6,11 @@
 }
 .input {
     position: relative;
-  
+    >img {
+      right: 22px;
+      top: 20px;
+      position: absolute;
+    }
     .input-container {
       display: flex;
       align-items: center;
@@ -110,11 +114,6 @@
       font-size: 12px;
       color: $gray700;
       font-weight: 500;
-      >img {
-        right: 22px;
-        top: 20px;
-        position: absolute;
-      }
     }
   }
   

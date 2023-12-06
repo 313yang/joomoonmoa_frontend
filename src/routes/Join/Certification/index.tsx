@@ -26,7 +26,7 @@ const CertificationContainer = ({ type }: { type: CertType; }) => {
         onSubmit,
         submitDisabled
     } = useCertification(type, () => setStep(2));
-    const [showPassword, setShowPassword] = useState<boolean>(false);
+    
     const [showPasswordCert, setShowPasswordCert] = useState<boolean>(false);
 
     return <div className={style.JoinInputContainer}>
@@ -75,7 +75,6 @@ const CertificationContainer = ({ type }: { type: CertType; }) => {
                     validateCallback={() => {
                         if (password.length < 4 || password.length > 20) return "비밀번호는 4~20자로 입력해주세요.";
                     }}
-                    caption={<img onClick={()=>setShowPassword(prev=>!prev)} src={`/assets/images/ic_eye_${showPassword ? "on" : "off"}.png`} />}
                 />
 
                 <Input
@@ -88,7 +87,6 @@ const CertificationContainer = ({ type }: { type: CertType; }) => {
                     validateCallback={() => {
                         if (password !== passwordConfirm) return "비밀번호가 일치하지 않습니다.";
                     }}
-                    caption={<img onClick={()=>setShowPasswordCert(prev=>!prev)} src={`/assets/images/ic_eye_${showPasswordCert ? "on" : "off"}.png`} />}
                 />
 
                 <Button

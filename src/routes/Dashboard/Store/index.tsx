@@ -16,14 +16,12 @@ const DashboardStore = ({ data }: { data: PlaceOrderStatuesMarket[]; }) => {
     </div>
     <Box color="white">
       <div className="store_table_header">
-        <span style={{ minWidth: 100, justifyContent: "flex-start" }}>판매채널</span>
-        <div>
-          <span>신규</span>
-          <span>발송</span>
-          <span>문의</span>
-          <span>교환</span>
-          <span>반품</span>
-        </div>
+        <span style={{ minWidth: 130, justifyContent: "flex-start" }}>판매채널</span>
+        <span>신규</span>
+        <span>발송</span>
+        <span>문의</span>
+        <span>교환</span>
+        <span>반품</span>
       </div>
       <div className={BuildClass("store_table_header", "store_table_container")}>
         {data.map(x =>

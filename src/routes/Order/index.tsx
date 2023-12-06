@@ -52,7 +52,7 @@ const Order = () => {
     const getNewList = async () => {
         const data = await RequestGet(getOrder, orderType) || [];
         setNewList(data);
-        setOrderList([...data,...data,...data,...data]);
+        setOrderList(data);
         setCheckedList(data.map(x => x.purchasedItemId));
     };
 

@@ -40,6 +40,17 @@
     >button{
       height: 36px;
     }
+    :global(.input input){
+      margin-top: 0;
+    }
+    :global(.input-container) {
+      border-radius: 6px;
+      padding: 9px 10px;
+      >input {
+        font-weight: 500;
+        font-size: 14px;
+      }
+    }
   }
 }
 .OrderProductUserItem {

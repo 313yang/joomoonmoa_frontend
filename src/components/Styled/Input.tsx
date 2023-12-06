@@ -108,6 +108,8 @@ export function Input<T extends string>({
     const [innerPlaceholder, setInnerPlaceholder] = useState<string>("");
     const [innerValue, setInnerValue] = useState<T>((defaultValue || "") as T);
 
+    const [showPassword, setShowPassword] = useState<boolean>(false);
+
     const isDefaultValue = typeof defaultValue !== "undefined";
 
     const value: T = (() => {
@@ -174,7 +176,7 @@ export function Input<T extends string>({
             <input
                 autoComplete={!!autocomplete ? "new-password" : ""}
                 name={name}
-                type={type}
+                type={type === "password" && showPassword ? "text" : type}
                 value={formatCallback(value)}
                 placeholder={innerPlaceholder}
                 disabled={disabled}
@@ -187,6 +189,7 @@ export function Input<T extends string>({
             />
             {Prefix && <Prefix />}
         </div>
+        {type === "password" && <img onClick={() => setShowPassword(prev => !prev)} src={`/assets/images/ic_eye_${showPassword ? "on" : "off"}.png`} />}
         {(errorCaption || caption) && <span className="input-caption">
             {errorCaption || caption}
         </span>}
