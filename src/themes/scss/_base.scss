@@ -38,7 +38,7 @@ input {
         align-items: center;
         justify-content: space-between;
         gap: 12px;
-        margin-bottom: 36px;
+        margin-bottom: 22px;
         .logo {
             width: 150px;
         }
@@ -49,7 +49,9 @@ input {
     }
     >div {
         overflow-y: auto;
-        // padding-bottom: 60px;
+        &:not(.logo_container){
+            padding-bottom: 100px;
+        }
     }
 }
 a {
@@ -129,4 +131,76 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
   appearance: textfield;
+}
+.store_table_header {
+    display: flex;
+    justify-content: space-between;
+    gap: 2px;
+    &:first-child{
+        margin-bottom: 12px;
+    }
+    >div {
+        display: flex;
+    }
+    span {
+        color: #656D75;
+        font-weight: 500;
+        font-size: 14px;
+        width: 53px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    .StoreName {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        >p {
+            font-weight: 500;
+            &[data-type="naver"]{
+                color: #2EB500;
+            }
+            &[data-type="coopang"]{
+                color: #E4222A;
+            }
+            &[data-type="gmarket"]{
+                color: #0028AB;
+            }
+            &[data-type="11st"]{
+                color: #E53641;
+            }
+        }
+        span {
+            color: #656D75;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-block;
+            width: 130px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}
+.store_table_container {
+    flex-direction: column;
+    gap: 16px;
+    >.store_table_content:not(:last-child){
+        padding-bottom: 16px;
+        border-bottom: 1px solid #f1f3f5;
+    }  
+}
+.store_table_content {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    >.store_table_header {
+        width: calc(100% - 130px);
+        >span {
+            font-size: 14px;
+            color: inherit;
+            font-weight: bold;
+        }
+    } 
 }

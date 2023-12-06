@@ -41,7 +41,7 @@ input {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 36px;
+  margin-bottom: 22px;
 }
 #main_container > .logo_container .logo {
   width: 150px;
@@ -52,6 +52,9 @@ input {
 }
 #main_container > div {
   overflow-y: auto;
+}
+#main_container > div:not(.logo_container) {
+  padding-bottom: 100px;
 }
 
 a {
@@ -130,6 +133,81 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
   appearance: textfield;
+}
+
+.store_table_header {
+  display: flex;
+  justify-content: space-between;
+  gap: 2px;
+}
+.store_table_header:first-child {
+  margin-bottom: 12px;
+}
+.store_table_header > div {
+  display: flex;
+}
+.store_table_header span {
+  color: #656D75;
+  font-weight: 500;
+  font-size: 14px;
+  width: 53px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.store_table_header .StoreName {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.store_table_header .StoreName > p {
+  font-weight: 500;
+}
+.store_table_header .StoreName > p[data-type=naver] {
+  color: #2EB500;
+}
+.store_table_header .StoreName > p[data-type=coopang] {
+  color: #E4222A;
+}
+.store_table_header .StoreName > p[data-type=gmarket] {
+  color: #0028AB;
+}
+.store_table_header .StoreName > p[data-type="11st"] {
+  color: #E53641;
+}
+.store_table_header .StoreName span {
+  color: #656D75;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block;
+  width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.store_table_container {
+  flex-direction: column;
+  gap: 16px;
+}
+.store_table_container > .store_table_content:not(:last-child) {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f1f3f5;
+}
+
+.store_table_content {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.store_table_content > .store_table_header {
+  width: calc(100% - 130px);
+}
+.store_table_content > .store_table_header > span {
+  font-size: 14px;
+  color: inherit;
+  font-weight: bold;
 }
 
 table.table {
@@ -300,8 +378,8 @@ button.button.button-borderless {
   border: none;
 }
 button.button:disabled {
-  background-color: #bcc4cc;
-  border-color: #bcc4cc;
+  background-color: #E2E2E2;
+  border-color: #E2E2E2;
   cursor: not-allowed;
 }
 
@@ -390,7 +468,8 @@ button.button:disabled {
 }
 .input.input-error .input-caption {
   color: #EF314E;
-  font-weight: 500;
+  font-weight: 700;
+  margin: 4px 12px 0;
 }
 .input input {
   flex: 1 1;
@@ -419,13 +498,16 @@ button.button:disabled {
   display: none;
 }
 .input .input-caption {
-  position: absolute;
-  left: 4px;
   top: 100%;
   line-height: 1.4;
   font-size: 12px;
   color: #495057;
   font-weight: 500;
+}
+.input .input-caption > img {
+  right: 22px;
+  top: 20px;
+  position: absolute;
 }
 
 .chevron-right {

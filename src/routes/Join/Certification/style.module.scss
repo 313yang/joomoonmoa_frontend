@@ -14,21 +14,35 @@
         font-size: 20px;
         width: 100%;
     }
+    position: relative;
+    >img {
+        position: absolute;
+    }
 }
 .JoinPhoneNumberInput {
     display: flex;
     align-items: flex-end;
     gap: 6px;
     > div {
-        width: 80%;
+        width: 100%;
     }
+    position: relative;
     > button {
-        height: 48px;
-        width: 80px;
+        position: absolute;
+        right: 1px;
+        top: 1px;
+        height: 62px;
+        width: 136px !important;
+        font-size: 20px;
+        border-radius: 12px !important;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
     }
 }
 .Counter {
     position: absolute;
-    top: 54%;
-    right: 25px; 
+    top: 37%;
+    font-size: 16px;
+    font-weight: 700;
+    right: 50px; 
 }

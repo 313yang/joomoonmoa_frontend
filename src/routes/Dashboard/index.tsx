@@ -27,7 +27,7 @@ const Main = () => {
   }, []);
 
 
-  return <div style={{ marginBottom: 60 }}>
+  return <div>
     <DashboardOrder data={data.order} />
     <DashboardRequest />
     <DashboardStore data={data.market} />

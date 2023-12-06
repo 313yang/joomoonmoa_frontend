@@ -1,9 +1,9 @@
 import { sendOTP, verifyOTP, changePassword, signup } from "@/libs/api/auth";
 import { AxiosError, AxiosResponse } from "axios";
 import { useState, useLayoutEffect } from "react";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { CertType } from "./defines";
+import { toast } from "@/libs/Function";
 
 
 
@@ -31,7 +31,7 @@ export const useCertification = (type: CertType, certOkCallback: () => void) => 
     // 인증번호 전송
     const onSendOTP = async () => {
         sendOTPCount += 1;
-        if (sendOTPCount >= 4) return toast("59초만 스트레칭 후 다시 눌러주세요️ 🐥");
+        if (sendOTPCount >= 4) return toast("스트레칭 후 다시 눌러주세요️ 🐥");
         try {
             const { status } = await sendOTP(phoneNumber, type === CertType.Password);
             if (status === 200) {
@@ -55,7 +55,10 @@ export const useCertification = (type: CertType, certOkCallback: () => void) => 
                 setIsCertOk(true);
                 setCount(INIT_SECOND);
                 setCountTime(0);
-                setTimeout(() => certOkCallback(), 1000);
+                setTimeout(() => {
+                    certOkCallback();
+                    toast("인증 성공 🎉");
+                }, 1000);
             }
         } catch (err) {
             setIsError(true);

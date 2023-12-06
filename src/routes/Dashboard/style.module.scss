@@ -5,7 +5,9 @@
     padding: 18px;
 }
 .Container {
-    margin-bottom: 55px;
+    &:not(:last-child){
+        margin-bottom: 55px;
+    }
     .ContainerHeader {
         display: flex;
         align-items: center;
@@ -75,73 +77,5 @@
     &:global(.button){
         background-color: #EF314E;
         border-color: #EF314E;
-    }
-}
-
-.DashboardStoreHeader {
-    display: flex;
-    flex: auto 60px 60px 60px;
-    justify-content: flex-end;
-    gap: 2px;
-    >span {
-        color: #656D75;
-        font-weight: 500;
-        font-size: 16px;
-        width: 53px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .StoreName {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        >p {
-            font-weight: 500;
-            &[data-type="naver"]{
-                color: #2EB500;
-            }
-            &[data-type="coopang"]{
-                color: #E4222A;
-            }
-            &[data-type="gmarket"]{
-                color: #0028AB;
-            }
-            &[data-type="11st"]{
-                color: #E53641;
-            }
-        }
-        >span {
-            color: #656D75;
-            font-size: 16px;
-            font-weight: 700;
-            display: inline-block;
-            width: 130px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-    }
-}
-.DashboardStoreContainer{
-    flex-direction: column;
-    gap: 16px;
-    >.DashboardStoreContent:not(:last-child){
-        padding-bottom: 16px;
-        border-bottom: 1px solid #f1f3f5;
-    }
-}
-.DashboardStoreContent {
-    width: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    >.DashboardStoreHeader {
-        width: calc(100% - 130px);
-        >span {
-            font-size: 18px;
-            color: inherit;
-            font-weight: bold;
-        }
     }
 }

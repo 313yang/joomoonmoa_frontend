@@ -19,8 +19,8 @@ button.button {
         border: none;
     }
     &:disabled {
-        background-color: $gray400;
-        border-color: $gray400;
+        background-color: $gray20;
+        border-color: $gray20;
         cursor: not-allowed;
     }
 }
