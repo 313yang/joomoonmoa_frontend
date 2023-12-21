@@ -1,29 +1,59 @@
-.UserContainer{
+.UserContainer {
     >button {
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        
+
     }
-    
+
 }
+
 .StoreContainer {
     >div {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        &:not(:last-child){
+
+        &:not(:last-child) {
             border-bottom: 1px solid #BCC4CC;
         }
-        &:not(:first-child){
+
+        &:not(:first-child) {
             padding: 16px 0;
         }
+
         &:first-child {
             padding-bottom: 16px;
         }
+
         p {
             font-size: 18px;
+        }
+    }
+}
+
+.StoreUserName {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.StoreSettingHeader {
+    display: flex;
+
+    >span {
+        min-width: 110px;
+    }
+}
+
+.StoresContainer {
+    display: flex;
+
+    >:global(.StoreName) {
+        flex-direction: row;
+        >p {
+            min-width: 110px;
         }
     }
 }

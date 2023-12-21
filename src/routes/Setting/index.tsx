@@ -23,7 +23,7 @@ const Setting = () => {
                 };
             default:
                 return {
-                    header: "설정", component: <SettingMain />
+                    header: "", component: <SettingMain />
                 };
         }
     };
@@ -31,11 +31,8 @@ const Setting = () => {
     return <div className={style.SettingComponent}>
         <Header
             prev={!!path && <button className="text-primary" onClick={() => route(-1)}>설정</button>}
-            title={
-                <div className={style.flexCenter}>
-                    <h3>{RenderComponent().header}</h3>
-                </div>
-            } />
+            title={<div></div>}
+        />
         {RenderComponent().component}
         <button onClick={handleLogout} className={BuildClass(style.Logout, "text-primary")}>로그아웃</button>
     </div>;
