@@ -41,7 +41,7 @@
 
 .StoreSettingHeader {
     display: flex;
-
+    margin-bottom: 20px;
     >span {
         min-width: 110px;
     }
@@ -55,5 +55,10 @@
         >p {
             min-width: 110px;
         }
+    }
+}
+.StoreSettingName {
+    >p {
+        font-size: 14px;
     }
 }

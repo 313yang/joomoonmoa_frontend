@@ -5,19 +5,30 @@ button.button {
     width: 100px;
     color: $white;
     cursor: pointer;
-    > p {
+
+    >p {
         font-size: 14px;
         font-weight: 600;
     }
+
     &.button-round {
         border-radius: 6px;
     }
+
     &.button-square {
         border-radius: 2px;
     }
+
     &.button-borderless {
         border: none;
     }
+
+    &.button-lg {
+        padding: 20px;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
     &:disabled {
         background-color: $gray20;
         border-color: $gray20;

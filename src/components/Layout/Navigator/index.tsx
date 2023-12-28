@@ -3,10 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import style from "./style.module.scss";
 import { Chat, Delivery, Home, List, Setting } from "@/components/Icons";
 import { useUserAuth } from "@/libs/store/useAuthStore";
+import { getToken } from "@/libs/api";
 
 const Navigator = () => {
     const { pathname } = useLocation();
-    const { accessToken } = useUserAuth();
+    const accessToken = getToken();
     const checkingPathname = (url: string) => {
         if (pathname.includes(url)) return true;
     };

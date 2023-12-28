@@ -7,14 +7,14 @@ export interface PlaceOrderStatuses {
     ok: number,
     notYet: number,
     canceled: number;
-
 }
+
 export const PlaceOrderStatusesInit = {
     notYetIdList: [],
     placeOrderStatuses: {
         ok: 0,
         notYet: 0,
-        canceled: 0
+        canceled: 0,
     }
 };
 
@@ -22,6 +22,9 @@ export const PlaceOrderStatusesInit = {
 export interface PlaceOrderStatuesMarket extends PlaceOrderStatuses {
     marketId: number,
     marketAlias: string,
+    inquiry: number,
+    exchange: number,
+    retrieve: number
 }
 
 /** 로그인 토큰 */

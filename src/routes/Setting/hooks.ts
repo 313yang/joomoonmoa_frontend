@@ -1,6 +1,6 @@
 import { AddMarketsType } from "@/libs/Defines";
 import { toast } from "@/libs/Function";
-import { addsMarkets, marketsSyncTest } from "@/libs/api/market";
+import { addsMarkets, deleteMarket, marketsSyncTest } from "@/libs/api/market";
 import { useState } from "react";
 import { StoreList } from "./defines";
 import { AxiosError } from "axios";
@@ -10,7 +10,7 @@ const storeInfoInit = {
     clientId: "",
     clientSecret: "",
     marketAlias: "",
-    platform: StoreList[0].value
+    platform: ""
 };
 
 export const useSettingStore = () => {
@@ -68,11 +68,21 @@ export const useSettingStore = () => {
         }
         setLoading(false);
     };
+    /** 스토어 삭제 */
+    const deleteMarketHandler = async (id: number) => {
+        try {
+            const resp = deleteMarket(id);
 
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    /** 로그아웃 */
     const handleLogout = () => {
         setAccessToken("");
         setRefreshToken("");
-        window.location.href = "/"
+        window.location.href = "/";
     };
     return {
         loading,
@@ -80,6 +90,7 @@ export const useSettingStore = () => {
         handleSetStoreInfo,
         submitMarketSyncTest,
         submitAddMarket,
+        deleteMarketHandler,
         handleLogout
     };
 };

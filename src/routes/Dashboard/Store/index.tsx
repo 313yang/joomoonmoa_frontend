@@ -35,9 +35,9 @@ const DashboardStore = ({ data }: { data: PlaceOrderStatuesMarket[]; }) => {
               <span>{x.notYet}</span>
               <span>{x.ok}</span>
               <span>{x.canceled}</span>
-              <span>0</span>
-              <span>0</span>
-              <span>0</span>
+              <span>{x.inquiry}</span>
+              <span>{x.exchange}</span>
+              <span>{x.retrieve}</span>
             </div>
           </div>
         )}

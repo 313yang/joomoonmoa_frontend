@@ -6,9 +6,11 @@ import { useLayoutEffect, useState } from "react";
 import { login } from "@/libs/api/auth";
 import { useUserAuth, useUserAuthAction } from "@/libs/store/useAuthStore";
 import { AxiosError } from "axios";
+import { getToken } from "@/libs/api";
 
 const Login = () => {
-  const { accessToken, isAutoLogin } = useUserAuth();
+  const accessToken = getToken();
+  const { isAutoLogin } = useUserAuth();
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { setAccessToken, setRefreshToken, setIsAutoLogin } = useUserAuthAction();

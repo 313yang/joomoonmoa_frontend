@@ -7,12 +7,14 @@ import { PlaceOrderStatuesMarket } from "@/libs/Defines";
 import { BuildClass, RequestGet } from "@/libs/Function";
 import { getDashboardOrderMarket } from "@/libs/api/dashboard";
 import { useState, useEffect } from "react";
+import { deleteMarket } from "@/libs/api/market";
+import { useSettingStore } from "../hooks";
 
 const SettingMain = () => {
     const route = useNavigate();
     const [market, setMarket] = useState<PlaceOrderStatuesMarket[]>([]);
+    const { deleteMarketHandler } = useSettingStore();
 
-    // TODO:: 스토어 문의/교환/반품 api로 교체
     const getMarket = async () => {
         const marketRes = await RequestGet(getDashboardOrderMarket) || [];
         setMarket(marketRes);
@@ -21,28 +23,29 @@ const SettingMain = () => {
     useEffect(() => {
         getMarket();
     }, []);
+    
     return <>
         <Box color="white" className={style.StoreContainer}>
             <div>
                 <p>닉네임</p>
-                <div className={style.StoreUserName}>
+                <button className={style.StoreUserName} onClick={() => route("/setting/changeNickname")}>
                     <p className="text-primary">스마트한 호랑이</p>
                     <Chevron direction="right" />
-                </div>
+                </button>
             </div>
             <div>
                 <p>비밀번호</p>
-                <div className={style.StoreUserName}>
+                <button className={style.StoreUserName} onClick={() => route("/setting/changePassword")}>
                     <p className="text-primary">변경</p>
                     <Chevron direction="right" />
-                </div>
+                </button>
             </div>
             <div>
                 <p>전화번호</p>
-                <div className={style.StoreUserName}>
+                <button className={style.StoreUserName} onClick={() => route("/setting/changePhoneNumber")}>
                     <p className="text-primary">변경</p>
                     <Chevron direction="right" />
-                </div>
+                </button>
             </div>
             <div>
                 <p>주문수집알림</p>
@@ -64,13 +67,13 @@ const SettingMain = () => {
                 <div className={BuildClass("store_table_header", "store_table_container")}>
                     {market.map(x =>
                         <div key={`dashboardOrder_${x.marketId}`} className={style.StoresContainer}>
-                            <div className="StoreName">
+                            <div className={BuildClass("StoreName", style.StoreSettingName)}>
                                 <p data-type={"naver"}>네이버</p>
-                                <span>{x.marketAlias}</span>
                             </div>
+                            <div style={{ width: 110 }}>{x.marketAlias}</div>
                             <div className="">
-                                <p className="text-primary">수정</p>
-                                <p className="text-primary">삭제</p>
+                                <button className="text-primary">수정</button>
+                                <button className="text-primary" onClick={() => deleteMarketHandler(x.marketId)}>삭제</button>
                             </div>
                         </div>
                     )}

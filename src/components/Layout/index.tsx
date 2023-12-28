@@ -9,11 +9,12 @@ import Join from "@/routes/Join";
 import { useUserAuth, useUserAuthAction } from "@/libs/store/useAuthStore";
 import Password from "@/routes/Join/password";
 import { notLoginPath } from "@/libs/Defines";
+import { getToken } from "@/libs/api";
 
 
 const BaseLayout = () => {
+  const accessToken = getToken()
   const { pathname } = useLocation();
-  const { accessToken } = useUserAuth();
   const { setAccessToken, setRefreshToken } = useUserAuthAction();
 
   useLayoutEffect(() => {

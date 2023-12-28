@@ -6,6 +6,7 @@ interface BoxProps {
     radius?: "round" | "square",
     borderless?: boolean;
     className?: string;
+    size?: "sm" | "lg";
     type?: "submit" | "button";
     width?: string;
     disabled?: boolean;
@@ -21,9 +22,10 @@ export const Button = ({
     type = "button",
     width,
     disabled,
-    onClick
+    onClick,
+    size = "sm"
 }: PropsWithChildren<BoxProps>) => createElement("button", {
-    className: BuildClass("button", `button-${radius}`, borderless && "button-borderless", className),
+    className: BuildClass("button", `button-${radius}`, borderless && "button-borderless", className, `button-${size}`),
     style: !!width ? { ...style, width } : style,
     type: type,
     disabled,
