@@ -34,6 +34,7 @@ const dashboard = axios.create({ timeout: 8000, baseURL: `${baseURL}/items`, hea
 const orders = axios.create({ timeout: 8000, baseURL: `${baseURL}/orders`, headers });
 const common = axios.create({ timeout: 8000, baseURL: `${baseURL}/common`, headers });
 const markets = axios.create({ timeout: 8000, baseURL: `${baseURL}/markets`, headers });
+const config = axios.create({ timeout: 8000, baseURL: `${baseURL}/config`, headers });
 
 
 axios.defaults.withCredentials = true;
@@ -44,12 +45,13 @@ dashboard.interceptors.response.use(apply, reject);
 orders.interceptors.response.use(apply, reject);
 common.interceptors.response.use(apply, reject);
 markets.interceptors.response.use(apply, reject);
-
+config.interceptors.response.use(apply, reject);
 
 export {
     auth,
     dashboard,
     orders,
     common,
-    markets
+    markets,
+    config
 };

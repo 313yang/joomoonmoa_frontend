@@ -59,7 +59,24 @@ export const RequestGet = async<T>(api: (params: string) => Promise<AxiosRespons
 		}
 	}
 };
-
+let isPost = false;
+export const RequestPost = async<T, K>(api: (postData: K) => Promise<AxiosResponse<T>>, postData: K) => {
+	if (isPost) return;
+	isPost = true;
+	try {
+		const { data, status } = await api(postData);
+		isPost = false;
+		if (status === 200) return data;
+	} catch (err) {
+		console.error(err);
+		isPost = false;
+		if (err instanceof AxiosError) {
+			if (err.status === 401) return toast("아이디 또는 비밀번호가 일치하지 않습니다.");
+			const errorMessage = !!err?.response ? err?.response?.data?.message : err.message || "";
+			toast(errorMessage);
+		}
+	}
+};
 /** Date형식을 `YY년 MM월 DD일 (요일) 오전/오후 hh:mm` 로 변환합니다 */
 export const FormatDate = (date: Date | string) => {
 	if (!(date instanceof Date)) date = new Date(date);

@@ -14,8 +14,10 @@ const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { setAccessToken, setRefreshToken, setIsAutoLogin } = useUserAuthAction();
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
   const handleLogin = async () => {
+    setIsDisabled(true);
     try {
       const { status, data } = await login({ phoneNumber, password });
       if (status === 200) {
@@ -26,11 +28,14 @@ const Login = () => {
       }
     } catch (err) {
       if (err instanceof AxiosError) {
-        const errorMessage = !!err?.response ? err?.response?.data?.message : err.message || "";
-        toast(errorMessage);
+        if (err.response?.status === 401) toast("전화번호 또는 비밀번호가 일치하지 않습니다.");
+        else {
+          const errorMessage = !!err?.response ? err?.response?.data?.message : err.message || "";
+          toast(errorMessage);
+        }
       }
-      console.error("e", err);
     }
+    setIsDisabled(false);
   };
 
   useLayoutEffect(() => {
@@ -63,6 +68,7 @@ const Login = () => {
       자동로그인
     </Checkbox>
     <Button
+      disabled={isDisabled}
       className={style.LoginButton}
       width="100%"
       onClick={handleLogin}>

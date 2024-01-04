@@ -12,18 +12,15 @@ import { useSettingStore } from "../hooks";
 
 const SettingMain = () => {
     const route = useNavigate();
-    const [market, setMarket] = useState<PlaceOrderStatuesMarket[]>([]);
-    const { deleteMarketHandler } = useSettingStore();
+    const { deleteMarketHandler, getConfigApi, getMarket, market } = useSettingStore();
 
-    const getMarket = async () => {
-        const marketRes = await RequestGet(getDashboardOrderMarket) || [];
-        setMarket(marketRes);
-    };
+
 
     useEffect(() => {
         getMarket();
+        getConfigApi();
     }, []);
-    
+
     return <>
         <Box color="white" className={style.StoreContainer}>
             <div>

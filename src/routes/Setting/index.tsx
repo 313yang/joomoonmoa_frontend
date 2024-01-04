@@ -4,11 +4,13 @@ import { Chevron } from "@/components/Icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import SettingMain from "./Home";
 import SettingAddStore from "./AddStore";
-import { BuildClass } from "@/libs/Function";
+import { BuildClass, RequestGet } from "@/libs/Function";
 import { useSettingStore } from "./hooks";
 import SettingChangeNickname from "./Nickname";
 import SettingChangePassword from "./Password";
 import SettingChangePhoneNumber from "./PhoneNumber";
+import { getConfig } from "@/libs/api/config";
+import { useEffect, useState } from "react";
 
 
 /** 설정 페이지 메인컴포넌트 */
@@ -30,15 +32,15 @@ const Setting = () => {
                 };
             case "/changePassword":
                 return {
-                    header: "스토어추가", component: <SettingChangePassword />
+                    header: "스토어추가", component: <SettingChangePassword  />
                 };
             case "/changePhoneNumber":
                 return {
-                    header: "스토어추가", component: <SettingChangePhoneNumber />
+                    header: "스토어추가", component: <SettingChangePhoneNumber  />
                 };
             default:
                 return {
-                    header: "", component: <SettingMain />
+                    header: "", component: <SettingMain  />
                 };
         }
     };
