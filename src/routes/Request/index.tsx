@@ -1,4 +1,4 @@
-import { PlaceOrderStatuesMarket } from "@/libs/Defines";
+import { PlaceOrderStatuesMarket, StoreListType } from "@/libs/Defines";
 import { getDashboardOrderMarket } from "@/libs/api/dashboard";
 import { useEffect, useState } from "react";
 import style from "./style.module.scss";
@@ -33,7 +33,7 @@ const Request = () => {
                 {market.map(x =>
                     <div key={`dashboardOrder_${x.marketId}`} className="store_table_content">
                         <div className="StoreName">
-                            <p data-type={"naver"}>네이버</p>
+                            <p data-type={x.platform}>{StoreListType[x.platform]}</p>
                             <span>{x.marketAlias}</span>
                         </div>
                         <div className="store_table_header">

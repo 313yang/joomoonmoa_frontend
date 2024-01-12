@@ -24,9 +24,12 @@ export interface PlaceOrderStatuesMarket extends PlaceOrderStatuses {
     marketAlias: string,
     inquiry: number,
     exchange: number,
-    retrieve: number
+    retrieve: number,
+    platform: Platform
 }
 
+
+type Platform = keyof typeof StoreListType;
 /** 로그인 토큰 */
 export interface LoginPayload {
     token: {
@@ -37,7 +40,8 @@ export interface LoginPayload {
 
 /** 스토어 리스트 */
 export enum StoreListType {
-    Naver = "naver"
+    "NAVER" = "스마트스토어",
+    "COUPANG" = "쿠팡"
 }
 
 /** 스토어 타입 */

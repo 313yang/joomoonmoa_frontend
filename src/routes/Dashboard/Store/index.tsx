@@ -1,11 +1,10 @@
 import { Box } from "@/components/Styled";
 import style from "../style.module.scss";
-import { PlaceOrderStatuesMarket } from "@/libs/Defines";
+import { PlaceOrderStatuesMarket, StoreListType } from "@/libs/Defines";
 import { BuildClass } from "@/libs/Function";
 
 /** 메인페이지 > 전체 주문 컴포넌트 */
 const DashboardStore = ({ data }: { data: PlaceOrderStatuesMarket[]; }) => {
-
   return <div className={style.Container}>
     <div className={BuildClass(style.ContainerHeader, style.AddMarketButton)}>
       <div>
@@ -28,7 +27,7 @@ const DashboardStore = ({ data }: { data: PlaceOrderStatuesMarket[]; }) => {
         {data.map(x =>
           <div key={`dashboardOrder_${x.marketId}`} className="store_table_content">
             <div className="StoreName">
-              <p data-type={"naver"}>네이버</p>
+              <p data-type={x.platform}>{StoreListType[x.platform]}</p>
               <span>{x.marketAlias}</span>
             </div>
             <div className="store_table_header">

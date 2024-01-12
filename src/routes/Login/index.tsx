@@ -2,15 +2,15 @@ import { Button, Checkbox, Input } from "@/components/Styled";
 import { Link } from "react-router-dom";
 import style from "./style.module.scss";
 import { BuildClass, toast } from "@/libs/Function";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { login } from "@/libs/api/auth";
 import { useUserAuth, useUserAuthAction } from "@/libs/store/useAuthStore";
 import { AxiosError } from "axios";
 import { getToken } from "@/libs/api";
 
 const Login = () => {
-  const accessToken = getToken();
-  const { isAutoLogin } = useUserAuth();
+  const getAccessToken = getToken() || "";
+  const { accessToken,isAutoLogin } = useUserAuth();
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { setAccessToken, setRefreshToken, setIsAutoLogin } = useUserAuthAction();
@@ -38,9 +38,13 @@ const Login = () => {
     setIsDisabled(false);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    // if (!getAccessToken) {
+    //   setAccessToken(accessToken);
+    // }
+    console.log("1",accessToken,"2",isAutoLogin,"3",getAccessToken)
     if (!!accessToken && isAutoLogin) window.location.replace("/dashboard");
-  }, []);
+  }, [accessToken, isAutoLogin]);
 
   return <div className={style.LoginContainer}>
     <img className={style.logo} src="./logo.svg" />
@@ -60,6 +64,7 @@ const Login = () => {
       onEnter={handleLogin}
     />
     <Checkbox
+      checked={isAutoLogin}
       className={style.AutoLoginContainer}
       value={isAutoLogin}
       onChange={setIsAutoLogin}

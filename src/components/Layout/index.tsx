@@ -13,17 +13,18 @@ import { getToken } from "@/libs/api";
 
 
 const BaseLayout = () => {
-  const accessToken = getToken()
+  const accessToken = getToken();
   const { pathname } = useLocation();
   const { setAccessToken, setRefreshToken } = useUserAuthAction();
+  const { isAutoLogin } = useUserAuth();
 
   useLayoutEffect(() => {
-    if (!accessToken && pathname !== "/" && pathname !== "/join") {
+    if ((!accessToken && pathname !== "/" && pathname !== "/join") || !!accessToken && !isAutoLogin && (pathname === "/" || pathname === "/join")) {
       window.location.href = "/";
       setAccessToken("");
       setRefreshToken("");
     }
-    else if (accessToken && notLoginPath.some(x => pathname === x)) window.location.href = "/dashboard";
+    else if (!!accessToken && notLoginPath.some(x => pathname === x)) window.location.href = "/dashboard";
   }, []);
 
   return <Routes>

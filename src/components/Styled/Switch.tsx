@@ -3,7 +3,7 @@ import { PropBase } from "./defines";
 import { BuildClass } from "@/libs/Function";
 
 export interface SwitchProps<T> extends PropBase {
-    name?: string;
+    name: string;
     value?: T;
 
     block?: boolean;
@@ -59,7 +59,7 @@ export function Switch<T extends string | number | string[]>({
     >
         <input
             type="checkbox"
-            id={id.current}
+            id={name}
             name={name}
             value={value}
             onChange={ChangeHandler}
@@ -67,7 +67,7 @@ export function Switch<T extends string | number | string[]>({
             disabled={disabled}
             checked={checked}
         />
-        <label htmlFor={id.current} />
+        <label htmlFor={name} />
     </div>;
 };
 

@@ -1,20 +1,18 @@
 import { Chevron } from "@/components/Icons";
 import { Box, Switch, Button } from "@/components/Styled";
-import { UserInfoType } from "../defines";
 import style from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
-import { PlaceOrderStatuesMarket } from "@/libs/Defines";
-import { BuildClass, RequestGet } from "@/libs/Function";
-import { getDashboardOrderMarket } from "@/libs/api/dashboard";
-import { useState, useEffect } from "react";
-import { deleteMarket } from "@/libs/api/market";
+import { BuildClass } from "@/libs/Function";
+import { useEffect } from "react";
 import { useSettingStore } from "../hooks";
+import { useUserAuth, useUserAuthAction } from "@/libs/store/useAuthStore";
+import { StoreListType } from "@/libs/Defines";
 
 const SettingMain = () => {
     const route = useNavigate();
+    const { isAutoLogin } = useUserAuth();
+    const { setIsAutoLogin } = useUserAuthAction();
     const { deleteMarketHandler, getConfigApi, getMarket, market } = useSettingStore();
-
-
 
     useEffect(() => {
         getMarket();
@@ -46,11 +44,11 @@ const SettingMain = () => {
             </div>
             <div>
                 <p>주문수집알림</p>
-                <Switch />
+                <Switch name="orderAlram" />
             </div>
             <div>
                 <p>자동로그인</p>
-                <Switch />
+                <Switch name="isAutoLoginSwitch" checked={isAutoLogin} onChange={(_, checked) => setIsAutoLogin(!!checked)} />
             </div>
             <div style={{ border: "none" }}>
                 <p>판매채널</p>
@@ -65,7 +63,7 @@ const SettingMain = () => {
                     {market.map(x =>
                         <div key={`dashboardOrder_${x.marketId}`} className={style.StoresContainer}>
                             <div className={BuildClass("StoreName", style.StoreSettingName)}>
-                                <p data-type={"naver"}>네이버</p>
+                                <p data-type={x.platform}>{StoreListType[x.platform]}</p>
                             </div>
                             <div style={{ width: 110 }}>{x.marketAlias}</div>
                             <div className="">

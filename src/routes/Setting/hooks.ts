@@ -16,23 +16,32 @@ const storeInfoInit = {
     marketAlias: "",
     platform: ""
 };
-let phoneNumber = ""
+// let phoneNumber = "";
 export const useSettingStore = () => {
     const route = useNavigate();
-
+    const [phoneNumber, setPhoneNumber] = useState<string>("");
     const [storeInfo, setStoreInfo] = useState<AddMarketsType>(storeInfoInit);
     const [loading, setLoading] = useState<boolean>(false);
     const { clientId, clientSecret } = storeInfo;
     const { setAccessToken, setRefreshToken } = useUserAuthAction();
     const [password, setPassword] = useState<string>("");
     const [passwordConfirm, setPasswordConfirm] = useState<string>("");
+    const [changePhoneNumber, setChangePhoneNumber] = useState<string>("");
     const [market, setMarket] = useState<PlaceOrderStatuesMarket[]>([]);
 
+    const errorToast = (err: AxiosError | unknown) => toast(((err as AxiosError).response as AxiosResponse).data.message);
+
     const getConfigApi = async () => {
-        const resp = await getConfig();
-        if(resp.status===200){
-            console.log(resp.data.phoneNumber)
-            phoneNumber = resp.data.phoneNumber || ""// setPhoneNumber(resp.data.phoneNumber || "");
+        try {
+
+            const resp = await getConfig();
+            if (resp.status === 200) {
+                // console.log(resp.data.phoneNumber);
+                // phoneNumber = resp.data.phoneNumber || "";
+                setPhoneNumber(resp.data.phoneNumber || "");
+            }
+        } catch (err) {
+            errorToast(err);
         }
 
     };
@@ -40,7 +49,6 @@ export const useSettingStore = () => {
         const marketRes = await RequestGet(getDashboardOrderMarket) || [];
         setMarket(marketRes);
     };
-    const errorToast = (err: AxiosError | unknown) => toast(((err as AxiosError).response as AxiosResponse).data.message);
 
     const handleSetStoreInfo = (conf: Partial<AddMarketsType>) => {
         setStoreInfo({ ...storeInfo, ...conf });
@@ -62,7 +70,7 @@ export const useSettingStore = () => {
         setLoading(true);
         if (password !== passwordConfirm) return toast("비밀번호가 일치하지 않습니다.");
         try {
-            console.log(phoneNumber)
+            console.log(phoneNumber);
             const { status } = await changePassword({ password, phoneNumber });
             if (status === 200) {
                 toast("✅성공적으로 비밀번호가 변경되었어요!");
@@ -74,6 +82,7 @@ export const useSettingStore = () => {
         }
         setLoading(false);
     };
+
     /** 로그인 테스트 함수 */
     const submitMarketSyncTest = async () => {
         if (!checkingClientInfo()) return;
@@ -100,6 +109,7 @@ export const useSettingStore = () => {
         }
         setLoading(false);
     };
+
     /** 스토어 삭제 */
     const deleteMarketHandler = async (id: number) => {
         try {

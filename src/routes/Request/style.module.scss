@@ -26,16 +26,16 @@
         justify-content: flex-end;
         >p {
             font-weight: 500;
-            &[data-type="naver"]{
+            &[data-type="NAVER"]{
                 color: #2EB500;
             }
-            &[data-type="coopang"]{
+            &[data-type="COUPANG"]{
                 color: #E4222A;
             }
-            &[data-type="gmarket"]{
+            &[data-type="GMARKEY"]{
                 color: #0028AB;
             }
-            &[data-type="11st"]{
+            &[data-type="11ST"]{
                 color: #E53641;
             }
         }

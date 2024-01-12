@@ -163,16 +163,16 @@ input[type=number] {
 .store_table_header .StoreName > p {
   font-weight: 500;
 }
-.store_table_header .StoreName > p[data-type=naver] {
+.store_table_header .StoreName > p[data-type=NAVER] {
   color: #2EB500;
 }
-.store_table_header .StoreName > p[data-type=coopang] {
+.store_table_header .StoreName > p[data-type=COUPANG] {
   color: #E4222A;
 }
-.store_table_header .StoreName > p[data-type=gmarket] {
+.store_table_header .StoreName > p[data-type=GMARKEY] {
   color: #0028AB;
 }
-.store_table_header .StoreName > p[data-type="11st"] {
+.store_table_header .StoreName > p[data-type="11ST"] {
   color: #E53641;
 }
 .store_table_header .StoreName span {
