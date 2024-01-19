@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, Button, Checkbox, Input, InputLabel, InputLine } from "@/components/Styled";
 import { OrderProductNewItemType } from "../defines";
 import { OrderProductUserItem } from "../item";
-import { BuildClass, FormatDate, FormatNumber, copyToClipboard, toast } from "@/libs/Function";
+import { BuildClass, FormatDate, FormatNumber, onClickRefresh, toast } from "@/libs/Function";
 import Dropdown from "@/components/Styled/Dropdown";
 import { approveCancel, confirmDeliveryItems } from "@/libs/api/dashboard";
 import deliveryList from "./deliveryCode.json";
@@ -12,10 +12,9 @@ interface OrderPurchasedListType {
     item: OrderProductNewItemType;
     checkedList: number[];
     setCheckedList(val: number): void;
-    fetchData(): void;
 }
 
-export const OrderPurchasedList = ({ item, checkedList, setCheckedList, fetchData }: OrderPurchasedListType) => {
+export const OrderPurchasedList = ({ item, checkedList, setCheckedList }: OrderPurchasedListType) => {
     const { purchasedItemId: id } = item;
     const [trackingNumber, setTrackingNumber] = useState<string>("");
     const [deliveryCompanyCode, setDeleveryCompanyCode] = useState<string>("");
@@ -31,7 +30,7 @@ export const OrderPurchasedList = ({ item, checkedList, setCheckedList, fetchDat
             const { status } = await confirmDeliveryItems(id, { deliveryCompanyCode: deliveryCompanyCode, trackingNumber });
             if (status === 200) {
                 toast("제품이 발송되었어요 🚚");
-                setTimeout(() => fetchData(), 1000);
+                await onClickRefresh();
             }
         } catch (err) {
             console.error(err);
@@ -44,7 +43,7 @@ export const OrderPurchasedList = ({ item, checkedList, setCheckedList, fetchDat
             const { status } = await approveCancel(id);
             if (status === 200) {
                 toast("취소가 완료됐습니다 ");
-                await fetchData();
+                await onClickRefresh();
             }
         } catch (err) {
             console.error(err);

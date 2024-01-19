@@ -32,18 +32,8 @@ export const useSettingStore = () => {
     const errorToast = (err: AxiosError | unknown) => toast(((err as AxiosError).response as AxiosResponse).data.message);
 
     const getConfigApi = async () => {
-        try {
-
-            const resp = await getConfig();
-            if (resp.status === 200) {
-                // console.log(resp.data.phoneNumber);
-                // phoneNumber = resp.data.phoneNumber || "";
-                setPhoneNumber(resp.data.phoneNumber || "");
-            }
-        } catch (err) {
-            errorToast(err);
-        }
-
+        const resp = await RequestGet(getConfig) || { phoneNumber: "" };
+        setPhoneNumber(resp.phoneNumber);
     };
     const getMarket = async () => {
         const marketRes = await RequestGet(getDashboardOrderMarket) || [];
@@ -103,6 +93,7 @@ export const useSettingStore = () => {
             if (loading) return;
             setLoading(true);
             const { data, status } = await addsMarkets(storeInfo);
+
         } catch (err) {
             console.error(err);
             errorToast(err);
@@ -113,7 +104,11 @@ export const useSettingStore = () => {
     /** 스토어 삭제 */
     const deleteMarketHandler = async (id: number) => {
         try {
-            const resp = deleteMarket(id);
+            const { status } = await deleteMarket(id);
+            if (status === 200) {
+                toast("채널 삭제가 완료됐습니다!");
+
+            }
 
         } catch (err) {
             console.log(err);
@@ -142,6 +137,9 @@ export const useSettingStore = () => {
         getConfigApi,
         getMarket,
         market,
-        handleLogout
+        handleLogout,
+        phoneNumber,
+        changePhoneNumber,
+        setChangePhoneNumber
     };
 };

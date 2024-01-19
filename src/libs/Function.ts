@@ -1,5 +1,6 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { toast as reactHotToast } from "react-hot-toast";
+import { marketRefresh } from "./api/market";
 
 
 /**
@@ -39,7 +40,9 @@ export const toast = (message: string) => reactHotToast(message, {
 		borderRadius: "10px",
 		background: "#212529",
 		color: "#fff",
+		marginBottom: "100px",
 	},
+	duration: 4000
 });
 let isFetch = false;
 
@@ -117,4 +120,13 @@ export const copyToClipboard = (text: string, type: string) => {
 export const FormatNumber = (val: string | number) => {
 	if (typeof val === "string") return val.replace(/[^0-9]/g, "");
 	return val.toString().replace(/[^0-9]/g, "");
+};
+
+export const onClickRefresh = async () => {
+	try {
+		const { status } = await marketRefresh();
+		if (status === 200) window.location.reload();
+	} catch (err) {
+
+	}
 };

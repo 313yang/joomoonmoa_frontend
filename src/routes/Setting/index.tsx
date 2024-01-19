@@ -9,8 +9,7 @@ import { useSettingStore } from "./hooks";
 import SettingChangeNickname from "./Nickname";
 import SettingChangePassword from "./Password";
 import SettingChangePhoneNumber from "./PhoneNumber";
-import { getConfig } from "@/libs/api/config";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 
 /** 설정 페이지 메인컴포넌트 */
@@ -18,8 +17,11 @@ const Setting = () => {
     const { pathname } = useLocation();
     const route = useNavigate();
     const path = pathname.replace("/setting", "");
-    const { handleLogout } = useSettingStore();
+    const { handleLogout, getConfigApi } = useSettingStore();
+    useEffect(() => {
+        getConfigApi();
 
+    }, []);
     const RenderComponent = () => {
         switch (path) {
             case "/addStore":
@@ -32,15 +34,15 @@ const Setting = () => {
                 };
             case "/changePassword":
                 return {
-                    header: "스토어추가", component: <SettingChangePassword  />
+                    header: "스토어추가", component: <SettingChangePassword />
                 };
             case "/changePhoneNumber":
                 return {
-                    header: "스토어추가", component: <SettingChangePhoneNumber  />
+                    header: "스토어추가", component: <SettingChangePhoneNumber />
                 };
             default:
                 return {
-                    header: "", component: <SettingMain  />
+                    header: "", component: <SettingMain />
                 };
         }
     };

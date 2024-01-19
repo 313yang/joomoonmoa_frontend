@@ -16,7 +16,6 @@ const SettingMain = () => {
 
     useEffect(() => {
         getMarket();
-        getConfigApi();
     }, []);
 
     return <>

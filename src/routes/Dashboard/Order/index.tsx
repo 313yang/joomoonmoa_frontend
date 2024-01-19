@@ -4,7 +4,7 @@ import style from "../style.module.scss";
 import { Chevron } from "@/components/Icons";
 import { Link, useNavigate } from "react-router-dom";
 import { confirmItems } from "@/libs/api/dashboard";
-import { toast } from "@/libs/Function";
+import { onClickRefresh, toast } from "@/libs/Function";
 
 /** 메인페이지 > 주문 컴포넌트 */
 const DashboardOrder = ({ data }: { data: DashboardItems; }) => {
@@ -17,7 +17,7 @@ const DashboardOrder = ({ data }: { data: DashboardItems; }) => {
       console.log(resp);
       if (resp.status === 200) {
         toast("발주 확인 완료. 제품을 발송해주세요 🚚");
-        // await getNewList();
+        await onClickRefresh();
       }
 
     } catch (err) {

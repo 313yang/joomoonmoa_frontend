@@ -1,45 +1,13 @@
-import { OrderProductNewItemType, OrderProductOkItemType, OrderTabHostItemType } from "./defines";
+import { OrderProductNewItemType, OrderTabHostItemType } from "./defines";
 import { Fragment, useEffect, useState } from "react";
-import Header from "@/components/Layout/Header";
-import { Subtract } from "@/components/Icons";
 import style from "./style.module.scss";
-import { Checkbox, TabHost, Button } from "@/components/Styled";
+import { Checkbox, Button } from "@/components/Styled";
 import { OrderNewList } from "./New";
 import { getOrder } from "@/libs/api/orders";
-import { RequestGet, toast } from "@/libs/Function";
+import { RequestGet, onClickRefresh, toast } from "@/libs/Function";
 import { OrderPurchasedList } from "./Wait";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { confirmItems } from "@/libs/api/dashboard";
-
-const dummy1 = [
-    {
-        baseAddress: "서울특별시 송파구 백제고분로18길 23-8 (잠실동)",
-        detailedAddress: "우민주택 402호",
-        marketAlias: "양벼리강윤구서연제",
-        orderDate: "2023-09-16T20:20:46.0+09:00",
-        productName: "SEEK COMPACT 스마트폰 누수탐지기 열화상카메라",
-        productOption: "모델: C타입 프로",
-        purchasedItemId: 17,
-        quantity: 1,
-        receiverName: "서연제",
-        receiverPhoneNumber: "010-4999-0234",
-    }
-];
-
-const testItem = [
-    {
-        "purchasedItemId": 10,
-        "marketAlias": "스마트스토어 테스트샵",
-        "orderDate": "2023.10.11 12:11:22",
-        "productName": "아이패드 케이스 투명 9 8 7세대 10.2인치 펜슬 수납 스마트 북커버 에어 수납 마그네틱",
-        "productOption": "주황",
-        "quantity": 2,
-        "receiverPhoneNumber": "010-1234-5678",
-        "receiverName": "서연제",
-        "baseAddress": "서울시 송파구 가나다로 25",
-        "detailedAddress": "서울시 송파구 가나다로 25"
-    }
-];
 
 const Order = () => {
     const { pathname } = useLocation();
@@ -75,12 +43,10 @@ const Order = () => {
     const handleConfirmItems = async (id?: number) => {
         try {
             const resp = await confirmItems(id ? [id] : checkedList);
-            console.log(resp);
             if (resp.status === 200) {
                 toast("발주 확인 완료. 제품을 발송해주세요 🚚");
-                await getNewList();
+                await onClickRefresh();
             }
-
         } catch (err) {
             console.error(err);
         }
@@ -109,14 +75,13 @@ const Order = () => {
                         item={item}
                         checkedList={checkedList}
                         setCheckedList={handleChecked}
-                        handleConfirmItem={handleConfirmItems}
+                        handleConfirmItem={(id) => handleConfirmItems(id)}
                     />
                     :
                     <OrderPurchasedList
                         item={item}
                         checkedList={checkedList}
                         setCheckedList={handleChecked}
-                        fetchData={getNewList}
                     />
                 }
             </Fragment>)}

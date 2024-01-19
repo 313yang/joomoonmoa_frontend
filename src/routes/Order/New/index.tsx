@@ -29,6 +29,6 @@ export const OrderNewList = ({ item, checkedList, setCheckedList, handleConfirmI
             </div>
         </div>
         <OrderProductUserItem item={item} />
-        <Button disabled={!checkingId(id)} style={{ margin: "0 0 0 calc(100% - 100px)" }} onClick={handleConfirmItem}>발주확인</Button>
+        <Button disabled={!checkingId(id)} style={{ margin: "0 0 0 calc(100% - 100px)" }} onClick={() => handleConfirmItem(id)}>발주확인</Button>
     </Box>;
 };
