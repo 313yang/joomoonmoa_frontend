@@ -30,16 +30,21 @@ const headers = {
     Authorization: "bearer " + getToken()
 };
 const auth = axios.create({ timeout: 8000, baseURL: `${baseURL}/auth` });
+const authHeader  = axios.create({ timeout: 8000, baseURL: `${baseURL}/auth` ,headers});
 const dashboard = axios.create({ timeout: 8000, baseURL: `${baseURL}/items`, headers });
 const orders = axios.create({ timeout: 8000, baseURL: `${baseURL}/orders`, headers });
 const common = axios.create({ timeout: 8000, baseURL: `${baseURL}/common`, headers });
 const markets = axios.create({ timeout: 8000, baseURL: `${baseURL}/markets`, headers });
 const config = axios.create({ timeout: 8000, baseURL: `${baseURL}/config`, headers });
 
+interface LoginType {
+    phoneNumber: string;
+}
 
+export const changePhoneNumberApi = async (data: LoginType) => await authHeader.patch(`phone-number`, data,);
 axios.defaults.withCredentials = true;
-auth.interceptors.response.use(apply, (err)=>{
-    return Promise.reject(err)
+auth.interceptors.response.use(apply, (err) => {
+    return Promise.reject(err);
 });
 dashboard.interceptors.response.use(apply, reject);
 orders.interceptors.response.use(apply, reject);

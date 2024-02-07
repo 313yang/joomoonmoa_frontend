@@ -2,16 +2,18 @@ import { Box } from "@/components/Styled";
 import style from "../style.module.scss";
 import { PlaceOrderStatuesMarket, StoreListType } from "@/libs/Defines";
 import { BuildClass } from "@/libs/Function";
+import { useNavigate } from "react-router-dom";
 
 /** 메인페이지 > 전체 주문 컴포넌트 */
 const DashboardStore = ({ data }: { data: PlaceOrderStatuesMarket[]; }) => {
+  const route = useNavigate()
   return <div className={style.Container}>
     <div className={BuildClass(style.ContainerHeader, style.AddMarketButton)}>
       <div>
         <img src="/assets/images/chart.png" />
         <h3>현황</h3>
       </div>
-      <span className="text-primary">+ 판매처 관리</span>
+      <span className="text-primary" onClick={()=>route("/setting/addStore")}>+ 판매처 관리</span>
     </div>
     <Box color="white">
       <div className="store_table_header">

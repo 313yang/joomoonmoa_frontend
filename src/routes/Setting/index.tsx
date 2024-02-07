@@ -9,47 +9,68 @@ import { useSettingStore } from "./hooks";
 import SettingChangeNickname from "./Nickname";
 import SettingChangePassword from "./Password";
 import SettingChangePhoneNumber from "./PhoneNumber";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getConfig } from "@/libs/api/config";
+import { PlaceOrderStatuesMarket } from "@/libs/Defines";
 
-
+let fetch = false;
 /** 설정 페이지 메인컴포넌트 */
 const Setting = () => {
     const { pathname } = useLocation();
     const route = useNavigate();
     const path = pathname.replace("/setting", "");
-    const { handleLogout, getConfigApi } = useSettingStore();
-    useEffect(() => {
-        getConfigApi();
+    const { handleLogout } = useSettingStore();
+    const [phoneNumber, setPhoneNumber] = useState<string>("");
+    const [selectedMarket, setSelectedMarket] = useState<PlaceOrderStatuesMarket | null>(null);
 
-    }, []);
+    const getConfigApi = async () => {
+        if (fetch) return;
+        fetch = true;
+        try {
+            const { data, status } = await getConfig();
+            if (status === 200) {
+                setPhoneNumber(data.phoneNumber);
+            }
+        } catch (err) {
+            // errorToast(err);
+        }
+        fetch = false;
+    };
+
     const RenderComponent = () => {
         switch (path) {
             case "/addStore":
                 return {
-                    header: "스토어추가", component: <SettingAddStore />
+                    header: "", component: <SettingAddStore selectedMarket={selectedMarket} />
                 };
             case "/changeNickname":
                 return {
-                    header: "스토어추가", component: <SettingChangeNickname />
+                    header: "", component: <SettingChangeNickname />
                 };
             case "/changePassword":
                 return {
-                    header: "스토어추가", component: <SettingChangePassword />
+                    header: "", component: <SettingChangePassword />
                 };
             case "/changePhoneNumber":
                 return {
-                    header: "스토어추가", component: <SettingChangePhoneNumber />
+                    header: "", component: <SettingChangePhoneNumber phoneNumber={phoneNumber} />
                 };
             default:
                 return {
-                    header: "", component: <SettingMain />
+                    header: "", component: <SettingMain phoneNumber={phoneNumber} setSelectedMarket={setSelectedMarket} />
                 };
         }
     };
-
+    useEffect(() => {
+        getConfigApi();
+    }, []);
+    const goback = () => {
+        route("/setting");
+        setSelectedMarket(null);
+    };
     return <div className={style.SettingComponent}>
         <Header
-            prev={!!path && <button className="text-primary" onClick={() => route(-1)}>설정</button>}
+            prev={!!path && <button className="text-primary" onClick={goback}>설정</button>}
             title={<div></div>}
         />
         {RenderComponent().component}

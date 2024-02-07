@@ -1,11 +1,11 @@
 import { AddMarketsType, PlaceOrderStatuesMarket } from "@/libs/Defines";
 import { RequestGet, toast } from "@/libs/Function";
-import { addsMarkets, deleteMarket, marketsSyncTest } from "@/libs/api/market";
+import { addsMarkets, changeMarkets, deleteMarket, getMarkets, marketsSyncTest } from "@/libs/api/market";
 import { useEffect, useState } from "react";
 import { StoreList } from "./defines";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useUserAuthAction } from "@/libs/store/useAuthStore";
-import { changePassword } from "@/libs/api/auth";
+import { changePassword, sendOTP, verifyOTP } from "@/libs/api/auth";
 import { useNavigate } from "react-router-dom";
 import { getConfig } from "@/libs/api/config";
 import { getDashboardOrderMarket } from "@/libs/api/dashboard";
@@ -16,6 +16,7 @@ const storeInfoInit = {
     marketAlias: "",
     platform: ""
 };
+let fetch = false;
 // let phoneNumber = "";
 export const useSettingStore = () => {
     const route = useNavigate();
@@ -26,17 +27,12 @@ export const useSettingStore = () => {
     const { setAccessToken, setRefreshToken } = useUserAuthAction();
     const [password, setPassword] = useState<string>("");
     const [passwordConfirm, setPasswordConfirm] = useState<string>("");
-    const [changePhoneNumber, setChangePhoneNumber] = useState<string>("");
     const [market, setMarket] = useState<PlaceOrderStatuesMarket[]>([]);
 
     const errorToast = (err: AxiosError | unknown) => toast(((err as AxiosError).response as AxiosResponse).data.message);
 
-    const getConfigApi = async () => {
-        const resp = await RequestGet(getConfig) || { phoneNumber: "" };
-        setPhoneNumber(resp.phoneNumber);
-    };
     const getMarket = async () => {
-        const marketRes = await RequestGet(getDashboardOrderMarket) || [];
+        const marketRes = await RequestGet(getMarkets) || [];
         setMarket(marketRes);
     };
 
@@ -79,7 +75,12 @@ export const useSettingStore = () => {
         try {
             if (loading) return;
             setLoading(true);
-            const { data, status } = await marketsSyncTest({ clientId, clientSecret });
+            const { status } = await marketsSyncTest({ clientId, clientSecret });
+            if (status === 200) {
+                toast("로그인 테스트 성공!");
+                await getMarket();
+                setTimeout(() => route("/setting"), 2000);
+            }
         } catch (err) {
             errorToast(err);
         }
@@ -92,8 +93,31 @@ export const useSettingStore = () => {
         try {
             if (loading) return;
             setLoading(true);
-            const { data, status } = await addsMarkets(storeInfo);
-
+            const { status } = await addsMarkets(storeInfo);
+            if (status === 200) {
+                toast("스토어가 등록되었습니다!");
+                await getMarket();
+                setTimeout(() => route("/setting"), 2000);
+            }
+        } catch (err) {
+            console.error(err);
+            errorToast(err);
+        }
+        setLoading(false);
+    };
+    /** 스토어 수정 함수 */
+    const submitChangeMarket = async () => {
+        // if (!checkingClientInfo()) return;
+        if (!storeInfo.marketId) return;
+        try {
+            if (loading) return;
+            setLoading(true);
+            const { status } = await changeMarkets(storeInfo.marketId, storeInfo);
+            if (status === 200) {
+                toast("스토어가 수정되었습니다!");
+                await getMarket();
+                setTimeout(() => route("/setting"), 2000);
+            }
         } catch (err) {
             console.error(err);
             errorToast(err);
@@ -107,7 +131,7 @@ export const useSettingStore = () => {
             const { status } = await deleteMarket(id);
             if (status === 200) {
                 toast("채널 삭제가 완료됐습니다!");
-
+                await getMarket();
             }
 
         } catch (err) {
@@ -122,6 +146,7 @@ export const useSettingStore = () => {
         setRefreshToken("");
         window.location.href = "/";
     };
+
     return {
         loading,
         storeInfo,
@@ -134,12 +159,10 @@ export const useSettingStore = () => {
         submitAddMarket,
         deleteMarketHandler,
         submitChangePassword,
-        getConfigApi,
         getMarket,
         market,
         handleLogout,
         phoneNumber,
-        changePhoneNumber,
-        setChangePhoneNumber
+        submitChangeMarket
     };
 };

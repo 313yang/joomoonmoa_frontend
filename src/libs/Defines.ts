@@ -25,7 +25,9 @@ export interface PlaceOrderStatuesMarket extends PlaceOrderStatuses {
     inquiry: number,
     exchange: number,
     retrieve: number,
-    platform: Platform
+    platform: Platform,
+    clientId?: string,
+    clientSecret?: string,
 }
 
 
@@ -50,9 +52,11 @@ export interface ClientType {
     clientSecret: string,
 }
 
-/** 스토어 등록 타입 */
+/** 스토어 등록/수정 타입 */
 export interface AddMarketsType extends ClientType {
     marketAlias: string,
     platform: string;
+    marketId?: number;
 }
+
 export const notLoginPath = ["/", "/password", "/join"];

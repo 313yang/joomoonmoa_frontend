@@ -93,18 +93,19 @@ function DropdownWrapper<T>({
     >
         {items.map((item, idx) => {
             if ("value" in item) {
-                return <li className={BuildClass(
-                    "dropdown-item",
-                    item.disabled && "dropdown-disabled",
-                    item.value === value && "dropdown-selected",
-                )} value={idx}>
+                return <li
+                    key={idx}
+                    className={BuildClass(
+                        "dropdown-item",
+                        item.disabled && "dropdown-disabled",
+                        item.value === value && "dropdown-selected",
+                    )}
+                    value={idx}>
                     {item.name}
                 </li>;
             }
 
-            return <li className={BuildClass(
-                "dropdown-children",
-            )} value={idx}>
+            return <li className={BuildClass("dropdown-children")} value={idx} key={idx}>
                 <p>{item.name}</p>
                 {item.childrens && <DropdownWrapper value={value} items={item.childrens} childrens onClick={onClick} />}
             </li>;

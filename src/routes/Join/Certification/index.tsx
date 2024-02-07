@@ -26,16 +26,22 @@ const CertificationContainer = ({ type }: { type: CertType; }) => {
         onSubmit,
         submitDisabled
     } = useCertification(type, () => setStep(2));
-    
-    const [showPasswordCert, setShowPasswordCert] = useState<boolean>(false);
+    const [display, setDisplay] = useState<boolean>(false);
 
     return <div className={style.JoinInputContainer}>
+        {display &&
+            <div className={style.PopupBg}>
+                <div className={style.Popup}>
+
+                </div>
+            </div>
+        }
         {step === 1 ? <>
             <div className={style.JoinPhoneNumberInput}>
                 <Input
                     type="number"
                     label="전화번호"
-                    defaultValue={passwordConfirm}
+                    defaultValue={phoneNumber}
                     onInput={setPhoneNumberber}
                     maxLength={11}
                 />
@@ -88,7 +94,9 @@ const CertificationContainer = ({ type }: { type: CertType; }) => {
                         if (password !== passwordConfirm) return "비밀번호가 일치하지 않습니다.";
                     }}
                 />
-
+                {CertType.Join &&
+                    <span>가입 시 <strong onClick={() => setDisplay(true)}>이용 약관</strong> 및 <strong onClick={() => setDisplay(true)}>개인정보 취급 방침</strong>에 동의한 것으로 간주됩니다.</span>
+                }
                 <Button
                     className={style.JoinButton}
                     onClick={onSubmit}
