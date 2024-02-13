@@ -8,11 +8,10 @@ import { Chevron } from "@/components/Icons";
 const DashboardRequest = () => {
   const route = useNavigate();
   return <div className={style.Container}>
-    <Link to="/request" className={style.ContainerHeader}>
+    <div className={style.ContainerHeader}>
       <img src="/assets/images/search.png" />
-      <h3>요청</h3>
-      <Chevron direction="right" width={8} />
-    </Link>
+      <h3>고객문의</h3>
+    </div>
     <div className={style.DashboardOrderContainer}>
       <Box color="gray50" className={style.DashboardOrdeBox}>
         <button onClick={() => route("/request")}>

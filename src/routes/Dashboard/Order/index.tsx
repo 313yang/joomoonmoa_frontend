@@ -25,11 +25,10 @@ const DashboardOrder = ({ data }: { data: DashboardItems; }) => {
     }
   };
   return <div className={style.Container}>
-    <Link to="/order" className={style.ContainerHeader}>
+    <div className={style.ContainerHeader}>
       <img src="/assets/images/paper.png" />
       <h3>주문</h3>
-      <Chevron direction="right" width={8} />
-    </Link>
+    </div>
     <div className={style.DashboardOrderContainer}>
       <div className={style.DashboardOrdeBoxrContainer}>
         <Box color="gray50" className={style.DashboardOrdeBox}>
