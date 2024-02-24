@@ -69,10 +69,12 @@ const Setting = () => {
         setSelectedMarket(null);
     };
     return <div className={style.SettingComponent}>
-        <Header
-            prev={!!path && <button className="text-primary" onClick={goback}>설정</button>}
+        {!!path && <Header
+            prev={<p className="text-primary">설정</p>}
+            goBackBtn={goback}
             title={<div></div>}
-        />
+        />}
+
         {RenderComponent().component}
         <button onClick={handleLogout} className={BuildClass(style.Logout, "text-primary")}>로그아웃</button>
     </div>;

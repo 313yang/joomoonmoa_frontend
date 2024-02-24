@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 interface HeaderProps {
   prev?: ReactNode;
   title: ReactNode;
+  goBackBtn?(): void;
 }
-const Header = ({ prev, title }: HeaderProps) => {
+const Header = ({ prev, title, goBackBtn }: HeaderProps) => {
   const route = useNavigate();
   return <header className={style.Header}>
-    {!!prev ? <div>
-      <button onClick={() => route(-1)}><Chevron /></button>
+    {!!prev ? <div onClick={() => goBackBtn ? goBackBtn() : route(-1)}>
+      <Chevron />
       {prev}
     </div> : <div />}
     <div>

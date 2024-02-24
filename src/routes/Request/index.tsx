@@ -22,11 +22,11 @@ const Request = () => {
     return <div className={style.Container}>
         <Box color="white">
             <div className="store_table_header">
-                <span style={{  justifyContent: "flex-start" }}>판매채널</span>
-                <div>
-                <span>문의</span>
-                <span>교환</span>
-                <span>반품</span>
+                <span style={{ justifyContent: "flex-start" }}>판매채널</span>
+                <div style={{ width: 150 }}>
+                    <span>문의</span>
+                    <span>교환</span>
+                    <span>반품</span>
                 </div>
             </div>
             <div className={BuildClass("store_table_header", "store_table_container")}>
@@ -36,7 +36,7 @@ const Request = () => {
                             <p data-type={x.platform}>{StoreListType[x.platform]}</p>
                             <span>{x.marketAlias}</span>
                         </div>
-                        <div className="store_table_header">
+                        <div className="store_table_header" style={{ width: 150 }}>
                             <span>{x.notYet}</span>
                             <span>{x.ok}</span>
                             <span>{x.canceled}</span>

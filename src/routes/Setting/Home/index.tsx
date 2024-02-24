@@ -67,8 +67,8 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
                             <div className={BuildClass("StoreName", style.StoreSettingName)}>
                                 <p data-type={x.platform}>{StoreListType[x.platform]}</p>
                             </div>
-                            <div style={{ width: 110 }}>{x.marketAlias}</div>
-                            <div className="">
+                            <div className={style.StoreAlias}>{x.marketAlias}</div>
+                            <div className={style.StoreButtons}>
                                 <button className="text-primary" onClick={() => onClickModifiedMarket(x)}>수정</button>
                                 <button className="text-primary" onClick={() => deleteMarketHandler(x.marketId)}>삭제</button>
                             </div>
