@@ -3,7 +3,7 @@ import { Box, Switch, Button } from "@/components/Styled";
 import style from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { BuildClass, formatPhoneNumber, getIsAutoLogin, setIsAutoLogin } from "@/libs/Function";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSettingStore } from "../hooks";
 import { PlaceOrderStatuesMarket, StoreListType } from "@/libs/Defines";
 
@@ -13,9 +13,13 @@ interface SettingMainProps {
 }
 const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
     const route = useNavigate();
-    const isAutoLogin = getIsAutoLogin();
+    const [isAutoLogin, setAutoLogin] = useState<boolean>(!!getIsAutoLogin());
     const { deleteMarketHandler, getMarket, market } = useSettingStore();
 
+    const onClickSetAutoLogin = (val: boolean) => {
+        setIsAutoLogin(val);
+        setAutoLogin(val);
+    };
     const onClickModifiedMarket = (market: PlaceOrderStatuesMarket) => {
         setSelectedMarket(market);
         route("/setting/addStore");
@@ -47,7 +51,7 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
             </div>
             <div>
                 <p>자동로그인</p>
-                <Switch name="isAutoLoginSwitch" checked={!!isAutoLogin} onChange={(_, checked) => setIsAutoLogin(!!checked)} />
+                <Switch name="isAutoLoginSwitch" checked={!!isAutoLogin} onChange={(_, checked) => onClickSetAutoLogin(!!checked)} />
             </div>
             <div style={{ border: "none" }}>
                 <p>판매채널</p>

@@ -11,7 +11,12 @@ const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
-  const isAutoLogin = getIsAutoLogin();
+  const [isAutoLogin, setAutoLogin] = useState<boolean>(!!getIsAutoLogin());
+
+  const onClickSetAutoLogin = (val: boolean) => {
+    setIsAutoLogin(val);
+    setAutoLogin(val);
+  };
 
   const handleLogin = async () => {
     setIsDisabled(true);
@@ -55,7 +60,7 @@ const Login = () => {
       checked={!!isAutoLogin}
       className={style.AutoLoginContainer}
       value={!!isAutoLogin}
-      onChange={setIsAutoLogin}
+      onChange={onClickSetAutoLogin}
       name="isAutoLogin"
     >
       자동로그인
