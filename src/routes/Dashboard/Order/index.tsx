@@ -14,7 +14,6 @@ const DashboardOrder = ({ data }: { data: DashboardItems; }) => {
   const handleConfirmItems = async () => {
     try {
       const resp = await confirmItems(notYetIdList);
-      console.log(resp);
       if (resp.status === 200) {
         toast("발주 확인 완료. 제품을 발송해주세요 🚚");
         await onClickRefresh();

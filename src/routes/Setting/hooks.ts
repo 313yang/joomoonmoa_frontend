@@ -1,14 +1,11 @@
 import { AddMarketsType, PlaceOrderStatuesMarket } from "@/libs/Defines";
-import { RequestGet, toast } from "@/libs/Function";
+import { RequestGet,  toast } from "@/libs/Function";
 import { addsMarkets, changeMarkets, deleteMarket, getMarkets, marketsSyncTest } from "@/libs/api/market";
-import { useEffect, useState } from "react";
-import { StoreList } from "./defines";
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { useUserAuthAction } from "@/libs/store/useAuthStore";
-import { changePassword, sendOTP, verifyOTP } from "@/libs/api/auth";
+import { useState } from "react";
+import { AxiosError, AxiosResponse } from "axios";
+import { changePassword } from "@/libs/api/auth";
 import { useNavigate } from "react-router-dom";
-import { getConfig } from "@/libs/api/config";
-import { getDashboardOrderMarket } from "@/libs/api/dashboard";
+import { setToken } from "@/libs/api";
 
 const storeInfoInit = {
     clientId: "",
@@ -24,7 +21,6 @@ export const useSettingStore = () => {
     const [storeInfo, setStoreInfo] = useState<AddMarketsType>(storeInfoInit);
     const [loading, setLoading] = useState<boolean>(false);
     const { clientId, clientSecret } = storeInfo;
-    const { setAccessToken, setRefreshToken } = useUserAuthAction();
     const [password, setPassword] = useState<string>("");
     const [passwordConfirm, setPasswordConfirm] = useState<string>("");
     const [market, setMarket] = useState<PlaceOrderStatuesMarket[]>([]);
@@ -56,7 +52,6 @@ export const useSettingStore = () => {
         setLoading(true);
         if (password !== passwordConfirm) return toast("비밀번호가 일치하지 않습니다.");
         try {
-            console.log(phoneNumber);
             const { status } = await changePassword({ password, phoneNumber });
             if (status === 200) {
                 toast("✅성공적으로 비밀번호가 변경되었어요!");
@@ -142,8 +137,7 @@ export const useSettingStore = () => {
 
     /** 로그아웃 */
     const handleLogout = () => {
-        setAccessToken("");
-        setRefreshToken("");
+        setToken("");
         window.location.href = "/";
     };
 

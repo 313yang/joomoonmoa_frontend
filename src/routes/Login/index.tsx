@@ -1,20 +1,17 @@
 import { Button, Checkbox, Input } from "@/components/Styled";
 import { Link } from "react-router-dom";
 import style from "./style.module.scss";
-import { BuildClass, toast } from "@/libs/Function";
+import { BuildClass, getIsAutoLogin, setIsAutoLogin, toast } from "@/libs/Function";
 import { useEffect, useState } from "react";
 import { login } from "@/libs/api/auth";
-import { useUserAuth, useUserAuthAction } from "@/libs/store/useAuthStore";
 import { AxiosError } from "axios";
-import { getToken } from "@/libs/api";
+import { getToken, setToken } from "@/libs/api";
 
 const Login = () => {
-  const getAccessToken = getToken() || "";
-  const { accessToken,isAutoLogin } = useUserAuth();
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { setAccessToken, setRefreshToken, setIsAutoLogin } = useUserAuthAction();
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const isAutoLogin = getIsAutoLogin();
 
   const handleLogin = async () => {
     setIsDisabled(true);
@@ -22,8 +19,7 @@ const Login = () => {
       const { status, data } = await login({ phoneNumber, password });
       if (status === 200) {
         const { tokens } = data;
-        setAccessToken(tokens.access);
-        setRefreshToken(tokens.refresh);
+        setToken(tokens.access);
         window.location.href = "/dashboard";
       }
     } catch (err) {
@@ -37,14 +33,6 @@ const Login = () => {
     }
     setIsDisabled(false);
   };
-
-  useEffect(() => {
-    // if (!getAccessToken) {
-    //   setAccessToken(accessToken);
-    // }
-    console.log("1",accessToken,"2",isAutoLogin,"3",getAccessToken)
-    if (!!accessToken && isAutoLogin) window.location.replace("/dashboard");
-  }, [accessToken, isAutoLogin]);
 
   return <div className={style.LoginContainer}>
     <img className={style.logo} src="./logo.svg" />
@@ -64,9 +52,9 @@ const Login = () => {
       onEnter={handleLogin}
     />
     <Checkbox
-      checked={isAutoLogin}
+      checked={!!isAutoLogin}
       className={style.AutoLoginContainer}
-      value={isAutoLogin}
+      value={!!isAutoLogin}
       onChange={setIsAutoLogin}
       name="isAutoLogin"
     >

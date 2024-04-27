@@ -6,23 +6,21 @@ import Order from "@/routes/Order";
 import Setting from "@/routes/Setting";
 import Login from "@/routes/Login";
 import Join from "@/routes/Join";
-import { useUserAuth, useUserAuthAction } from "@/libs/store/useAuthStore";
 import Password from "@/routes/Join/password";
 import { notLoginPath } from "@/libs/Defines";
-import { getToken } from "@/libs/api";
+import { getToken, setToken } from "@/libs/api";
+import { getIsAutoLogin } from "@/libs/Function";
 
 
 const BaseLayout = () => {
   const accessToken = getToken();
   const { pathname } = useLocation();
-  const { setAccessToken, setRefreshToken } = useUserAuthAction();
-  const { isAutoLogin } = useUserAuth();
+  const isAutoLogin = getIsAutoLogin();
 
   useLayoutEffect(() => {
     if ((!accessToken && pathname !== "/" && pathname !== "/join") || !!accessToken && !isAutoLogin && (pathname === "/" || pathname === "/join")) {
+      setToken("");
       window.location.href = "/";
-      setAccessToken("");
-      setRefreshToken("");
     }
     else if (!!accessToken && notLoginPath.some(x => pathname === x)) window.location.href = "/dashboard";
   }, []);

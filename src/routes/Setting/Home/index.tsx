@@ -2,10 +2,9 @@ import { Chevron } from "@/components/Icons";
 import { Box, Switch, Button } from "@/components/Styled";
 import style from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
-import { BuildClass, formatPhoneNumber } from "@/libs/Function";
+import { BuildClass, formatPhoneNumber, getIsAutoLogin, setIsAutoLogin } from "@/libs/Function";
 import { useEffect } from "react";
 import { useSettingStore } from "../hooks";
-import { useUserAuth, useUserAuthAction } from "@/libs/store/useAuthStore";
 import { PlaceOrderStatuesMarket, StoreListType } from "@/libs/Defines";
 
 interface SettingMainProps {
@@ -14,12 +13,10 @@ interface SettingMainProps {
 }
 const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
     const route = useNavigate();
-    const { isAutoLogin } = useUserAuth();
-    const { setIsAutoLogin } = useUserAuthAction();
+    const isAutoLogin = getIsAutoLogin();
     const { deleteMarketHandler, getMarket, market } = useSettingStore();
 
     const onClickModifiedMarket = (market: PlaceOrderStatuesMarket) => {
-        console.log("market:", market);
         setSelectedMarket(market);
         route("/setting/addStore");
     };
@@ -45,12 +42,12 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
                 </button>
             </div>
             <div>
-                <p>주문수집알림</p>
+                <p>앱 주문 알림</p>
                 <Switch name="orderAlram" />
             </div>
             <div>
                 <p>자동로그인</p>
-                <Switch name="isAutoLoginSwitch" checked={isAutoLogin} onChange={(_, checked) => setIsAutoLogin(!!checked)} />
+                <Switch name="isAutoLoginSwitch" checked={!!isAutoLogin} onChange={(_, checked) => setIsAutoLogin(!!checked)} />
             </div>
             <div style={{ border: "none" }}>
                 <p>판매채널</p>

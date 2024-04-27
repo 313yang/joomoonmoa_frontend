@@ -139,3 +139,26 @@ export const formatPhoneNumber = (phoneNumber: string) => {
 	}
 	return phoneNumber;
 };
+
+
+
+/** 자동로그인 여부를 저장합니다 */
+export const getIsAutoLogin = () =>{
+	if (document.cookie) {
+        const cookies = document.cookie.split(`${decodeURIComponent("isAutoLogin")}=`);
+        if (cookies.length >= 2) {
+            const values = cookies[1].split(";");
+            return values[0];
+        }
+    }
+	return ""
+}
+
+/** 지동로그인 여부를 설정합니다. */
+export const setIsAutoLogin = (val: boolean) => {
+    const options = [
+        `secure`, // HTTPS를 통해서만 쿠키를 전송
+        `path=/`, // 쿠키가 모든 경로에 적용
+    ].join('; ');
+    document.cookie = `isAutoLogin=${val}; ${options}`;
+};

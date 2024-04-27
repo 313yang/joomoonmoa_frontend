@@ -1,18 +1,7 @@
 import axios, { AxiosError } from "axios";
-import { useUserAuth, useUserAuthAction } from "../store/useAuthStore";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const baseURL = API_URL + "/api/v1";
-
-export const getToken = () => {
-    if (document.cookie) {
-        const cookies = document.cookie.split(`${decodeURIComponent("access")}=`);
-        if (cookies.length >= 2) {
-            const values = cookies[1].split(";");
-            return values[0];
-        }
-    }
-};
 
 const apply = (resp: any) => { return resp; };
 const reject = async (error: AxiosError) => {
@@ -24,13 +13,34 @@ const reject = async (error: AxiosError) => {
     }
     return Promise.reject(error);
 };
+/** accessToken을 불러옵니다 */
+export const getToken = () => {
+    if (document.cookie) {
+        const cookies = document.cookie.split(`${decodeURIComponent("access")}=`);
+        if (cookies.length >= 2) {
+            const values = cookies[1].split(";");
+            return values[0];
+        }
+    }
+	return ""
+};
+
+/** accessToken을 설정합니다. */
+export const setToken = (token: string) => {
+    const options = [
+        `secure`, // HTTPS를 통해서만 쿠키를 전송
+        `path=/`, // 쿠키가 모든 경로에 적용
+    ].join('; ');
+    document.cookie = `access=${token}; ${options}`;
+};
+
 const headers = {
     "Access-Control-Allow-Origin": "*",
     "Content-type": "application/json",
     Authorization: "bearer " + getToken()
 };
 const auth = axios.create({ timeout: 8000, baseURL: `${baseURL}/auth` });
-const authHeader  = axios.create({ timeout: 8000, baseURL: `${baseURL}/auth` ,headers});
+const authHeader = axios.create({ timeout: 8000, baseURL: `${baseURL}/auth`, headers });
 const dashboard = axios.create({ timeout: 8000, baseURL: `${baseURL}/items`, headers });
 const orders = axios.create({ timeout: 8000, baseURL: `${baseURL}/orders`, headers });
 const common = axios.create({ timeout: 8000, baseURL: `${baseURL}/common`, headers });
