@@ -1,17 +1,17 @@
+import { useEffect, useState } from "react";
 import Header from "@/components/Layout/Header";
-import style from "./style.module.scss";
-import { Chevron } from "@/components/Icons";
 import { useLocation, useNavigate } from "react-router-dom";
+import { BuildClass, RequestGet } from "@/libs/Function";
+import { PlaceOrderStatuesMarket } from "@/libs/Defines";
+import { getConfig } from "@/libs/api/config";
 import SettingMain from "./Home";
 import SettingAddStore from "./AddStore";
-import { BuildClass, RequestGet } from "@/libs/Function";
 import { useSettingStore } from "./hooks";
 import SettingChangeNickname from "./Nickname";
 import SettingChangePassword from "./Password";
 import SettingChangePhoneNumber from "./PhoneNumber";
-import { useEffect, useState } from "react";
-import { getConfig } from "@/libs/api/config";
-import { PlaceOrderStatuesMarket } from "@/libs/Defines";
+import SettingPayment from "./Payment";
+import style from "./style.module.scss";
 
 let fetch = false;
 /** 설정 페이지 메인컴포넌트 */
@@ -40,25 +40,18 @@ const Setting = () => {
     const RenderComponent = () => {
         switch (path) {
             case "/addStore":
-                return {
-                    header: "", component: <SettingAddStore selectedMarket={selectedMarket} />
-                };
+                return <SettingAddStore selectedMarket={selectedMarket} />;
             case "/changeNickname":
-                return {
-                    header: "", component: <SettingChangeNickname />
-                };
+                return <SettingChangeNickname />;
             case "/changePassword":
-                return {
-                    header: "", component: <SettingChangePassword />
-                };
+                return <SettingChangePassword />;
             case "/changePhoneNumber":
-                return {
-                    header: "", component: <SettingChangePhoneNumber phoneNumber={phoneNumber} />
-                };
+                return <SettingChangePhoneNumber phoneNumber={phoneNumber} />;
+            case "/payment":
+                return <SettingPayment />;
             default:
-                return {
-                    header: "", component: <SettingMain phoneNumber={phoneNumber} setSelectedMarket={setSelectedMarket} />
-                };
+                return <SettingMain phoneNumber={phoneNumber} setSelectedMarket={setSelectedMarket} />;
+
         }
     };
     useEffect(() => {
@@ -75,7 +68,7 @@ const Setting = () => {
             title={<div></div>}
         />}
 
-        {RenderComponent().component}
+        {RenderComponent()}
         <button onClick={handleLogout} className={BuildClass(style.Logout, "text-primary")}>로그아웃</button>
     </div>;
 };

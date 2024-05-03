@@ -77,8 +77,10 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
                     )}
                 </div>
             </article>
-
         </Box>
+        <Button width="100%" size="lg" className={style.UpgradeButton} onClick={() => route("/setting/payment")}>
+            프로 버전 업그레이드
+        </Button>
     </>;
 };
 export default SettingMain;

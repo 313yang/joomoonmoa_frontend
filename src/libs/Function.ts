@@ -162,3 +162,18 @@ export const setIsAutoLogin = (val: boolean) => {
 	].join('; ');
 	document.cookie = `isAutoLogin=${val}; ${options}`;
 };
+
+/** uid 생성 함수 */
+export const uid = () => {
+	// 각 부분을 랜덤하게 채워주는 함수
+	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+		var r = Math.random() * 16 | 0,
+			v = c == 'x' ? r : (r & 0x3 | 0x8);
+		return v.toString(16);
+	});
+};
+
+export const FormatNumberToPrice = (number: number) => {
+	// 한국 로케일을 사용하여 숫자를 형식화합니다.
+	return number.toLocaleString('ko-KR');
+};

@@ -695,4 +695,51 @@ button.button:disabled {
   margin-top: 4px;
 }
 
+.radio {
+  display: inline-flex;
+  vertical-align: top;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #212529;
+}
+.radio.radio-block {
+  display: flex;
+}
+.radio.radio-block:not(:last-child) {
+  margin-bottom: 24px;
+}
+.radio:not(.radio-block:last-child) {
+  margin-right: 24px;
+}
+.radio.radio-disabled, .radio.radio-readonly {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.radio:hover span {
+  border-color: #D5D4FF;
+}
+.radio span {
+  flex: 0 0 20px;
+  content: " ";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  border: 1px solid #bcc4cc;
+  cursor: pointer;
+  margin-right: 8px;
+}
+.radio input {
+  display: none;
+}
+.radio input:checked + span {
+  border-color: #7A5AF8;
+  border-width: 5px;
+}
+
 /*# sourceMappingURL=index.css.map */

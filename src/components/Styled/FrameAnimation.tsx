@@ -1,6 +1,6 @@
 import { FocusEventHandler, FunctionComponent, MouseEventHandler, createElement, memo, useLayoutEffect, useRef, useState } from "react";
 import { PropBase } from "./defines";
-import { BuildClass } from "@/libs/Function";
+import { BuildClass, uid } from "@/libs/Function";
 
 interface FrameAnimationProps extends PropBase {
     display: boolean;
@@ -37,7 +37,7 @@ export const FrameAnimation: FunctionComponent<FrameAnimationProps> = memo(({
     onBlur,
     onClick,
 }) => {
-    const id = useRef<string>(`${keyId || "FrameAnimation"}-${Date.now()}`);
+    const id = useRef<string>(`${keyId || "FrameAnimation"}-${uid()}`);
     const [mounted, setMounted] = useState<boolean>(display);
 
     const innerMounted = typeof animationOut !== "undefined" ? mounted : display;

@@ -6,3 +6,4 @@ export * from "./Table";
 export * from "./InputLine";
 export * from "./Input";
 export * from "./Switch";
+export * from "./Radio";

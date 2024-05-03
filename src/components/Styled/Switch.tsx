@@ -1,6 +1,6 @@
 import { ChangeEvent, useRef, useState } from "react";
 import { PropBase } from "./defines";
-import { BuildClass } from "@/libs/Function";
+import { BuildClass, uid } from "@/libs/Function";
 
 export interface SwitchProps<T> extends PropBase {
     name: string;
@@ -32,7 +32,7 @@ export function Switch<T extends string | number | string[]>({
     onChange = () => void (0),
 }: SwitchProps<T>) {
     const [innerChecked, setInnerChecked] = useState<boolean>(!!defaultChecked);
-    const id = useRef<string>(`Switch-${Date.now()}`);
+    const id = useRef<string>(`Switch-${uid()}`);
 
     const checked = (() => {
         if (typeof PropChecked !== "undefined") return PropChecked;

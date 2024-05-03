@@ -42,6 +42,7 @@
 .StoreSettingHeader {
     display: flex;
     margin-bottom: 20px;
+
     >span {
         min-width: 90px;
     }
@@ -52,27 +53,38 @@
 
     >:global(.StoreName) {
         flex-direction: row;
+
         >p {
             min-width: 90px;
         }
     }
 }
+
 .StoreSettingName {
     >p {
         font-size: 14px;
     }
 }
+
 .StoreButtons {
     display: flex;
     align-items: center;
+
     >button {
         display: flex;
     }
 }
+
 .StoreAlias {
     width: 110px;
     // max-width: 110px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.UpgradeButton {
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 12px !important;
 }
