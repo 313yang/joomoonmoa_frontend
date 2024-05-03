@@ -13,7 +13,7 @@ interface SettingMainProps {
 }
 const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
     const route = useNavigate();
-    const [isAutoLogin, setAutoLogin] = useState<boolean>(!!getIsAutoLogin());
+    const [isAutoLogin, setAutoLogin] = useState<boolean>(getIsAutoLogin());
     const { deleteMarketHandler, getMarket, market } = useSettingStore();
 
     const onClickSetAutoLogin = (val: boolean) => {

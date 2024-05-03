@@ -13,10 +13,10 @@ const SettingAddStore = ({ selectedMarket }: { selectedMarket: PlaceOrderStatues
         if (!!selectedMarket) handleSetStoreInfo(selectedMarket);
     }, []);
 
-    if (!storeInfo?.platform)
+    if (!platform)
         return <Dropdown key={platform} className={style.Dropdown} placeholder={"판매 채널"} items={StoreList} value={platform} onClick={(val) => handleSetStoreInfo({ platform: val })} />;
     return <>
-        <Dropdown key={platform} className={style.Dropdown} placeholder={"판매 채널"} items={StoreList} value={platform} onClick={(val) => handleSetStoreInfo({ platform: val })} />
+        <Dropdown disabled={!!selectedMarket} key={platform} className={style.Dropdown} placeholder={"판매 채널"} items={StoreList} value={platform} onClick={(val) => handleSetStoreInfo({ platform: val })} />
         <Input label="스토어 API" defaultValue={clientId} onInput={(val) => handleSetStoreInfo({ clientId: val })} />
         <Input label="API KEY" defaultValue={clientSecret} onInput={(val) => handleSetStoreInfo({ clientSecret: val })} />
         <Input label="별명" defaultValue={marketAlias} onInput={(val) => handleSetStoreInfo({ marketAlias: val })} />

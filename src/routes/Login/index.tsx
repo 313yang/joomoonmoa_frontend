@@ -11,7 +11,7 @@ const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
-  const [isAutoLogin, setAutoLogin] = useState<boolean>(!!getIsAutoLogin());
+  const [isAutoLogin, setAutoLogin] = useState<boolean>(getIsAutoLogin());
 
   const onClickSetAutoLogin = (val: boolean) => {
     setIsAutoLogin(val);

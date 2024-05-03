@@ -582,6 +582,9 @@ button.button:disabled {
   background-color: #f8fafb;
   pointer-events: none;
 }
+.dropdown.dropdown-disabled .dropdown-display a, .dropdown.dropdown-readonly .dropdown-display a {
+  background-color: transparent;
+}
 .dropdown.dropdown-error .dropdown-display {
   border-width: 2px;
   border-color: #EF314E;
