@@ -48,6 +48,7 @@ const orders = axios.create({ timeout: 8000, baseURL: `${baseURL}/orders`, heade
 const common = axios.create({ timeout: 8000, baseURL: `${baseURL}/common`, headers });
 const markets = axios.create({ timeout: 8000, baseURL: `${baseURL}/markets`, headers });
 const config = axios.create({ timeout: 8000, baseURL: `${baseURL}/config`, headers });
+const subscriptions = axios.create({ timeout: 8000, baseURL: `${baseURL}/subscriptions`, headers });
 
 interface LoginType {
     phoneNumber: string;
@@ -70,5 +71,6 @@ export {
     orders,
     common,
     markets,
-    config
+    config,
+    subscriptions
 };

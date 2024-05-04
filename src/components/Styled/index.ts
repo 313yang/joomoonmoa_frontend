@@ -7,3 +7,4 @@ export * from "./InputLine";
 export * from "./Input";
 export * from "./Switch";
 export * from "./Radio";
+export * from "./Confirm";

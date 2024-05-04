@@ -1,11 +1,12 @@
 import { Chevron } from "@/components/Icons";
-import { Box, Switch, Button } from "@/components/Styled";
+import { Box, Switch, Button, Confirm } from "@/components/Styled";
 import style from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import { BuildClass, formatPhoneNumber, getIsAutoLogin, setIsAutoLogin } from "@/libs/Function";
 import { useEffect, useState } from "react";
 import { useSettingStore } from "../hooks";
 import { PlaceOrderStatuesMarket, StoreListType } from "@/libs/Defines";
+import { setToken } from "@/libs/api";
 
 interface SettingMainProps {
     phoneNumber: string;
@@ -15,20 +16,34 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
     const route = useNavigate();
     const [isAutoLogin, setAutoLogin] = useState<boolean>(getIsAutoLogin());
     const { deleteMarketHandler, getMarket, market } = useSettingStore();
+    const [deleteMarketId, setDeleteMarketId] = useState<number | null>(null);
+
+    /** 로그아웃 */
+    const handleLogout = () => {
+        setToken("");
+        window.location.href = "/";
+    };
 
     const onClickSetAutoLogin = (val: boolean) => {
         setIsAutoLogin(val);
         setAutoLogin(val);
     };
+
     const onClickModifiedMarket = (market: PlaceOrderStatuesMarket) => {
         setSelectedMarket(market);
         route("/setting/addStore");
     };
+
     useEffect(() => {
         getMarket();
     }, []);
 
     return <>
+        {!!deleteMarketId && <Confirm
+            content="정말 채널을 삭제하실건가요?"
+            onClose={() => setDeleteMarketId(null)}
+            onClickConfirm={() => deleteMarketHandler(deleteMarketId)}
+        />}
         <Box color="white" className={style.StoreContainer}>
             <div>
                 <p>비밀번호</p>
@@ -71,7 +86,7 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
                             <div className={style.StoreAlias}>{x.marketAlias}</div>
                             <div className={style.StoreButtons}>
                                 <button className="text-primary" onClick={() => onClickModifiedMarket(x)}>수정</button>
-                                <button className="text-primary" onClick={() => deleteMarketHandler(x.marketId)}>삭제</button>
+                                <button className="text-primary" onClick={() => setDeleteMarketId(x.marketId)}>삭제</button>
                             </div>
                         </div>
                     )}
@@ -81,6 +96,7 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
         <Button width="100%" size="lg" className={style.UpgradeButton} onClick={() => route("/setting/payment")}>
             프로 버전 업그레이드
         </Button>
+        <button onClick={handleLogout} className={BuildClass(style.Logout, "text-primary")}>로그아웃</button>
     </>;
 };
 export default SettingMain;

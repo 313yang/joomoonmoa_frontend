@@ -19,7 +19,6 @@ const Setting = () => {
     const { pathname } = useLocation();
     const route = useNavigate();
     const path = pathname.replace("/setting", "");
-    const { handleLogout } = useSettingStore();
     const [phoneNumber, setPhoneNumber] = useState<string>("");
     const [selectedMarket, setSelectedMarket] = useState<PlaceOrderStatuesMarket | null>(null);
 
@@ -69,7 +68,6 @@ const Setting = () => {
         />}
 
         {RenderComponent()}
-        <button onClick={handleLogout} className={BuildClass(style.Logout, "text-primary")}>로그아웃</button>
     </div>;
 };
 export default Setting;

@@ -1,0 +1,32 @@
+.confirmBg {
+    z-index: 99999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.confirmContainer {
+    position: fixed;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 260px;
+    > span {
+        margin-top: 10px;
+    }
+    >div {
+        display: flex;
+        gap: 10px;
+        >.confirm_cancel {
+            background-color: $gray400;
+        }
+    }
+}

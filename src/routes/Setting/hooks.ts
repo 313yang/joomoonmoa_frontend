@@ -1,5 +1,5 @@
 import { AddMarketsType, PlaceOrderStatuesMarket } from "@/libs/Defines";
-import { RequestGet,  toast } from "@/libs/Function";
+import { RequestGet, toast } from "@/libs/Function";
 import { addsMarkets, changeMarkets, deleteMarket, getMarkets, marketsSyncTest } from "@/libs/api/market";
 import { useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
@@ -135,12 +135,6 @@ export const useSettingStore = () => {
         }
     };
 
-    /** 로그아웃 */
-    const handleLogout = () => {
-        setToken("");
-        window.location.href = "/";
-    };
-
     return {
         loading,
         storeInfo,
@@ -155,7 +149,6 @@ export const useSettingStore = () => {
         submitChangePassword,
         getMarket,
         market,
-        handleLogout,
         phoneNumber,
         submitChangeMarket
     };

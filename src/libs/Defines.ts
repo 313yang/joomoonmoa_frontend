@@ -59,4 +59,10 @@ export interface AddMarketsType extends ClientType {
     marketId?: number;
 }
 
+/** 구독 플랜 타입 */
+export interface PlanType {
+    planPriceId: number;
+    servingPrice: number;
+    durationMonths: number;
+}
 export const notLoginPath = ["/", "/password", "/join"];

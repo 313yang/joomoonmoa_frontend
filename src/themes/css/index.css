@@ -742,4 +742,38 @@ button.button:disabled {
   border-width: 5px;
 }
 
+.confirmBg {
+  z-index: 99999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.confirmContainer {
+  position: fixed;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 260px;
+}
+.confirmContainer > span {
+  margin-top: 10px;
+}
+.confirmContainer > div {
+  display: flex;
+  gap: 10px;
+}
+.confirmContainer > div > .confirm_cancel {
+  background-color: #bcc4cc;
+}
+
 /*# sourceMappingURL=index.css.map */
