@@ -15,23 +15,25 @@ const reject = async (error: AxiosError) => {
 };
 /** accessToken을 불러옵니다 */
 export const getToken = () => {
-    if (document.cookie) {
-        const cookies = document.cookie.split(`${decodeURIComponent("access")}=`);
-        if (cookies.length >= 2) {
-            const values = cookies[1].split(";");
-            return values[0];
-        }
-    }
-	return ""
+    return localStorage.getItem("accessToken") || "";
+    // if (document.cookie) {
+    //     const cookies = document.cookie.split(`${decodeURIComponent("access")}=`);
+    //     if (cookies.length >= 2) {
+    //         const values = cookies[1].split(";");
+    //         return values[0];
+    //     }
+    // }
+    // return ""
 };
 
 /** accessToken을 설정합니다. */
 export const setToken = (token: string) => {
-    const options = [
-        `secure`, // HTTPS를 통해서만 쿠키를 전송
-        `path=/`, // 쿠키가 모든 경로에 적용
-    ].join('; ');
-    document.cookie = `access=${token}; ${options}`;
+    localStorage.setItem("accessToken", token);
+    // const options = [
+    //     `secure`, // HTTPS를 통해서만 쿠키를 전송
+    //     `path=/`, // 쿠키가 모든 경로에 적용
+    // ].join('; ');
+    // document.cookie = `access=${token}; ${options}`;
 };
 
 const headers = {
