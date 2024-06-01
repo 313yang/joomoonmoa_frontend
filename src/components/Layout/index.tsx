@@ -17,8 +17,8 @@ const BaseLayout = () => {
   const { pathname } = useLocation();
   const isAutoLogin = getIsAutoLogin();
 
-  const getFlutterToken = () => {
-    alert("Hello-------------");
+  const getFlutterToken = (token: string) => {
+    alert("Hello-------------" + token);
   };
   // useLayoutEffect(() => {
   //   if ((!accessToken && pathname !== "/" && pathname !== "/join") || !!accessToken && !isAutoLogin && (pathname === "/" || pathname === "/join")) {
