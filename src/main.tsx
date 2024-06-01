@@ -5,6 +5,6 @@ import App from './App.tsx';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <App />
-    <input type="hidden" id="device_token" name="device_token" />
+    <input id="device_token" name="device_token" placeholder="ggggggggg" />
   </React.StrictMode>,
 );
