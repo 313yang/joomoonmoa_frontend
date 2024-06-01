@@ -18,6 +18,6 @@ export const changeMarkets = async (marketId: number, data: AddMarketsType) => a
 export const marketsSyncTest = async (data: ClientType) => await markets.post("/sync-test", data);
 
 /** 스토어 삭제 */
-export const deleteMarket = async (marketId: number) => await markets.delete("", { params: marketId });
+export const deleteMarket = async (marketId: number) => await markets.delete(`/${marketId}`);
 
 export const marketRefresh = async () => await markets.get("/refresh"); 

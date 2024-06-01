@@ -42,7 +42,10 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
         {!!deleteMarketId && <Confirm
             content="정말 채널을 삭제하실건가요?"
             onClose={() => setDeleteMarketId(null)}
-            onClickConfirm={() => deleteMarketHandler(deleteMarketId)}
+            onClickConfirm={() => {
+                deleteMarketHandler(deleteMarketId);
+                setDeleteMarketId(null);
+            }}
         />}
         <Box color="white" className={style.StoreContainer}>
             <div>

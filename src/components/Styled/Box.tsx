@@ -9,6 +9,7 @@ interface BoxProps {
   borderless?: boolean;
   className?: string;
   color?: "white" | "gray50";
+  onClick?: () => void;
 }
 
 export const Box = ({
@@ -18,7 +19,9 @@ export const Box = ({
   borderless,
   style,
   color,
+  onClick,
   className }: BoxProps) => createElement("div", {
     className: BuildClass("box", `box-${size}`, `box-${radius}`, color && `box-${color}`, borderless && "box-borderless", className),
     style,
+    onClick
   }, children);

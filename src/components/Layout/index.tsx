@@ -17,13 +17,16 @@ const BaseLayout = () => {
   const { pathname } = useLocation();
   const isAutoLogin = getIsAutoLogin();
 
-  useLayoutEffect(() => {
-    if ((!accessToken && pathname !== "/" && pathname !== "/join") || !!accessToken && !isAutoLogin && (pathname === "/" || pathname === "/join")) {
-      setToken("");
-      window.location.href = "/";
-    }
-    else if (!!accessToken && notLoginPath.some(x => pathname === x)) window.location.href = "/dashboard";
-  }, []);
+  const getFlutterToken = () => {
+    alert("Hello-------------");
+  };
+  // useLayoutEffect(() => {
+  //   if ((!accessToken && pathname !== "/" && pathname !== "/join") || !!accessToken && !isAutoLogin && (pathname === "/" || pathname === "/join")) {
+  //     setToken("");
+  //     window.location.href = "/";
+  //   }
+  //   else if (!!accessToken && notLoginPath.some(x => pathname === x)) window.location.href = "/dashboard";
+  // }, []);
 
   return <Routes>
     <Route path="/" Component={Login} />

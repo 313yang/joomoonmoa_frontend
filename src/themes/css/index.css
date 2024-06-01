@@ -773,6 +773,7 @@ button.button:disabled {
   gap: 10px;
 }
 .confirmContainer > div > .confirm_cancel {
+  border: #bcc4cc;
   background-color: #bcc4cc;
 }
 
