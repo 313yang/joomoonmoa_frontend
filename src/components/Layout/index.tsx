@@ -1,4 +1,4 @@
-import { FunctionComponent, useLayoutEffect } from "react";
+import { FunctionComponent, useEffect, useLayoutEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Dashboard from "@/routes/Dashboard";
 import Request from "@/routes/Request";
@@ -17,7 +17,10 @@ const BaseLayout = () => {
   const { pathname } = useLocation();
   const isAutoLogin = getIsAutoLogin();
 
-
+  useEffect(() => {
+    if (localStorage.getItem("deviceToken"))
+      alert(localStorage.getItem("deviceToken"));
+  }, []);
   // useLayoutEffect(() => {
   //   if ((!accessToken && pathname !== "/" && pathname !== "/join") || !!accessToken && !isAutoLogin && (pathname === "/" || pathname === "/join")) {
   //     setToken("");
