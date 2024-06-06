@@ -7,10 +7,7 @@ interface LoginType {
     phoneNumber: string;
     deviceToken: string | null;
 }
-
-interface SignupType extends LoginType {
-
-}
+interface SignupType extends Omit<LoginType, 'deviceToken'> {}
 
 export const login = async (data: LoginType) => await auth.post("/login", data);
 export const signup = async (data: SignupType) => await auth.post("/signup", data);
