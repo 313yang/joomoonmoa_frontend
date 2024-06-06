@@ -17,12 +17,6 @@ const BaseLayout = () => {
   const { pathname } = useLocation();
   const isAutoLogin = getIsAutoLogin();
 
-  useEffect(() => {
-    if (localStorage.getItem("deviceToken"))
-      alert(localStorage.getItem("deviceToken"));
-    if (localStorage.getItem("accessToken"))
-      alert(localStorage.getItem("accessToken"));
-  }, []);
   // useLayoutEffect(() => {
   //   if ((!accessToken && pathname !== "/" && pathname !== "/join") || !!accessToken && !isAutoLogin && (pathname === "/" || pathname === "/join")) {
   //     setToken("");

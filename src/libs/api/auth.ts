@@ -5,6 +5,7 @@ import { LoginPayload } from "../Defines";
 interface LoginType {
     password: string;
     phoneNumber: string;
+    deviceToken: string | null;
 }
 
 interface SignupType extends LoginType {

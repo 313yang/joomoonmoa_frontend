@@ -21,7 +21,7 @@ const Login = () => {
   const handleLogin = async () => {
     setIsDisabled(true);
     try {
-      const { status, data } = await login({ phoneNumber, password });
+      const { status, data } = await login({ phoneNumber, password, deviceToken: localStorage.getItem("deviceToken") });
       if (status === 200) {
         const { tokens } = data;
         setToken(tokens.access);
