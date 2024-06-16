@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import style from "./style.module.scss";
 import { BuildClass, getIsAutoLogin, setIsAutoLogin, toast } from "@/libs/Function";
 import { useLayoutEffect, useState } from "react";
-import { login } from "@/libs/api/auth";
+import { DeviceOs, login } from "@/libs/api/auth";
 import { AxiosError } from "axios";
 import { fcmtest, getToken, setToken } from "@/libs/api";
 
@@ -22,7 +22,7 @@ const Login = () => {
   const handleLogin = async () => {
     setIsDisabled(true);
     try {
-      const { status, data } = await login({ phoneNumber, password, deviceToken: localStorage.getItem("deviceToken") });
+      const { status, data } = await login({ phoneNumber, password, deviceToken: localStorage.getItem("deviceToken"), deviceOs: localStorage.getItem("deviceOs") as DeviceOs });
       if (status === 200) {
         const { tokens } = data;
         setToken(tokens.access);
@@ -51,7 +51,7 @@ const Login = () => {
   };
 
   return <div className={style.LoginContainer}>
-    <button onClick={fcmtestFn}>test</button>
+    {/* <button onClick={fcmtestFn}>test</button> */}
     <img className={style.logo} src="./logo.svg" />
     <Input
       label="전화번호"

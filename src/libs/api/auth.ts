@@ -2,12 +2,17 @@ import { AxiosResponse } from "axios";
 import { auth } from ".";
 import { LoginPayload } from "../Defines";
 
+export enum DeviceOs {
+    android = "ANDROID",
+    ios = "IOS"
+}
 interface LoginType {
     password: string;
     phoneNumber: string;
     deviceToken: string | null;
+    deviceOs: DeviceOs;
 }
-interface SignupType extends Omit<LoginType, 'deviceToken'> {}
+interface SignupType extends Omit<LoginType, 'deviceToken'> { }
 
 export const login = async (data: LoginType) => await auth.post("/login", data);
 export const signup = async (data: SignupType) => await auth.post("/signup", data);
