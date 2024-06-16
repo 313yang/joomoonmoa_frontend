@@ -2,16 +2,17 @@ import { Button, Checkbox, Input } from "@/components/Styled";
 import { Link } from "react-router-dom";
 import style from "./style.module.scss";
 import { BuildClass, getIsAutoLogin, setIsAutoLogin, toast } from "@/libs/Function";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { login } from "@/libs/api/auth";
 import { AxiosError } from "axios";
-import { getToken, setToken } from "@/libs/api";
+import { fcmtest, getToken, setToken } from "@/libs/api";
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [isAutoLogin, setAutoLogin] = useState<boolean>(getIsAutoLogin());
+
 
   const onClickSetAutoLogin = (val: boolean) => {
     setIsAutoLogin(val);
@@ -38,8 +39,19 @@ const Login = () => {
     }
     setIsDisabled(false);
   };
+  useLayoutEffect(() => {
+    if (getIsAutoLogin() && getToken()) window.location.href = "/dashboard";
+  }, []);
+  const fcmtestFn = async () => {
+    try {
+      await fcmtest({ title: "test", body: "erer" });
+    } catch (Err) {
+      console.log(Err);
+    }
+  };
 
   return <div className={style.LoginContainer}>
+    <button onClick={fcmtestFn}>test</button>
     <img className={style.logo} src="./logo.svg" />
     <Input
       label="전화번호"
