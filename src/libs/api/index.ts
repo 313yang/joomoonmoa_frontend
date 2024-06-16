@@ -7,8 +7,7 @@ const apply = (resp: any) => { return resp; };
 const reject = async (error: AxiosError) => {
     const { config, response } = error;
     if (response?.status === 401) {
-        document.cookie = `access=`;
-        document.cookie = `refresh=`;
+        setToken("");
         return window.location.href = "/";
     }
     return Promise.reject(error);
