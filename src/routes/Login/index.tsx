@@ -44,7 +44,7 @@ const Login = () => {
   }, []);
   const fcmtestFn = async () => {
     try {
-      await fcmtest({ title: "test", body: "erer" });
+      await fcmtest();
     } catch (Err) {
       console.log(Err);
     }
