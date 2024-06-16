@@ -56,7 +56,7 @@ interface LoginType {
 export const changePhoneNumberApi = async (data: LoginType) => await authHeader.patch(`phone-number`, data,);
 export const fcmtest = async () => await axios.post(`${baseURL}/fcmTest`, {}, { headers });
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 auth.interceptors.response.use(apply, (err) => {
     return Promise.reject(err);
 });
