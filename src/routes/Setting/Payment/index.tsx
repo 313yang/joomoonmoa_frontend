@@ -1,4 +1,5 @@
 import { usePayment } from "./hooks";
+import PaymentMethod from "./Method";
 import PaymentPlanList from "./PlanList";
 
 const SettingPayment = () => {
@@ -9,6 +10,7 @@ const SettingPayment = () => {
         <h6>구독 기간</h6>
         {planList.map(li => <PaymentPlanList plan={li} />)}
         <h6>결제 수단</h6>
+        <PaymentMethod />
         <h6>쿠폰</h6>
         <div>
 

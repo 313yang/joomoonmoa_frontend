@@ -1,0 +1,19 @@
+.CreditInfoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+    >div {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        :global(.input-container){
+            border-radius: 8px;
+            padding: 4px 12px;
+            height: 36px;
+            >input {
+                padding-top: 0;
+            }
+        }
+    }
+}

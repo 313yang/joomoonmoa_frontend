@@ -45,3 +45,31 @@ export const StoreList = [
     //     name: "멸치쇼핑", value: "MELCHI"
     // }
 ];
+
+export enum PaymentMethodType {
+    NAVER_PAY = 1,
+    CREDIT_CARD = 2,
+}
+
+export const methodList = [
+    {
+        type: PaymentMethodType.NAVER_PAY,
+        name: "네이버페이",
+        icon: "naverpay.png"
+    }, {
+        type: PaymentMethodType.CREDIT_CARD,
+        name: "카드",
+        icon: "card.png"
+    },
+];
+
+export interface CardInfoType {
+    /** 카드 번호입니다. 최대 길이는 20자입니다. */
+    cardNumber: string;
+    /** 카드 유효 연도입니다. */
+    cardExpirationYear: string;
+    /** 카드 유효 월입니다. */
+    cardExpirationMonth: string;
+    /** 카드 소유자 정보입니다. 생년월일 6자리(YYMMDD) 혹은 사업자등록번호 10자리가 들어갑니다. */
+    customerIdentityNumber: string;
+}
