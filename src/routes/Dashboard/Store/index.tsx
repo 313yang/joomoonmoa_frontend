@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const DashboardStore = ({ data }: { data: PlaceOrderStatuesMarket[]; }) => {
   const route = useNavigate()
   return <div className={style.Container}>
-    <div className={BuildClass(style.ContainerHeader, style.AddMarketButton)}>
+    <div className={style.AddMarketButton}>
       <div>
         <img src="/assets/images/chart.png" />
         <h3>현황</h3>

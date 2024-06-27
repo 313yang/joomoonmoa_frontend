@@ -15,15 +15,20 @@
         gap: 12px;
         text-decoration: none;
         color: inherit;
-        &.AddMarketButton {
-            justify-content: space-between;
-            >div {
-                display: flex;
-                gap: 12px;
-            }
-            >span {
-                cursor: pointer;
-            }
+        width: fit-content;
+        cursor: pointer;
+    }
+    .AddMarketButton {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        >div {
+            display: flex;
+            gap: 12px;
+        }
+        >span {
+            cursor: pointer;
         }
     }
 }
@@ -45,7 +50,8 @@
     align-items: center;
     width: 100%;
     gap: 12px;
-    >button {
+    cursor: pointer;
+    >div {
         display: flex;
         align-items: center;
         justify-content: space-between;

@@ -24,27 +24,27 @@ const DashboardOrder = ({ data }: { data: DashboardItems; }) => {
     }
   };
   return <div className={style.Container}>
-    <div className={style.ContainerHeader}>
+    <div className={style.ContainerHeader} onClick={() => route("/order/news")}>
       <img src="/assets/images/paper.png" />
       <h3>주문</h3>
     </div>
     <div className={style.DashboardOrderContainer}>
       <div className={style.DashboardOrdeBoxrContainer}>
-        <Box color="gray50" className={style.DashboardOrdeBox}>
-          <button onClick={() => route("/order/news")}>
+        <Box color="gray50" className={style.DashboardOrdeBox} onClick={() => route("/order/news")}>
+          <div>
             <span>신규주문</span>
             <Chevron direction="right" width={8} />
-          </button>
+          </div>
           <h2>{notYet}</h2>
         </Box>
         <Button disabled={notYet === 0} onClick={handleConfirmItems}>전체 발주확인</Button>
       </div>
       <div className={style.DashboardOrdeBoxrContainer}>
-        <Box color="gray50" className={style.DashboardOrdeBox}>
-          <button onClick={() => route("/order/wait")}>
+        <Box color="gray50" className={style.DashboardOrdeBox} onClick={() => route("/order/wait")}>
+          <div>
             <span>발송준비</span>
             <Chevron direction="right" width={8} />
-          </button>
+          </div>
           <h2>{ok}</h2>
         </Box>
         <Button disabled={canceled === 0} className={style.DashboardOrderButtonCancel}>
