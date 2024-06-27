@@ -1,7 +1,7 @@
 import { Box, Radio } from "@/components/Styled";
 import { PlanType } from "@/libs/Defines";
 import { BuildClass, FormatNumberToPrice } from "@/libs/Function";
-import commonStyle from "../../style.module.scss";
+import commonStyle from "../style.module.scss";
 import { usePayment } from "../hooks";
 
 export const PaymentPlanList = ({ plan }: { plan: PlanType; }) => {
