@@ -3,14 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import style from "./style.module.scss";
 import { Chat, Delivery, Home, List, Setting } from "@/components/Icons";
 import { getToken } from "@/libs/api";
+import { getIsAutoLogin } from "@/libs/Function";
 
 const Navigator = () => {
     const { pathname } = useLocation();
-    const accessToken = getToken();
     const checkingPathname = (url: string) => {
         if (pathname.includes(url)) return true;
     };
-    if (!accessToken) return <></>;
+    if (!(getIsAutoLogin() && getToken())) return <></>;
     
     return <nav className={style.Navigator}>
         <Link to="/dashboard" className={checkingPathname("/dashboard") ? style.selected : ""}>

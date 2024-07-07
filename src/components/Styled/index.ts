@@ -8,3 +8,4 @@ export * from "./Input";
 export * from "./Switch";
 export * from "./Radio";
 export * from "./Confirm";
+export * from "./Popup";

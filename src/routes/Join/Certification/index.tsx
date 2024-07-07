@@ -1,9 +1,10 @@
-import { Input, Button } from "@/components/Styled";
+import { Input, Button, Popup } from "@/components/Styled";
 import { BuildClass, secondsToMs } from "@/libs/Function";
 import { useState } from "react";
 import style from "./style.module.scss";
 import { useCertification } from "../hooks";
 import { CertType } from "../defines";
+import Privacy from "@/routes/Privacy";
 
 
 const CertificationContainer = ({ type }: { type: CertType; }) => {
@@ -30,11 +31,9 @@ const CertificationContainer = ({ type }: { type: CertType; }) => {
 
     return <div className={style.JoinInputContainer}>
         {display &&
-            <div className={style.PopupBg}>
-                <div className={style.Popup}>
-
-                </div>
-            </div>
+            <Popup onClose={() => setDisplay(false)}>
+                <Privacy />
+            </Popup>
         }
         {step === 1 ? <>
             <div className={style.JoinPhoneNumberInput}>

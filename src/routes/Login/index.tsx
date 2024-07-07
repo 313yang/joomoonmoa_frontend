@@ -13,7 +13,6 @@ const Login = () => {
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [isAutoLogin, setAutoLogin] = useState<boolean>(getIsAutoLogin());
 
-
   const onClickSetAutoLogin = (val: boolean) => {
     setIsAutoLogin(val);
     setAutoLogin(val);
