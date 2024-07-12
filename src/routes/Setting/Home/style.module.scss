@@ -44,18 +44,21 @@
     margin-bottom: 20px;
 
     >span {
-        min-width: 90px;
+        min-width: 110px;
     }
 }
 
 .StoresContainer {
     display: flex;
-
-    >:global(.StoreName) {
-        flex-direction: row;
-
-        >p {
-            min-width: 90px;
+    justify-content: space-between;
+    >div{
+        display: flex;
+        >:global(.StoreName) {
+            flex-direction: row;
+    
+            >p {
+                min-width: 110px;
+            }
         }
     }
 }

@@ -16,4 +16,12 @@
             }
         }
     }
+    .CardExpiration {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        :global(.input-container){
+            width: 90px;
+        }
+    }
 }

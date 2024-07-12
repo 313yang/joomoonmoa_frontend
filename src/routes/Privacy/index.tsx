@@ -1,5 +1,6 @@
+import style from "./style.module.scss"
 const Privacy = () => {
-    return <div>
+    return <div className={style.privacy}>
         <h5>개요 및 목록</h5>
         주문모아 (이하 '서비스')는 이용자의 개인정보 보호를 중요시하며, '정보통신망 이용촉진 및 정보보호'에 관한 법률을 준수합니다. 이 개인정보 취급 방침은 이용자가 제공하는 개인정보의 이용 목적, 방식 및 이를 보호하기 위한 조치에 관해 설명합니다.
         

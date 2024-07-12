@@ -83,10 +83,12 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
                 <div className={BuildClass("store_table_header", "store_table_container")}>
                     {market.map(x =>
                         <div key={`dashboardOrder_${x.marketId}`} className={style.StoresContainer}>
-                            <div className={BuildClass("StoreName", style.StoreSettingName)}>
-                                <p data-type={x.platform}>{StoreListType[x.platform]}</p>
+                            <div>
+                                <div className={BuildClass("StoreName", style.StoreSettingName)}>
+                                    <p data-type={x.platform}>{StoreListType[x.platform]}</p>
+                                </div>
+                                <div className={style.StoreAlias}>{x.marketAlias}</div>
                             </div>
-                            <div className={style.StoreAlias}>{x.marketAlias}</div>
                             <div className={style.StoreButtons}>
                                 <button className="text-primary" onClick={() => onClickModifiedMarket(x)}>수정</button>
                                 <button className="text-primary" onClick={() => setDeleteMarketId(x.marketId)}>삭제</button>

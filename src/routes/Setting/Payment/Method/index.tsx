@@ -4,7 +4,10 @@ import { BuildClass } from "@/libs/Function";
 import { CardInfoType, PaymentMethodType, methodList } from "../../defines";
 import commonStyle from "../style.module.scss";
 import style from "./style.module.scss";
+import Dropdown from "@/components/Styled/Dropdown";
 
+// const monthArray = Array.from({ length: 12 }, (_, i) => ({ name: i + 1, value: i + 1 }));
+// const monthArray = Array.from({ length: 12 }, (_, i) => ({ name: i + 1, value: i + 1 }));
 
 export const PaymentMethod = () => {
     const [selected, setSelected] = useState<PaymentMethodType>(PaymentMethodType.NAVER_PAY);
@@ -31,12 +34,12 @@ export const PaymentMethod = () => {
                 <div className={style.CreditInfoContainer}>
                     <div>
                         카드번호
-                        <Input />
+                        <Input value={cardInfo.cardNumber} />
                     </div>
                     <div>
                         유효기간
-                        <div>
-                            <Input /> 월 <Input /> 년
+                        <div className={style.CardExpiration}>
+                            <Input value={cardInfo.cardExpirationMonth} /> 월 <Input value={cardInfo.cardExpirationMonth} /> 년
                         </div>
                     </div>
                     <div>
