@@ -23,8 +23,7 @@ export const OrderPurchasedList = ({ item, checkedList, setCheckedList }: OrderP
     const handleDeliveryItem = async () => {
         if (!deliveryCompanyCode) return toast("택배사를 선택해주세요!");
         const verifyDigit = deliveryList.find(x => x.value === deliveryCompanyCode)?.digit;
-        const regex = / /gi;
-        if (!!verifyDigit && verifyDigit?.length > 0 && !verifyDigit?.some(x => x === trackingNumber.replace(regex, '').length)) {
+        if (!!verifyDigit && verifyDigit?.length > 0 && !verifyDigit?.some(x => x === trackingNumber.length)) {
             return toast("송장번호를 정확히 입력해주세요!");
         }
         try {
@@ -72,7 +71,7 @@ export const OrderPurchasedList = ({ item, checkedList, setCheckedList }: OrderP
             <Input
                 placeholder="송장번호"
                 value={trackingNumber}
-                onInput={setTrackingNumber}
+                onInput={(val) => setTrackingNumber(FormatNumber(val))}
                 formatCallback={(val) => FormatNumber(val)}
             />
             <Button onClick={handleDeliveryItem}>
