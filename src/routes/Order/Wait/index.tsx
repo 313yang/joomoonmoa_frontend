@@ -27,7 +27,7 @@ export const OrderPurchasedList = ({ item, checkedList, setCheckedList }: OrderP
             return toast("송장번호를 정확히 입력해주세요!");
         }
         try {
-            const { status } = await confirmDeliveryItems({ purchasedItemId: id, deliveryCompanyCode, trackingNumber });
+            const { status } = await confirmDeliveryItems({ dispatchItemList: [{ purchasedItemId: id, deliveryCompanyCode, trackingNumber }] });
             if (status === 200) {
                 toast("제품이 발송되었어요 🚚");
                 await onClickRefresh();
