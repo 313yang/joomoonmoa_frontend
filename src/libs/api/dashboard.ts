@@ -11,7 +11,7 @@ export const getDashboardOrderMarket = async () => await dashboard.get<PlaceOrde
 export const confirmItems = async (items: number[]) => dashboard.post("/confirm", { purchasedItemIdList: items });
 
 /** 해당 상품 발송 처리 */
-export const confirmDeliveryItems = async (purchasedItemId: number, delevery: { deliveryCompanyCode: string, trackingNumber: string; }) =>
-    dashboard.post(`/dispatch/${purchasedItemId}`, delevery);
+export const confirmDeliveryItems = async (delevery: { purchasedItemId: number, deliveryCompanyCode: string, trackingNumber: string; }) =>
+    dashboard.post(`/dispatch`, delevery);
 
 export const approveCancel = async (purchasedItemId: number) => dashboard.post(`/approve-cancel/${purchasedItemId}`);

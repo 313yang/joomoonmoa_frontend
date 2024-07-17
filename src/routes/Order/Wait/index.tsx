@@ -23,15 +23,15 @@ export const OrderPurchasedList = ({ item, checkedList, setCheckedList }: OrderP
     const handleDeliveryItem = async () => {
         if (!deliveryCompanyCode) return toast("택배사를 선택해주세요!");
         const verifyDigit = deliveryList.find(x => x.value === deliveryCompanyCode)?.digit;
-        if (!!verifyDigit && verifyDigit?.length > 0 && !verifyDigit?.some(x => x === trackingNumber.length)) {
+        if (!!verifyDigit && verifyDigit?.length > 0 && !verifyDigit?.some(x => x === trackingNumber.trim().length)) {
             return toast("송장번호를 정확히 입력해주세요!");
         }
         try {
-            const { status } = await confirmDeliveryItems(id, { deliveryCompanyCode, trackingNumber });
-            if (status === 200) {
-                toast("제품이 발송되었어요 🚚");
-                await onClickRefresh();
-            }
+            // const { status } = await confirmDeliveryItems({ purchasedItemId: id, deliveryCompanyCode, trackingNumber });
+            // if (status === 200) {
+            //     toast("제품이 발송되었어요 🚚");
+            //     await onClickRefresh();
+            // }
         } catch (err) {
             console.error(err);
             toast("발송 실패 ❌ 송장번호를 확인해주세요");
