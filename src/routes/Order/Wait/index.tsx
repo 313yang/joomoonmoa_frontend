@@ -21,13 +21,13 @@ export const OrderPurchasedList = ({ item, checkedList, setCheckedList }: OrderP
     const isCancel = item.claimType === "CANCEL";
 
     const handleDeliveryItem = async () => {
-        const verifyDigit = deliveryList.find(x => x.value === deliveryCompanyCode)?.digit;
         if (!deliveryCompanyCode) return toast("택배사를 선택해주세요!");
+        const verifyDigit = deliveryList.find(x => x.value === deliveryCompanyCode)?.digit;
         if (!!verifyDigit && verifyDigit?.length > 0 && !verifyDigit?.some(x => x === trackingNumber.length)) {
             return toast("송장번호를 정확히 입력해주세요!");
         }
         try {
-            const { status } = await confirmDeliveryItems(id, { deliveryCompanyCode: deliveryCompanyCode, trackingNumber });
+            const { status } = await confirmDeliveryItems(id, { deliveryCompanyCode, trackingNumber });
             if (status === 200) {
                 toast("제품이 발송되었어요 🚚");
                 await onClickRefresh();

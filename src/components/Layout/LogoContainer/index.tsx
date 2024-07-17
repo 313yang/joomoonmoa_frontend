@@ -9,9 +9,9 @@ const LogoContainer = () => {
     const route = useNavigate();
 
     if (notLoginPath.some(x => pathname === x)) return null;
-    return <button className="logo_container" onClick={() => route("/dashboard")}>
+    return <div className="logo_container" onClick={() => route("/dashboard")}>
         <img className="logo" src="/logo.svg" />
         <Button width="70px" onClick={onClickRefresh}>새로고침</Button>
-    </button>;
+    </div>;
 };
 export default LogoContainer;
