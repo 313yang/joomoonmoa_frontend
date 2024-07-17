@@ -11,12 +11,12 @@ import { confirmItems } from "@/libs/api/dashboard";
 
 const Order = () => {
     const { pathname } = useLocation();
-    const orderType = pathname.replace("/order/", "") as OrderTabHostItemType;
+    const orderType = pathname.replace("/order/", "").replace("/", "") as OrderTabHostItemType;
     const [checkedList, setCheckedList] = useState<number[]>([]);
     const [newList, setNewList] = useState<OrderProductNewItemType[]>([]);
     const [orderList, setOrderList] = useState<OrderProductNewItemType[]>([]);
     const isNew = orderType === OrderTabHostItemType.New;
-
+    console.log(orderType);
     const getNewList = async () => {
         const data = await RequestGet(getOrder, orderType) || [];
         setNewList(data);
