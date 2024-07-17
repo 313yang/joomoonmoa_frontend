@@ -122,8 +122,8 @@ export const FormatNumber = (val: string | number) => {
 	return val.toString().replace(/[^0-9]/g, "");
 };
 
-export const onClickRefresh = async (e: any) => {
-	e.stopPropagation();
+export const onClickRefresh = async (event?: any) => {
+	event && event.stopPropagation();
 	try {
 		const { status } = await marketRefresh();
 		if (status === 200) window.location.reload();

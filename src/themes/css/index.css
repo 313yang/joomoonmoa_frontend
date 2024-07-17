@@ -619,6 +619,9 @@ button.button:disabled {
   background-color: #ffffff;
   margin-right: 4px;
 }
+.dropdown .dropdown-display a {
+  color: #212529;
+}
 .dropdown .dropdown-display img {
   max-width: 100%;
   max-height: 100%;
@@ -638,22 +641,10 @@ button.button:disabled {
   max-height: 130px;
   overflow-x: hidden;
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.1);
+  scrollbar-width: none;
 }
 .dropdown .dropdown-wrapper ::-webkit-scrollbar {
-  width: 8px;
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.1);
-  padding: 0 1px;
-}
-.dropdown .dropdown-wrapper ::-webkit-scrollbar-button {
   display: none;
-}
-.dropdown .dropdown-wrapper ::-webkit-scrollbar-thumb {
-  border-radius: 3px;
-  width: 6px;
-  background-color: rgba(0, 0, 0, 0.2);
 }
 .dropdown .dropdown-children p {
   padding: 4px;
@@ -667,7 +658,7 @@ button.button:disabled {
 }
 .dropdown .dropdown-item {
   border-radius: 6px;
-  padding: 12px;
+  padding: 10px;
   margin: 0 4px;
   cursor: pointer;
   font-size: 14px;

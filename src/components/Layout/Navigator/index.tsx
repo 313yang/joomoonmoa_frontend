@@ -10,7 +10,7 @@ const Navigator = () => {
     const checkingPathname = (url: string) => {
         if (pathname.includes(url)) return true;
     };
-    if (!(getIsAutoLogin() && getToken())) return <></>;
+    if (!getToken()) return <></>;
     
     return <nav className={style.Navigator}>
         <Link to="/dashboard" className={checkingPathname("/dashboard") ? style.selected : ""}>
