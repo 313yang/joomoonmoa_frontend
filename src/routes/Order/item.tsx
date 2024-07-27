@@ -3,7 +3,7 @@ import { OrderProductNewItemType } from "./defines";
 import style from "./style.module.scss";
 import { copyToClipboard } from "@/libs/Function";
 
-export const OrderProductUserItem = ({ item }: { item: OrderProductNewItemType; }) => {
+export const OrderProductUserItem = ({ item ,isNotDelivery }: { item: OrderProductNewItemType; isNotDelivery: boolean; }) => {
     return <div className={style.OrderProductUserItem}>
         <strong>
             {item.productName}
@@ -34,14 +34,16 @@ export const OrderProductUserItem = ({ item }: { item: OrderProductNewItemType; 
                 <p onClick={() => copyToClipboard(item.receiverPhoneNumber, "연락처")} className="text-primary">복사</p>
             </div>
         </InputLine>
-        <InputLine>
-            <InputLabel>주소</InputLabel>
-            <div>
-                <strong>{item.baseAddress} <br />
-                    {item.detailedAddress}</strong>
-                <p onClick={() => copyToClipboard(`${item.baseAddress} ${item.detailedAddress}`, "주소")} className="text-primary">복사</p>
-            </div>
-        </InputLine>
+        {!isNotDelivery &&
+            <InputLine>
+                <InputLabel>주소</InputLabel>
+                <div>
+                    <strong>{item.baseAddress} <br />
+                        {item.detailedAddress}</strong>
+                    <p onClick={() => copyToClipboard(`${item.baseAddress} ${item.detailedAddress}`, "주소")} className="text-primary">복사</p>
+                </div>
+            </InputLine>
+        }
         {!!item.shippingMemo &&
             <InputLine>
                 <InputLabel>배송메모</InputLabel>

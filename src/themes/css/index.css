@@ -585,6 +585,7 @@ button.button:disabled {
 }
 .dropdown.dropdown-disabled .dropdown-display a, .dropdown.dropdown-readonly .dropdown-display a {
   background-color: transparent;
+  color: #868e96;
 }
 .dropdown.dropdown-error .dropdown-display {
   border-width: 2px;

@@ -1,5 +1,10 @@
 [
     {
+        "value": "NOTHING",
+        "name": "배송없음",
+        "digit": []
+    },
+    {
         "value": "CJGLS",
         "name": "CJ대한통운",
         "digit": [

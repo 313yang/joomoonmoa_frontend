@@ -17,6 +17,7 @@ export interface OrderProductNewItemType {
   ordererTel: string;
   ordererName: string;
   shippingMemo: string | null;
+  expectedDeliveryMethod: string;
 }
 export interface OrderProductOkItemType extends OrderProductNewItemType {
   deliveryType: string;

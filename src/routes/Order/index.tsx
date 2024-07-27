@@ -8,6 +8,7 @@ import { RequestGet, onClickRefresh, toast } from "@/libs/Function";
 import { OrderPurchasedList } from "./Wait";
 import { useLocation } from "react-router-dom";
 import { confirmItems } from "@/libs/api/dashboard";
+import { DispatchItemListType } from "@/libs/Defines";
 
 const Order = () => {
     const { pathname } = useLocation();
@@ -16,7 +17,9 @@ const Order = () => {
     const [newList, setNewList] = useState<OrderProductNewItemType[]>([]);
     const [orderList, setOrderList] = useState<OrderProductNewItemType[]>([]);
     const isNew = orderType === OrderTabHostItemType.New;
-    console.log(orderType);
+    // Initialize state with an empty array
+    const [items, setItems] = useState<DispatchItemListType[]>([]);
+
     const getNewList = async () => {
         const data = await RequestGet(getOrder, orderType) || [];
         setNewList(data);
@@ -32,6 +35,7 @@ const Order = () => {
 
     const handleChecked = (val: number) => {
         let cloneList = [...checkedList];
+        // 체크 되어있는 상품
         if (checkedList.some(x => x === val)) {
             cloneList = checkedList.filter(x => x !== val);
         } else {
@@ -52,6 +56,48 @@ const Order = () => {
         }
     };
 
+    // const handleSetTrackingNumber = (id:number,value:string) =>{
+    //     if(!deliveryInfo.id) 
+    // }
+    // const handleSetDeliveryCompanyCode = (id:number,value:string) =>{
+
+    // }
+    // Function to handle changes
+    const handleChange = (purchasedItemId: number, field: string, value: string) => {
+        setItems(prevItems => {
+            // Find if the item already exists
+            const existingItemIndex = prevItems.findIndex(item => item.purchasedItemId === purchasedItemId);
+
+            if (existingItemIndex !== -1) {
+                // Update existing item
+                const updatedItems = [...prevItems];
+                updatedItems[existingItemIndex] = {
+                    ...updatedItems[existingItemIndex],
+                    [field]: value,
+                };
+                return updatedItems;
+            } else {
+                // Add new item
+                return [
+                    ...prevItems,
+                    {
+                        purchasedItemId,
+                        deliveryCompanyCode: field === 'deliveryCompanyCode' ? value : '',
+                        trackingNumber: field === 'trackingNumber' ? value : '',
+                    },
+                ];
+            }
+        });
+    };
+
+    // Example input change handlers
+    const handleCompanyCodeChange = (event: React.ChangeEvent<HTMLInputElement>, purchasedItemId: number) => {
+        handleChange(purchasedItemId, 'deliveryCompanyCode', event.target.value);
+    };
+
+    const handleTrackingNumberChange = (event: React.ChangeEvent<HTMLInputElement>, purchasedItemId: number) => {
+        handleChange(purchasedItemId, 'trackingNumber', event.target.value);
+    };
     useEffect(() => {
         getNewList();
     }, [orderType]);
@@ -82,6 +128,8 @@ const Order = () => {
                         item={item}
                         checkedList={checkedList}
                         setCheckedList={handleChecked}
+                        handleCompanyCodeChange={handleCompanyCodeChange}
+                        handleTrackingNumberChange={handleTrackingNumberChange}
                     />
                 }
             </Fragment>)}

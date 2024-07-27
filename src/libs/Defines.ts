@@ -66,3 +66,9 @@ export interface PlanType {
     durationMonths: number;
 }
 export const notLoginPath = ["/", "/password", "/join"];
+
+export interface DispatchItemListType {
+    purchasedItemId: number;
+    deliveryCompanyCode: string;
+    trackingNumber: string;
+}

@@ -12,6 +12,8 @@ interface OrderPurchasedListType {
     item: OrderProductNewItemType;
     checkedList: number[];
     setCheckedList(val: number): void;
+    handleCompanyCodeChange(event: React.ChangeEvent<HTMLInputElement>, purchasedItemId: number): void;
+    handleTrackingNumberChange(event: React.ChangeEvent<HTMLInputElement>, purchasedItemId: number): void;
 }
 
 export const OrderPurchasedList = ({ item, checkedList, setCheckedList }: OrderPurchasedListType) => {
@@ -19,9 +21,10 @@ export const OrderPurchasedList = ({ item, checkedList, setCheckedList }: OrderP
     const [trackingNumber, setTrackingNumber] = useState<string>("");
     const [deliveryCompanyCode, setDeleveryCompanyCode] = useState<string>("");
     const isCancel = item.claimType === "CANCEL";
+    const isNotDelivery = item.expectedDeliveryMethod === "NOTHING";
 
     const handleDeliveryItem = async () => {
-        if (!deliveryCompanyCode) return toast("택배사를 선택해주세요!");
+        if (!isNotDelivery && !deliveryCompanyCode) return toast("택배사를 선택해주세요!");
         const verifyDigit = deliveryList.find(x => x.value === deliveryCompanyCode)?.digit;
         if (!!verifyDigit && verifyDigit?.length > 0 && !verifyDigit?.some(x => x === trackingNumber.length)) {
             return toast("송장번호를 정확히 입력해주세요!");
@@ -61,18 +64,21 @@ export const OrderPurchasedList = ({ item, checkedList, setCheckedList }: OrderP
                 <span>{item.marketAlias}</span>
             </div>
         </div>
-        <OrderProductUserItem item={item} />
+        <OrderProductUserItem item={item} isNotDelivery={isNotDelivery} />
         <div className={style.OrderPurchasedContainer}>
             <Dropdown
                 items={deliveryList}
                 placeholder="택배사"
                 onClick={setDeleveryCompanyCode}
+                defaultValue={isNotDelivery ? "NOTHING" : ""}
+                disabled={isNotDelivery}
             />
             <Input
                 placeholder="송장번호"
                 value={trackingNumber}
                 onInput={(val) => setTrackingNumber(FormatNumber(val))}
                 formatCallback={(val) => FormatNumber(val)}
+                disabled={isNotDelivery}
             />
             <Button onClick={handleDeliveryItem}>
                 발송
