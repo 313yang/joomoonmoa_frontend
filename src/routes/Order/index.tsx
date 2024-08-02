@@ -7,8 +7,9 @@ import { getOrder } from "@/libs/api/orders";
 import { RequestGet, onClickRefresh, toast } from "@/libs/Function";
 import { OrderPurchasedList } from "./Wait";
 import { useLocation } from "react-router-dom";
-import { confirmItems } from "@/libs/api/dashboard";
+import { confirmDeliveryItems, confirmItems } from "@/libs/api/dashboard";
 import { DispatchItemListType } from "@/libs/Defines";
+import deliveryList from "./Wait/deliveryCode.json";
 
 const Order = () => {
     const { pathname } = useLocation();
@@ -91,13 +92,79 @@ const Order = () => {
     };
 
     // Example input change handlers
-    const handleCompanyCodeChange = (event: React.ChangeEvent<HTMLInputElement>, purchasedItemId: number) => {
-        handleChange(purchasedItemId, 'deliveryCompanyCode', event.target.value);
+    const handleCompanyCodeChange = (id: number, value: string) => {
+        handleChange(id, 'deliveryCompanyCode', value);
     };
 
-    const handleTrackingNumberChange = (event: React.ChangeEvent<HTMLInputElement>, purchasedItemId: number) => {
-        handleChange(purchasedItemId, 'trackingNumber', event.target.value);
+    const handleTrackingNumberChange = (id: number, value: string) => {
+        handleChange(id, 'trackingNumber', value);
     };
+
+    const handleDeliveryItemList = async () => {
+        // 체크된 배송할 상품리스트
+        const onlyChecked = orderList.filter(order => checkedList.includes(order.purchasedItemId));
+        let dispatchItemList: DispatchItemListType[] = [];
+        // 그 중 송장번호 입력이 필요없는 리스트
+        onlyChecked.map(order => order.expectedDeliveryMethod !== "NOTHING" && dispatchItemList.push({
+            purchasedItemId: order.purchasedItemId,
+            deliveryCompanyCode: "",
+            trackingNumber: "",
+        }));
+        // 그 중 송장번호 입력이 필요한 리스트
+        const ordersWithDelivery = onlyChecked.filter(order => order.expectedDeliveryMethod !== "NOTHING");
+        // 송장번호 및 택배사 선택 예외처리
+        dispatchItemList = ordersWithDelivery.map(order => {
+            const item = items.find(item => item.purchasedItemId === order.purchasedItemId);
+
+            if (!item) return null;
+
+            if (!item.deliveryCompanyCode) {
+                toast("택배사를 선택해주세요!");
+                throw new Error("Missing deliveryCompanyCode");
+            }
+
+            const verifyDigit = deliveryList.find((x: { value: string; }) => x.value === item.deliveryCompanyCode)?.digit;
+
+            if (!!verifyDigit && verifyDigit.length > 0 && !verifyDigit.some((x: number) => x === item.trackingNumber.length)) {
+                toast("송장번호를 정확히 입력해주세요!");
+                throw new Error("Invalid tracking number length");
+            }
+
+            // Return item in the correct DispatchItemListType format
+            return {
+                purchasedItemId: order.purchasedItemId,
+                deliveryCompanyCode: item.deliveryCompanyCode,
+                trackingNumber: item.trackingNumber,
+            };
+        }).filter(item => item !== null) as DispatchItemListType[];  // Filter out nulls
+        try {
+            const resp = await confirmDeliveryItems({ dispatchItemList });
+            if (resp.status === 200) {
+                toast("제품이 발송되었어요 🚚");
+                await onClickRefresh();
+            }
+        } catch (e) {
+            console.log(e);
+        }
+
+
+    };
+    const handleDeliveryItem = (purchasedItemId: number) => async () => {
+        const item = items.find(x => x.purchasedItemId === purchasedItemId);
+        if (!item) return;
+        const { deliveryCompanyCode, trackingNumber } = item;
+        try {
+            const { status } = await confirmDeliveryItems({ dispatchItemList: [{ purchasedItemId, deliveryCompanyCode, trackingNumber }] });
+            if (status === 200) {
+                toast("제품이 발송되었어요 🚚");
+                await onClickRefresh();
+            }
+        } catch (err) {
+            console.error(err);
+            toast("발송 실패 ❌ 송장번호를 확인해주세요");
+        }
+    };
+
     useEffect(() => {
         getNewList();
     }, [orderType]);
@@ -111,7 +178,7 @@ const Order = () => {
                     value={checkedList.length === newList.length}
                     onChange={handleAllChecked}
                 />
-                <Button width="fit-content" disabled={checkedList.length === 0} onClick={() => handleConfirmItems()}>
+                <Button width="fit-content" disabled={checkedList.length === 0} onClick={() => isNew ? handleConfirmItems() : handleDeliveryItemList()}>
                     <p>선택 주문 {isNew ? "발주확인" : "발송"}</p>
                 </Button>
             </div>
@@ -128,8 +195,11 @@ const Order = () => {
                         item={item}
                         checkedList={checkedList}
                         setCheckedList={handleChecked}
-                        handleCompanyCodeChange={handleCompanyCodeChange}
-                        handleTrackingNumberChange={handleTrackingNumberChange}
+                        handleCompanyCodeChange={(value) => handleCompanyCodeChange(item.purchasedItemId, value)}
+                        handleTrackingNumberChange={(value) => handleTrackingNumberChange(item.purchasedItemId, value)}
+                        trackingNumber={items.find(x => x.purchasedItemId === item.purchasedItemId)?.trackingNumber || ""}
+                        handleDeliveryItem={() => handleDeliveryItem(item.purchasedItemId)}
+                        isNotDelivery={item.expectedDeliveryMethod === "NOTHING"}
                     />
                 }
             </Fragment>)}

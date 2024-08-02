@@ -12,34 +12,26 @@ interface OrderPurchasedListType {
     item: OrderProductNewItemType;
     checkedList: number[];
     setCheckedList(val: number): void;
-    handleCompanyCodeChange(event: React.ChangeEvent<HTMLInputElement>, purchasedItemId: number): void;
-    handleTrackingNumberChange(event: React.ChangeEvent<HTMLInputElement>, purchasedItemId: number): void;
+    handleCompanyCodeChange(value: string): void;
+    handleTrackingNumberChange(value: string): void;
+    trackingNumber: string;
+    handleDeliveryItem(): void;
+    isNotDelivery: boolean;
+    handleDeliveryItem(): void;
 }
 
-export const OrderPurchasedList = ({ item, checkedList, setCheckedList }: OrderPurchasedListType) => {
+export const OrderPurchasedList = ({
+    item,
+    checkedList,
+    setCheckedList,
+    handleCompanyCodeChange,
+    handleTrackingNumberChange,
+    trackingNumber,
+    isNotDelivery,
+    handleDeliveryItem
+}: OrderPurchasedListType) => {
     const { purchasedItemId: id } = item;
-    const [trackingNumber, setTrackingNumber] = useState<string>("");
-    const [deliveryCompanyCode, setDeleveryCompanyCode] = useState<string>("");
     const isCancel = item.claimType === "CANCEL";
-    const isNotDelivery = item.expectedDeliveryMethod === "NOTHING";
-
-    const handleDeliveryItem = async () => {
-        if (!isNotDelivery && !deliveryCompanyCode) return toast("택배사를 선택해주세요!");
-        const verifyDigit = deliveryList.find(x => x.value === deliveryCompanyCode)?.digit;
-        if (!!verifyDigit && verifyDigit?.length > 0 && !verifyDigit?.some(x => x === trackingNumber.length)) {
-            return toast("송장번호를 정확히 입력해주세요!");
-        }
-        try {
-            const { status } = await confirmDeliveryItems({ dispatchItemList: [{ purchasedItemId: id, deliveryCompanyCode, trackingNumber }] });
-            if (status === 200) {
-                toast("제품이 발송되었어요 🚚");
-                await onClickRefresh();
-            }
-        } catch (err) {
-            console.error(err);
-            toast("발송 실패 ❌ 송장번호를 확인해주세요");
-        }
-    };
 
     const handleItemCancel = async () => {
         try {
@@ -69,14 +61,14 @@ export const OrderPurchasedList = ({ item, checkedList, setCheckedList }: OrderP
             <Dropdown
                 items={deliveryList}
                 placeholder="택배사"
-                onClick={setDeleveryCompanyCode}
+                onClick={handleCompanyCodeChange}
                 defaultValue={isNotDelivery ? "NOTHING" : ""}
                 disabled={isNotDelivery}
             />
             <Input
                 placeholder="송장번호"
                 value={trackingNumber}
-                onInput={(val) => setTrackingNumber(FormatNumber(val))}
+                onInput={(val) => handleTrackingNumberChange(FormatNumber(val))}
                 formatCallback={(val) => FormatNumber(val)}
                 disabled={isNotDelivery}
             />
