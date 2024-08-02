@@ -18,7 +18,6 @@ const Order = () => {
     const [newList, setNewList] = useState<OrderProductNewItemType[]>([]);
     const [orderList, setOrderList] = useState<OrderProductNewItemType[]>([]);
     const isNew = orderType === OrderTabHostItemType.New;
-    // Initialize state with an empty array
     const [items, setItems] = useState<DispatchItemListType[]>([]);
 
     const getNewList = async () => {
@@ -57,12 +56,6 @@ const Order = () => {
         }
     };
 
-    // const handleSetTrackingNumber = (id:number,value:string) =>{
-    //     if(!deliveryInfo.id) 
-    // }
-    // const handleSetDeliveryCompanyCode = (id:number,value:string) =>{
-
-    // }
     // Function to handle changes
     const handleChange = (purchasedItemId: number, field: string, value: string) => {
         setItems(prevItems => {
@@ -101,59 +94,67 @@ const Order = () => {
     };
 
     const handleDeliveryItemList = async () => {
-        // 체크된 배송할 상품리스트
-        const onlyChecked = orderList.filter(order => checkedList.includes(order.purchasedItemId));
-        let dispatchItemList: DispatchItemListType[] = [];
-        // 그 중 송장번호 입력이 필요없는 리스트
-        onlyChecked.map(order => order.expectedDeliveryMethod !== "NOTHING" && dispatchItemList.push({
-            purchasedItemId: order.purchasedItemId,
-            deliveryCompanyCode: "",
-            trackingNumber: "",
-        }));
-        // 그 중 송장번호 입력이 필요한 리스트
-        const ordersWithDelivery = onlyChecked.filter(order => order.expectedDeliveryMethod !== "NOTHING");
-        // 송장번호 및 택배사 선택 예외처리
-        dispatchItemList = ordersWithDelivery.map(order => {
-            const item = items.find(item => item.purchasedItemId === order.purchasedItemId);
-
-            if (!item) return null;
-
-            if (!item.deliveryCompanyCode) {
-                toast("택배사를 선택해주세요!");
-                throw new Error("Missing deliveryCompanyCode");
-            }
-
-            const verifyDigit = deliveryList.find((x: { value: string; }) => x.value === item.deliveryCompanyCode)?.digit;
-
-            if (!!verifyDigit && verifyDigit.length > 0 && !verifyDigit.some((x: number) => x === item.trackingNumber.length)) {
-                toast("송장번호를 정확히 입력해주세요!");
-                throw new Error("Invalid tracking number length");
-            }
-
-            // Return item in the correct DispatchItemListType format
-            return {
-                purchasedItemId: order.purchasedItemId,
-                deliveryCompanyCode: item.deliveryCompanyCode,
-                trackingNumber: item.trackingNumber,
-            };
-        }).filter(item => item !== null) as DispatchItemListType[];  // Filter out nulls
         try {
+            // 체크된 배송할 상품리스트
+            const onlyChecked = orderList.filter(order => checkedList.includes(order.purchasedItemId));
+            let dispatchItemList: DispatchItemListType[] = [];
+            // 그 중 송장번호 입력이 필요없는 리스트
+            onlyChecked.map(order => order.expectedDeliveryMethod !== "NOTHING" && dispatchItemList.push({
+                purchasedItemId: order.purchasedItemId,
+                deliveryCompanyCode: "",
+                trackingNumber: "",
+            }));
+            // 그 중 송장번호 입력이 필요한 리스트
+            const ordersWithDelivery = onlyChecked.filter(order => order.expectedDeliveryMethod !== "NOTHING");
+            // 송장번호 및 택배사 선택 예외처리
+            dispatchItemList = ordersWithDelivery.map(order => {
+                const item = items.find(item => item.purchasedItemId === order.purchasedItemId);
+
+                if (!item) {
+                    toast("택배사를 선택해주세요!");
+                    throw new Error("택배사를 선택해주세요!");
+                }
+
+                if (!item.deliveryCompanyCode) {
+                    toast("택배사를 선택해주세요!");
+                    throw new Error("택배사를 선택해주세요!");
+                }
+
+                const verifyDigit = deliveryList.find((x: { value: string; }) => x.value === item.deliveryCompanyCode)?.digit;
+
+                if (!!verifyDigit && verifyDigit.length > 0 && !verifyDigit.some((x: number) => x === item.trackingNumber.length)) {
+                    toast("송장번호를 정확히 입력해주세요!");
+                    throw new Error("송장번호를 정확히 입력해주세요!");
+                }
+
+                // Return item in the correct DispatchItemListType format
+                return {
+                    purchasedItemId: order.purchasedItemId,
+                    deliveryCompanyCode: item.deliveryCompanyCode,
+                    trackingNumber: item.trackingNumber,
+                };
+            }).filter(item => item !== null) as DispatchItemListType[];  // Filter out nulls
             const resp = await confirmDeliveryItems({ dispatchItemList });
             if (resp.status === 200) {
                 toast("제품이 발송되었어요 🚚");
                 await onClickRefresh();
             }
         } catch (e) {
-            console.log(e);
+            console.log(e)
         }
 
 
     };
-    const handleDeliveryItem = (purchasedItemId: number) => async () => {
-        const item = items.find(x => x.purchasedItemId === purchasedItemId);
-        if (!item) return;
-        const { deliveryCompanyCode, trackingNumber } = item;
+    const deleveryItem = async (purchasedItemId: number, isNotDelivery: boolean) => {
         try {
+            const item = items.find(x => x.purchasedItemId === purchasedItemId);
+            if (!item) return toast("택배사를 선택해주세요!");
+            const { deliveryCompanyCode, trackingNumber } = item;
+            if (!isNotDelivery && !deliveryCompanyCode) return toast("택배사를 선택해주세요!");
+            const verifyDigit = deliveryList.find(x => x.value === deliveryCompanyCode)?.digit;
+            if (!!verifyDigit && verifyDigit?.length > 0 && !verifyDigit?.some(x => x === trackingNumber.length)) {
+                return toast("송장번호를 정확히 입력해주세요!");
+            }
             const { status } = await confirmDeliveryItems({ dispatchItemList: [{ purchasedItemId, deliveryCompanyCode, trackingNumber }] });
             if (status === 200) {
                 toast("제품이 발송되었어요 🚚");
@@ -198,7 +199,7 @@ const Order = () => {
                         handleCompanyCodeChange={(value) => handleCompanyCodeChange(item.purchasedItemId, value)}
                         handleTrackingNumberChange={(value) => handleTrackingNumberChange(item.purchasedItemId, value)}
                         trackingNumber={items.find(x => x.purchasedItemId === item.purchasedItemId)?.trackingNumber || ""}
-                        handleDeliveryItem={() => handleDeliveryItem(item.purchasedItemId)}
+                        handleDeliveryItem={() => deleveryItem(item.purchasedItemId, item.expectedDeliveryMethod === "NOTHING")}
                         isNotDelivery={item.expectedDeliveryMethod === "NOTHING"}
                     />
                 }

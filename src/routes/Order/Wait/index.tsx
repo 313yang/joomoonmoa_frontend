@@ -17,7 +17,6 @@ interface OrderPurchasedListType {
     trackingNumber: string;
     handleDeliveryItem(): void;
     isNotDelivery: boolean;
-    handleDeliveryItem(): void;
 }
 
 export const OrderPurchasedList = ({
