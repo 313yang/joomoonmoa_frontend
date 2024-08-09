@@ -31,7 +31,7 @@ export const OrderPurchasedList = ({
 }: OrderPurchasedListType) => {
     const { purchasedItemId: id } = item;
     const isCancel = item.claimType === "CANCEL";
-
+    console.log(isNotDelivery,item.expectedDeliveryMethod)
     const handleItemCancel = async () => {
         try {
             const { status } = await approveCancel(id);
