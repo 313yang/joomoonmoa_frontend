@@ -200,7 +200,6 @@ const Order = () => {
                         handleTrackingNumberChange={(value) => handleTrackingNumberChange(item.purchasedItemId, value)}
                         trackingNumber={items.find(x => x.purchasedItemId === item.purchasedItemId)?.trackingNumber || ""}
                         handleDeliveryItem={() => deleveryItem(item.purchasedItemId, item.expectedDeliveryMethod === "NOTHING")}
-                        isNotDelivery={item.expectedDeliveryMethod === "NOTHING"}
                     />
                 }
             </Fragment>)}

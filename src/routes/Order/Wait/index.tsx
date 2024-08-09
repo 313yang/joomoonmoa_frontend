@@ -16,7 +16,6 @@ interface OrderPurchasedListType {
     handleTrackingNumberChange(value: string): void;
     trackingNumber: string;
     handleDeliveryItem(): void;
-    isNotDelivery: boolean;
 }
 
 export const OrderPurchasedList = ({
@@ -26,12 +25,11 @@ export const OrderPurchasedList = ({
     handleCompanyCodeChange,
     handleTrackingNumberChange,
     trackingNumber,
-    isNotDelivery,
     handleDeliveryItem
 }: OrderPurchasedListType) => {
     const { purchasedItemId: id } = item;
     const isCancel = item.claimType === "CANCEL";
-    console.log(isNotDelivery,item.expectedDeliveryMethod)
+    const isNotDelivery = item.expectedDeliveryMethod === "NOTHING";
     const handleItemCancel = async () => {
         try {
             const { status } = await approveCancel(id);

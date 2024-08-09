@@ -28,7 +28,7 @@ export const OrderNewList = ({ item, checkedList, setCheckedList, handleConfirmI
                 <span>{item.marketAlias}</span>
             </div>
         </div>
-        <OrderProductUserItem item={item} />
+        <OrderProductUserItem item={item} isNotDelivery={item.expectedDeliveryMethod === "NOTHING"} />
         <Button disabled={!checkingId(id)} style={{ margin: "0 0 0 calc(100% - 100px)" }} onClick={() => handleConfirmItem(id)}>발주확인</Button>
     </Box>;
 };
