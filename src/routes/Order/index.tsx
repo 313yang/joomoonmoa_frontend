@@ -19,7 +19,7 @@ const Order = () => {
     const [orderList, setOrderList] = useState<OrderProductNewItemType[]>([]);
     const isNew = orderType === OrderTabHostItemType.New;
     const [items, setItems] = useState<DispatchItemListType[]>([]);
-
+    console.log(checkedList)
     const getNewList = async () => {
         const data = await RequestGet(getOrder, orderType) || [];
         setNewList(data);
@@ -145,11 +145,10 @@ const Order = () => {
 
 
     };
-    const deleveryItem = async (purchasedItemId: number, isNotDelivery: boolean) => {
+    const deleveryItem = async (item: any, isNotDelivery: boolean) => {
         try {
-            const item = items.find(x => x.purchasedItemId === purchasedItemId);
             if (!item) return toast("택배사를 선택해주세요!");
-            const { deliveryCompanyCode, trackingNumber } = item;
+            const { purchasedItemId, deliveryCompanyCode, trackingNumber } = item;
             if (!isNotDelivery && !deliveryCompanyCode) return toast("택배사를 선택해주세요!");
             const verifyDigit = deliveryList.find(x => x.value === deliveryCompanyCode)?.digit;
             if (!!verifyDigit && verifyDigit?.length > 0 && !verifyDigit?.some(x => x === trackingNumber.length)) {
@@ -199,7 +198,7 @@ const Order = () => {
                         handleCompanyCodeChange={(value) => handleCompanyCodeChange(item.purchasedItemId, value)}
                         handleTrackingNumberChange={(value) => handleTrackingNumberChange(item.purchasedItemId, value)}
                         trackingNumber={items.find(x => x.purchasedItemId === item.purchasedItemId)?.trackingNumber || ""}
-                        handleDeliveryItem={() => deleveryItem(item.purchasedItemId, item.expectedDeliveryMethod === "NOTHING")}
+                        handleDeliveryItem={() => deleveryItem(item, item.expectedDeliveryMethod === "NOTHING")}
                     />
                 }
             </Fragment>)}
