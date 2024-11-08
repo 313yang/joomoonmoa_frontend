@@ -101,6 +101,7 @@ const SettingChangePhoneNumber = ({ phoneNumber }: { phoneNumber: string; }) => 
         {showOTP &&
             <div style={{ position: "relative" }}>
                 <Input
+                    type="number"
                     label="인증번호"
                     defaultValue={certNum}
                     disabled={!showOTP || isCertOk}
