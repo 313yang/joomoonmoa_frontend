@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import style from "./style.module.scss";
 import { Chat, Delivery, Home, List, Setting } from "@/components/Icons";
 import { getToken } from "@/libs/api";
-import { getIsAutoLogin } from "@/libs/Function";
 
 const Navigator = () => {
     const { pathname } = useLocation();
