@@ -47,7 +47,7 @@ const DashboardOrder = ({ data }: { data: DashboardItems; }) => {
           </div>
           <h2>{ok}</h2>
         </Box>
-        <Button disabled={canceled === 0} className={style.DashboardOrderButtonCancel}>
+        <Button onClick={() => route("/order/wait")} disabled={canceled === 0} className={style.DashboardOrderButtonCancel}>
           취소요청 : <strong>{canceled}</strong>
         </Button>
       </div>
