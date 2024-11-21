@@ -19,7 +19,7 @@ const Order = () => {
     const [orderList, setOrderList] = useState<OrderProductNewItemType[]>([]);
     const isNew = orderType === OrderTabHostItemType.New;
     const [items, setItems] = useState<DispatchItemListType[]>([]);
-    console.log(checkedList)
+
     const getNewList = async () => {
         const data = await RequestGet(getOrder, orderType) || [];
         setNewList(data);
@@ -93,6 +93,7 @@ const Order = () => {
         handleChange(id, 'trackingNumber', value);
     };
 
+    // '선택 주문 발송' 버튼 클릭 이벤트
     const handleDeliveryItemList = async () => {
         try {
             // 체크된 배송할 상품리스트
@@ -109,7 +110,7 @@ const Order = () => {
             // 송장번호 및 택배사 선택 예외처리
             dispatchItemList = ordersWithDelivery.map(order => {
                 const item = items.find(item => item.purchasedItemId === order.purchasedItemId);
-
+                console.log("test:::",item)
                 if (!item) {
                     toast("택배사를 선택해주세요!");
                     throw new Error("택배사를 선택해주세요!");
@@ -127,7 +128,6 @@ const Order = () => {
                     throw new Error("송장번호를 정확히 입력해주세요!");
                 }
 
-                // Return item in the correct DispatchItemListType format
                 return {
                     purchasedItemId: order.purchasedItemId,
                     deliveryCompanyCode: item.deliveryCompanyCode,
@@ -145,10 +145,14 @@ const Order = () => {
 
 
     };
-    const deleveryItem = async (item: any, isNotDelivery: boolean) => {
+
+    // 상품 개별 '발송하기' 클릭 이벤트
+    const deleveryItem = async (item: OrderProductNewItemType, isNotDelivery: boolean) => {
         try {
-            if (!item) return toast("택배사를 선택해주세요!");
-            const { purchasedItemId, deliveryCompanyCode, trackingNumber } = item;
+            // 송장번호 및 택배사 정보가 입력된 items 리스트에서 해당 아이템 purchasedItemId 와 같은 값 가져오기
+            const deleveryItem = items.find(order => item.purchasedItemId === order.purchasedItemId);
+            if (!deleveryItem) return toast("택배사를 선택해주세요!");
+            const { purchasedItemId, deliveryCompanyCode, trackingNumber } = deleveryItem;
             if (!isNotDelivery && !deliveryCompanyCode) return toast("택배사를 선택해주세요!");
             const verifyDigit = deliveryList.find(x => x.value === deliveryCompanyCode)?.digit;
             if (!!verifyDigit && verifyDigit?.length > 0 && !verifyDigit?.some(x => x === trackingNumber.length)) {
