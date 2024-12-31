@@ -71,7 +71,7 @@ export const useCertification = (type: CertType, certOkCallback: () => void) => 
         try {
             const { status } = await (type === CertType.Join ? signup : changePassword)({ password, phoneNumber });
             if (status === 200) {
-                toast("✅성공적으로 비밀번호가 변경되었어요!");
+                toast(CertType.Join ? "✅성공적으로 회원가입이 완료되었습니다!" : "✅성공적으로 비밀번호가 변경되었어요!");
                 setTimeout(() => route("/"), 1000);
             }
 
