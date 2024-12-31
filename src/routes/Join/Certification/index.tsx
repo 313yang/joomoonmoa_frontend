@@ -94,14 +94,14 @@ const CertificationContainer = ({ type }: { type: CertType; }) => {
                         if (password !== passwordConfirm) return "비밀번호가 일치하지 않습니다.";
                     }}
                 />
-                {CertType.Join &&
+                {type === CertType.Join &&
                     <span>가입 시 <strong onClick={() => setDisplay(true)}>이용 약관</strong> 및 <strong onClick={() => setDisplay(true)}>개인정보 취급 방침</strong>에 동의한 것으로 간주됩니다.</span>
                 }
                 <Button
                     className={style.JoinButton}
                     onClick={onSubmit}
                     disabled={submitDisabled}>
-                    {CertType.Join ? "회원가입하기" : "비밀번호 변경하기"}
+                    {type === CertType.Join ? "회원가입하기" : "비밀번호 변경하기"}
                 </Button>
             </>
         }
