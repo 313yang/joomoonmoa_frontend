@@ -17,8 +17,8 @@ const SettingAddStore = ({ selectedMarket }: { selectedMarket: PlaceOrderStatues
         return <Dropdown key={platform} className={style.Dropdown} placeholder={"판매 채널"} items={StoreList} value={platform} onClick={(val) => handleSetStoreInfo({ platform: val })} />;
     return <>
         <Dropdown disabled={!!selectedMarket} key={platform} className={style.Dropdown} placeholder={"판매 채널"} items={StoreList} value={platform} onClick={(val) => handleSetStoreInfo({ platform: val })} />
-        <Input label="스토어 API" defaultValue={clientId} onInput={(val) => handleSetStoreInfo({ clientId: val })} />
-        <Input label="API KEY" defaultValue={clientSecret} onInput={(val) => handleSetStoreInfo({ clientSecret: val })} />
+        <Input label="애플리케이션 ID" defaultValue={clientId} onInput={(val) => handleSetStoreInfo({ clientId: val })} />
+        <Input label="애플리케이션 시크릿" defaultValue={clientSecret} onInput={(val) => handleSetStoreInfo({ clientSecret: val })} />
         <Input label="별명" defaultValue={marketAlias} onInput={(val) => handleSetStoreInfo({ marketAlias: val })} />
         <Button width="100%" size="lg" disabled={loading} onClick={submitMarketSyncTest}>로그인 테스트</Button>
         <Button width="100%" size="lg" disabled={loading} onClick={selectedMarket ? submitChangeMarket : submitAddMarket}>스토어 {selectedMarket ? "수정" : "등록"}</Button>

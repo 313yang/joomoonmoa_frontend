@@ -74,7 +74,6 @@ export const useSettingStore = () => {
             if (status === 200) {
                 toast("로그인 테스트 성공!");
                 await getMarket();
-                setTimeout(() => route("/setting"), 2000);
             }
         } catch (err) {
             errorToast(err);
