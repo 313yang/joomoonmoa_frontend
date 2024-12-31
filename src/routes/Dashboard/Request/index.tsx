@@ -18,21 +18,21 @@ const DashboardRequest = () => {
           <span>문의</span>
           <Chevron direction="right" width={8} />
         </div>
-        <h2>{data.order}</h2>
+        <h2>0</h2>
       </Box>
       <Box color="gray50" className={style.DashboardOrdeBox} onClick={() => route("/request")}>
         <div>
           <span>교환</span>
           <Chevron direction="right" width={8} />
         </div>
-        <h2>{data.pre}</h2>
+        <h2>0</h2>
       </Box>
       <Box color="gray50" className={style.DashboardOrdeBox} onClick={() => route("/request")}>
         <div>
           <span>반품</span>
           <Chevron direction="right" width={8} />
         </div>
-        <h2>{data.cancel}</h2>
+        <h2>0</h2>
       </Box>
     </div>
   </div>;

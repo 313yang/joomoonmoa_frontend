@@ -37,9 +37,9 @@ const Request = () => {
                             <span>{x.marketAlias}</span>
                         </div>
                         <div className="store_table_header" style={{ width: 150 }}>
-                            <span>{x.notYet}</span>
-                            <span>{x.ok}</span>
-                            <span>{x.canceled}</span>
+                            <span>0</span>
+                            <span>0</span>
+                            <span>0</span>
                         </div>
                     </div>
                 )}
