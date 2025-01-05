@@ -41,13 +41,7 @@ const Login = () => {
   useLayoutEffect(() => {
     if (getIsAutoLogin() && getToken()) window.location.href = "/dashboard";
   }, []);
-  const fcmtestFn = async () => {
-    try {
-      await fcmtest();
-    } catch (Err) {
-      console.log(Err);
-    }
-  };
+ 
 
   return <div className={style.LoginContainer}>
     {/* <button onClick={fcmtestFn}>test</button> */}

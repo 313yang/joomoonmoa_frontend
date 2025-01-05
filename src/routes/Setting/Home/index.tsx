@@ -24,6 +24,12 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
         window.location.href = "/";
     };
 
+
+    /** 고객센터 */
+    const handleCS = () => {
+        window.open("https://open.kakao.com/o/gs0uS37g", "settingcs", "target=_blank");
+    };
+
     const onClickSetAutoLogin = (val: boolean) => {
         setIsAutoLogin(val);
         setAutoLogin(val);
@@ -101,7 +107,10 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
         {/* <Button width="100%" size="lg" className={style.UpgradeButton} onClick={() => route("/setting/payment")}>
             프로 버전 업그레이드
         </Button> */}
-        <button onClick={handleLogout} className={BuildClass(style.Logout, "text-primary")}>로그아웃</button>
+        <div className={style.Buttons}>
+            <button onClick={handleCS} className={BuildClass(style.Logout, "text-primary")}>고객센터</button>
+            <button onClick={handleLogout} className={BuildClass(style.Logout, "text-primary")}>로그아웃</button>
+        </div>
     </>;
 };
 export default SettingMain;

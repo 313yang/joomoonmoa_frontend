@@ -51,11 +51,13 @@
 .StoresContainer {
     display: flex;
     justify-content: space-between;
-    >div{
+
+    >div {
         display: flex;
+
         >:global(.StoreName) {
             flex-direction: row;
-    
+
             >p {
                 min-width: 110px;
             }
@@ -92,8 +94,15 @@
     border-radius: 12px !important;
 }
 
+.Buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
 .Logout {
     font-size: 16px;
     font-weight: 500;
     text-align: end;
+    margin-left: 20px;
 }
