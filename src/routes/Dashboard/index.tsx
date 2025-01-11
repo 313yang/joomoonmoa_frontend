@@ -28,6 +28,7 @@ const Main = () => {
 
 
   return <div>
+    <button onClick={()=>{throw new Error ("test Error")}}>testError Button</button>
     <DashboardOrder data={data.order} />
     <DashboardRequest />
     <DashboardStore data={data.market} />
