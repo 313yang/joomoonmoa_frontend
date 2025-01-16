@@ -82,10 +82,13 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
                 <Button onClick={() => route("/setting/addStore")}>+ 스토어추가</Button>
             </div>
             <article>
-                <div className={style.StoreSettingHeader}>
-                    <span style={{ justifyContent: "flex-start" }}>판매채널</span>
-                    <span style={{ justifyContent: "flex-start" }}>별명</span>
-                </div>
+                {market.length > 0 ? <>
+                    <div className={style.StoreSettingHeader}>
+                        <span style={{ justifyContent: "flex-start" }}>판매채널</span>
+                        <span style={{ justifyContent: "flex-start" }}>별명</span>
+                    </div>
+                </> : <div className={style.NoStore}>판매채널을 연결해주세요.</div>
+                }
                 <div className={BuildClass("store_table_header", "store_table_container")}>
                     {market.map(x =>
                         <div key={`dashboardOrder_${x.marketId}`} className={style.StoresContainer}>
