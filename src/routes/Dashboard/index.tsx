@@ -13,23 +13,24 @@ const Main = () => {
     order: DashboardItems,
     market: PlaceOrderStatuesMarket[];
   }>({ order: PlaceOrderStatusesInit, market: [] });
+  const [isFirst, setIsFirst] = useState<boolean>(false);
 
   const getAllData = async () => {
     const orderRes = await RequestGet(getDashboardOrder) || PlaceOrderStatusesInit;
-    const marketRes = await RequestGet(getDashboardOrderMarket) || [];
+    const marketRes = await RequestGet(getDashboardOrderMarket);
 
+    marketRes && setIsFirst(marketRes.length === 0);
     setData({
       order: orderRes,
-      market: marketRes,
+      market: marketRes || [],
     });
   };
   useEffect(() => {
     getAllData();
   }, []);
 
-
   return <div>
-    {data.market.length === 0 && <TutorialContainer />}
+    {isFirst && <TutorialContainer />}
     <DashboardOrder data={data.order} />
     <DashboardRequest />
     <DashboardStore data={data.market} />
