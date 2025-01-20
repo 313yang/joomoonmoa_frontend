@@ -5,6 +5,7 @@ import DashboardStore from "./Store";
 import { getDashboardOrder, getDashboardOrderMarket } from "@/libs/api/dashboard";
 import { DashboardItems, PlaceOrderStatuesMarket, PlaceOrderStatuses, PlaceOrderStatusesInit } from "@/libs/Defines";
 import { RequestGet } from "@/libs/Function";
+import { TutorialContainer } from "@/components/Layout/Tutorial";
 
 
 const Main = () => {
@@ -28,6 +29,7 @@ const Main = () => {
 
 
   return <div>
+    {data.market.length === 0 && <TutorialContainer />}
     <DashboardOrder data={data.order} />
     <DashboardRequest />
     <DashboardStore data={data.market} />
