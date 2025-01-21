@@ -72,3 +72,11 @@ export interface DispatchItemListType {
     deliveryCompanyCode: string;
     trackingNumber: string;
 }
+
+/** 튜토리얼 단계 ENUM */
+export enum TutorialStepType {
+    NONE = 0,
+    HOME = 1,
+    SETTING = 2,
+    ADDSTORE = 3
+}

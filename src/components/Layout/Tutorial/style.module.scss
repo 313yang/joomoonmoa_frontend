@@ -5,23 +5,38 @@
     position: fixed;
     z-index: 999999;
     background-color: rgba($color: #000000, $alpha: 0.7);
-    > div {
+
+    >div {
         width: 100%;
         max-width: 480px;
         height: 100vh;
         margin: 0 auto;
         position: relative;
-        .tutorialAddButton {
-            padding: 8px;
-            width: 114px;
-            border-radius: 4px;
+
+        .tutorialSettingButton {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 6px;
+            bottom: 0;
+            right: 25px;
             background-color: #fff;
+            padding: 11px 30px 33px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #545454;
             position: absolute;
-            top: 532px;
-            right: 0;
+            border: 2px solid #7A5AF8;
             cursor: pointer;
+
+            >svg {
+                >path {
+                    stroke: #545454;
+                }
+            }
         }
-      
+
         h1 {
             color: #fff;
             position: absolute;
@@ -31,6 +46,13 @@
             font-size: 20px;
             left: 50%;
             transform: translate(-50%);
+        }
+
+        .tutorialAddButton {
+            position: absolute;
+            top: 327px;
+            right: 49px;
+            border: 1px solid #fff;
         }
     }
 }

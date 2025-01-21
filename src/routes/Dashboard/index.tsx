@@ -3,9 +3,10 @@ import DashboardOrder from "./Order";
 import DashboardRequest from "./Request";
 import DashboardStore from "./Store";
 import { getDashboardOrder, getDashboardOrderMarket } from "@/libs/api/dashboard";
-import { DashboardItems, PlaceOrderStatuesMarket, PlaceOrderStatuses, PlaceOrderStatusesInit } from "@/libs/Defines";
+import { DashboardItems, PlaceOrderStatuesMarket, PlaceOrderStatuses, PlaceOrderStatusesInit, TutorialStepType } from "@/libs/Defines";
 import { RequestGet } from "@/libs/Function";
 import { TutorialContainer } from "@/components/Layout/Tutorial";
+import { useTutorialStep, useTutorialStepAction } from "@/libs/store/useTutorialStore";
 
 
 const Main = () => {
@@ -13,13 +14,14 @@ const Main = () => {
     order: DashboardItems,
     market: PlaceOrderStatuesMarket[];
   }>({ order: PlaceOrderStatusesInit, market: [] });
-  const [isFirst, setIsFirst] = useState<boolean>(false);
+  const { tutorialStep } = useTutorialStep();
+  const { setTutorialStep } = useTutorialStepAction();
 
   const getAllData = async () => {
     const orderRes = await RequestGet(getDashboardOrder) || PlaceOrderStatusesInit;
     const marketRes = await RequestGet(getDashboardOrderMarket);
 
-    marketRes && setIsFirst(marketRes.length === 0);
+    (marketRes && marketRes.length === 0) && setTutorialStep(TutorialStepType.HOME);
     setData({
       order: orderRes,
       market: marketRes || [],
@@ -30,7 +32,6 @@ const Main = () => {
   }, []);
 
   return <div>
-    {isFirst && <TutorialContainer />}
     <DashboardOrder data={data.order} />
     <DashboardRequest />
     <DashboardStore data={data.market} />
