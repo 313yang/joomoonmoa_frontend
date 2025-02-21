@@ -80,3 +80,7 @@ export enum TutorialStepType {
     SETTING = 2,
     ADDSTORE = 3
 }
+
+export enum RedirectFromType {
+    NAVER = "naver-solution"
+}

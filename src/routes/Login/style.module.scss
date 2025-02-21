@@ -5,52 +5,71 @@
     justify-content: center;
     height: calc(81vh - 78px);
     overflow: hidden;
-    > .logo {
+
+    >.logo {
         margin: 30px auto 60px;
         width: 200px;
     }
+
     >.LoginInput {
         width: 100%;
         margin-bottom: 30px;
     }
+
     >.LoginButton {
         height: 58px;
         font-weight: 700;
         font-size: 20px;
 
-        transition: transform 0.2s, background-color 0.2s; 
+        transition: transform 0.2s, background-color 0.2s;
+
         &:hover {
-            background-color: darken(#7a5af8, 7%);   
+            background-color: darken(#7a5af8, 7%);
         }
+
         &:active {
             transform: scale(0.985); // 버튼의 크기를 5% 축소
         }
 
 
     }
+
     >span {
         margin-top: 26px;
         font-size: 18px;
-        a:not(:last-child){
-            &::after{
+
+        a:not(:last-child) {
+            &::after {
                 content: "|";
                 margin: 0 16px;
             }
         }
-        > a {
+
+        >a {
             font-weight: 600;
             color: #656D75;
-           
+
         }
     }
-   @media (max-width:600px) {
-    height: auto;
-   }
-   .AutoLoginContainer {
-    // float: left;
-    width: 100%;
-    margin-bottom: 18px;
-    margin-left: 4px;
-    margin-top: -8px;
-   }
+
+    @media (max-width:600px) {
+        height: auto;
+    }
+
+    .AutoLoginContainer {
+        // float: left;
+        width: 100%;
+        margin-bottom: 18px;
+        margin-left: 4px;
+        margin-top: -8px;
+    }
+
+    small {
+        color: #EF314E;
+        font-size: 14px;
+        width: calc(100% - 20px);
+        margin-top: 23px;
+        line-height: 1.4;
+        text-indent: -10px;
+    }
 }

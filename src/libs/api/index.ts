@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { RedirectFromType } from "../Defines";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const baseURL = API_URL + "/api/v1";
@@ -35,22 +36,25 @@ const common = axios.create({ timeout: 8000, baseURL: `${baseURL}/common`, heade
 const markets = axios.create({ timeout: 8000, baseURL: `${baseURL}/markets`, headers });
 const config = axios.create({ timeout: 8000, baseURL: `${baseURL}/config`, headers });
 const subscriptions = axios.create({ timeout: 8000, baseURL: `${baseURL}/subscriptions`, headers });
+const user = axios.create({ timeout: 8000, baseURL: `${baseURL}/user` });
 
 interface LoginType {
     phoneNumber: string;
 }
 
 export const changePhoneNumberApi = async (data: LoginType) => await authHeader.patch(`phone-number`, data,);
-export const fcmtest = async () => await axios.post(`${baseURL}/fcmTest`, {}, { headers });
+export const checkIsNaverSolutionApi = async (from: RedirectFromType, token: string) => await user.get(`/validation`, { params: { from, token } });
 
 auth.interceptors.response.use(apply, (err) => {
     return Promise.reject(err);
 });
+authHeader.interceptors.response.use(apply, reject);
 dashboard.interceptors.response.use(apply, reject);
 orders.interceptors.response.use(apply, reject);
 common.interceptors.response.use(apply, reject);
 markets.interceptors.response.use(apply, reject);
 config.interceptors.response.use(apply, reject);
+user.interceptors.response.use(apply, reject);
 
 export {
     auth,
@@ -59,5 +63,6 @@ export {
     common,
     markets,
     config,
-    subscriptions
+    subscriptions,
+    user
 };
