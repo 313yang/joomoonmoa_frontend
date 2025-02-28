@@ -56,8 +56,8 @@ const Login = () => {
         const { status, data } = await checkIsNaverSolutionApi(from as RedirectFromType, token);
         if (status === 200) {
           const { tokens } = data;
-          // setToken(tokens.access);
-          // window.location.href = "/dashboard";
+          setToken(tokens.access);
+          window.location.href = "/dashboard";
         }
       } catch (err) {
         setIsNaverSoutionWarn(true);
