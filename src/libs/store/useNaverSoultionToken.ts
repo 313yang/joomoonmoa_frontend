@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 interface INaverSoultionTokenStore {
     NaverSoultionToken: string;
@@ -6,10 +7,16 @@ interface INaverSoultionTokenStore {
 }
 
 const useNaverSoultionTokenStore = create<INaverSoultionTokenStore>()(
-    (set) => ({
-        NaverSoultionToken: "",
-        setNaverSoultionToken: (val: string) => set({ NaverSoultionToken: val })
-    }),
+    persist(
+        (set,) => ({
+            NaverSoultionToken: "",
+            setNaverSoultionToken: (val: string) => set({ NaverSoultionToken: val })
+        }),
+        {
+            name: 'naverSolutionToken',
+            storage: createJSONStorage(() => sessionStorage),
+        },
+    ),
 );
 export const useNaverSoultionToken = () =>
     useNaverSoultionTokenStore((state) => ({

@@ -63,7 +63,6 @@ export const OrderPurchasedList = ({
                 disabled={isNotDelivery}
             />
             <Input
-                type="number"
                 placeholder="송장번호"
                 value={trackingNumber}
                 onInput={(val) => handleTrackingNumberChange(FormatNumber(val))}
