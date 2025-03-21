@@ -4,6 +4,7 @@ import { useState, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CertType } from "./defines";
 import { toast } from "@/libs/Function";
+import { useNaverSoultionToken } from "@/libs/store/useNaverSoultionToken";
 
 
 
@@ -25,6 +26,7 @@ export const useCertification = (type: CertType, certOkCallback: () => void) => 
     const [isError, setIsError] = useState<boolean>(false);
     const isJoin = type === CertType.Join
     const submitDisabled = !password || !passwordConfirm || password !== passwordConfirm || !isCertOk;
+    const token = useNaverSoultionToken()
 
     const errorToast = (err: AxiosError | unknown) => toast(((err as AxiosError).response as AxiosResponse).data.message);
 
@@ -69,7 +71,7 @@ export const useCertification = (type: CertType, certOkCallback: () => void) => 
     const onSubmit = async () => {
         if (password !== passwordConfirm) return toast("비밀번호가 일치하지 않습니다.");
         try {
-            const { status } = await (isJoin ? signup : changePassword)({ password, phoneNumber });
+            const { status } = await (isJoin ? signup : changePassword)({ password, phoneNumber, from: "naver-solution", token });
             if (status === 200) {
                 toast(`✅성공적으로 ${isJoin ? "회원가입이 완료되었습니다!" : "비밀번호가 변경되었어요!"}`);
                 setTimeout(() => route("/"), 1000);

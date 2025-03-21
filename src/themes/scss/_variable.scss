@@ -41,3 +41,32 @@ $green: #19bc85;
 // $primary: var(--theme-primary);
 
 $borderface: 1px solid #E2E2E2;
+
+
+:root {
+    --background: #{$background};
+    --gray20: #{$gray20};
+    --gray40: #{$gray40};
+    --gray60: #{$gray60};
+    --gray80: #{$gray80};
+    --gray50: #{$gray50};
+    --gray100: #{$gray100};
+    --gray200: #{$gray200};
+    --gray300: #{$gray300};
+    --gray400: #{$gray400};
+    --gray500: #{$gray500};
+    --gray600: #{$gray600};
+    --gray700: #{$gray700};
+    --gray800: #{$gray800};
+    --gray900: #{$gray900};
+    --purple50: #{$purple50};
+    --purple100: #{$purple100};
+    --purple200: #{$purple200};
+    --purple300: #{$purple300};
+    --primary: #{$primary};
+    --white: #{$white};
+    --black: #{$black};
+    --danger: #{$danger};
+    --warning: #{$warning};
+    --green: #{$green};
+}

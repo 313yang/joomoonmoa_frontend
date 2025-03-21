@@ -19,9 +19,7 @@ const useNaverSoultionTokenStore = create<INaverSoultionTokenStore>()(
     ),
 );
 export const useNaverSoultionToken = () =>
-    useNaverSoultionTokenStore((state) => ({
-        NaverSoultionToken: state.NaverSoultionToken,
-    }));
+    useNaverSoultionTokenStore((state) => state.NaverSoultionToken);
 
 export const useNaverSoultionTokenAction = () =>
     useNaverSoultionTokenStore((state) => ({

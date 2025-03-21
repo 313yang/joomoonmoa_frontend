@@ -4,9 +4,13 @@ import { BuildClass, FormatNumberToPrice } from "@/libs/Function";
 import commonStyle from "../style.module.scss";
 import { usePayment } from "../hooks";
 
-export const PaymentPlanList = ({ plan }: { plan: PlanType; }) => {
+interface PaymentPlanListProps {
+    plan: PlanType;
+    selectedPlan: PlanType | null;
+    setSelectedPlan: (val: PlanType) => void;
+}
+export const PaymentPlanList = ({ plan, selectedPlan, setSelectedPlan }: PaymentPlanListProps) => {
     const month = plan.durationMonths < 12 ? `${plan.durationMonths}개월` : `1년`;
-    const { selectedPlan, setSelectedPlan } = usePayment();
 
     return <Box
         key={`PaymentList_${plan.planPriceId}`}

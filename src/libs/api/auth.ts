@@ -12,7 +12,10 @@ interface LoginType {
     deviceToken: string | null;
     deviceOs: DeviceOs;
 }
-interface SignupType extends Omit<LoginType, 'deviceToken' | "deviceOs"> { }
+interface SignupType extends Omit<LoginType, 'deviceToken' | "deviceOs"> {
+    from: string;
+    token: string;
+}
 
 export const login = async (data: LoginType) => await auth.post("/login", data);
 export const signup = async (data: SignupType) => await auth.post("/signup", data);

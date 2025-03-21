@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export const usePayment = () => {
     const [planList, setPlanList] = useState<PlanType[]>([]);
-    const [selectedPlan, setSelectedPlan] = useState<PlanType>();
+    const [selectedPlan, setSelectedPlan] = useState<PlanType | null>(null);
     const getPlanApi = async () => {
         const resp = await RequestGet(getPlans) || [];
         setPlanList(resp);

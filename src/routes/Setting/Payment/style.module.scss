@@ -21,3 +21,14 @@
         }
     }
 }
+.selectedPlanInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    > p {
+        color: #545454;
+    }
+    > h4 {
+        font-size: 14px;
+    }
+}
