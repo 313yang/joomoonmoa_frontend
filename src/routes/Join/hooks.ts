@@ -24,10 +24,15 @@ export const useCertification = (type: CertType, certOkCallback: () => void) => 
     const [count, setCount] = useState<number>(INIT_SECOND);
     const [countTime, setCountTime] = useState(0);
     const [isError, setIsError] = useState<boolean>(false);
-    const isJoin = type === CertType.Join
+    const isJoin = type === CertType.Join;
     const submitDisabled = !password || !passwordConfirm || password !== passwordConfirm || !isCertOk;
-    const token = useNaverSoultionToken()
+    const naverSoutionToken = useNaverSoultionToken();
 
+    const checkFrom = () => {
+        let from = "";
+        if (!!naverSoutionToken) from = "naver-soultion";
+        return from;
+    };
     const errorToast = (err: AxiosError | unknown) => toast(((err as AxiosError).response as AxiosResponse).data.message);
 
     // 인증번호 전송
@@ -71,7 +76,7 @@ export const useCertification = (type: CertType, certOkCallback: () => void) => 
     const onSubmit = async () => {
         if (password !== passwordConfirm) return toast("비밀번호가 일치하지 않습니다.");
         try {
-            const { status } = await (isJoin ? signup : changePassword)({ password, phoneNumber, from: "naver-solution", token });
+            const { status } = await (isJoin ? signup : changePassword)({ password, phoneNumber, from: checkFrom(), token: naverSoutionToken });
             if (status === 200) {
                 toast(`✅성공적으로 ${isJoin ? "회원가입이 완료되었습니다!" : "비밀번호가 변경되었어요!"}`);
                 setTimeout(() => route("/"), 1000);
