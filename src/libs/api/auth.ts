@@ -12,6 +12,8 @@ interface LoginType {
     deviceToken: string | null;
     deviceOs: DeviceOs;
 }
+
+interface ChangePasswordType extends Omit<LoginType, 'deviceToken' | "deviceOs"> { }
 interface SignupType extends Omit<LoginType, 'deviceToken' | "deviceOs"> {
     from: string;
     token: string;
@@ -19,7 +21,7 @@ interface SignupType extends Omit<LoginType, 'deviceToken' | "deviceOs"> {
 
 export const login = async (data: LoginType) => await auth.post("/login", data);
 export const signup = async (data: SignupType) => await auth.post("/signup", data);
-export const changePassword = async (data: SignupType) => await auth.patch("/authentication-string", data);
+export const changePassword = async (data: ChangePasswordType) => await auth.patch("/authentication-string", data);
 
 
 export const sendOTP = async (phoneNumber: string, isUser = false) => await auth.post("/otp", { phoneNumber }, { params: isUser && { requestType: "IS_USER" } });
