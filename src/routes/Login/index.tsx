@@ -7,7 +7,7 @@ import { checkIsNaverSolutionApi, getToken, setToken } from "@/libs/api";
 import { RedirectFromType } from "@/libs/Defines";
 import { Button, Checkbox, Input } from "@/components/Styled";
 import style from "./style.module.scss";
-import { useNaverSoultionTokenAction } from "@/libs/store/useNaverSoultionToken";
+import { useNaverSolutionTokenAction } from "@/libs/store/useNaverSolutionToken";
 
 let triger = false;
 const Login = () => {
@@ -19,7 +19,7 @@ const Login = () => {
 
   // 네이버 솔루션 사용유저의 회원가입여부 판단 후 회원가입 안내문구 출력여부
   const [isNaverSoutionWarn, setIsNaverSoutionWarn] = useState<boolean>(false);
-  const { setNaverSoultionToken } = useNaverSoultionTokenAction();
+  const { setNaverSolutionToken } = useNaverSolutionTokenAction();
 
   /** 자동로그인을 설정합니다. */
   const onClickSetAutoLogin = (val: boolean) => {
@@ -61,7 +61,7 @@ const Login = () => {
           window.location.href = "/dashboard";
         }
       } catch (err) {
-        setNaverSoultionToken(token);
+        setNaverSolutionToken(token);
         setIsNaverSoutionWarn(true);
       }
     }

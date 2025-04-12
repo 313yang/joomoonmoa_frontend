@@ -4,7 +4,7 @@ import { useState, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CertType } from "./defines";
 import { toast } from "@/libs/Function";
-import { useNaverSoultionToken } from "@/libs/store/useNaverSoultionToken";
+import { useNaverSolutionToken } from "@/libs/store/useNaverSolutionToken";
 
 
 
@@ -26,11 +26,11 @@ export const useCertification = (type: CertType, certOkCallback: () => void) => 
     const [isError, setIsError] = useState<boolean>(false);
     const isJoin = type === CertType.Join;
     const submitDisabled = !password || !passwordConfirm || password !== passwordConfirm || !isCertOk;
-    const naverSoutionToken = useNaverSoultionToken();
+    const naverSoutionToken = useNaverSolutionToken();
 
     const checkFrom = () => {
         let from = "";
-        if (!!naverSoutionToken) from = "naver-soultion";
+        if (!!naverSoutionToken) from = "naver-solution";
         return from;
     };
     const errorToast = (err: AxiosError | unknown) => toast(((err as AxiosError).response as AxiosResponse).data.message);
