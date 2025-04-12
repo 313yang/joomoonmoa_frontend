@@ -5,9 +5,9 @@ export const StoreList = [
     {
         name: "스마트스토어", value: "NAVER"
     },
-    {
-        name: "쿠팡", value: "COUPANG"
-    },
+    // {
+    //     name: "쿠팡", value: "COUPANG"
+    // },
     // {
     //     name: "G마켓, G9", value: "GMARKET"
     // },
