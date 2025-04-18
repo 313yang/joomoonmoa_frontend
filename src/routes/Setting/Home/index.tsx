@@ -107,9 +107,9 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
                 </div>
             </article>
         </Box>
-        <Button width="100%" size="lg" className={style.UpgradeButton} onClick={() => route("/setting/payment")}>
+        {/* <Button width="100%" size="lg" className={style.UpgradeButton} onClick={() => route("/setting/payment")}>
             프로 버전 업그레이드
-        </Button>
+        </Button> */}
         <div className={style.Buttons}>
             <button onClick={handleCS} className={BuildClass(style.Logout, "text-primary")}>고객센터</button>
             <button onClick={handleLogout} className={BuildClass(style.Logout, "text-primary")}>로그아웃</button>
