@@ -1,10 +1,11 @@
+import { Button } from "@/components/Styled";
 import { loadTossPayments, ANONYMOUS, TossPaymentsWidgets } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
 
-const clientKey = import.meta.env.VITE_TOSS_PAYMENTS_CLIENT_KEY;
-const customerKey = "z1J2aywnxFjZ8tqe0M6Xc"; // 나중에 회원ID로 변경
+const clientKey = import.meta.env.VITE_TOSS_TEST_CLIENT_KEY;
+const customerKey = "z1J2aywnxFjZ8tqe0M6Xc"; // TODO:: 나중에 회원ID로 변경
 
-export function CheckoutPage() {
+export function TossPayment() {
   const [amount, setAmount] = useState({
     currency: "KRW",
     value: 50_000,
@@ -20,13 +21,14 @@ export function CheckoutPage() {
       const widgets = tossPayments.widgets({
         customerKey,
       });
-      // 비회원 결제
-      // const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
-
       setWidgets(widgets);
     }
 
     fetchPaymentWidgets();
+    return () => {
+      fetchPaymentWidgets();
+    }
+
   }, [clientKey, customerKey]);
 
   useEffect(() => {
@@ -41,7 +43,7 @@ export function CheckoutPage() {
         // ------  결제 UI 렌더링 ------
         widgets.renderPaymentMethods({
           selector: "#payment-method",
-          variantKey: "DEFAULT",
+          variantKey: "widgetA",
         }),
         // ------  이용약관 UI 렌더링 ------
         widgets.renderAgreement({
@@ -54,6 +56,9 @@ export function CheckoutPage() {
     }
 
     renderPaymentWidgets();
+    return () => {
+      renderPaymentWidgets();
+    }
   }, [widgets]);
 
   useEffect(() => {
@@ -71,25 +76,10 @@ export function CheckoutPage() {
         <div id="payment-method" />
         {/* 이용약관 UI */}
         <div id="agreement" />
-        {/* 쿠폰 체크박스 */}
-        {/* <div>
-          <div>
-            <label htmlFor="coupon-box">
-              <input
-                id="coupon-box"
-                type="checkbox"
-                aria-checked="true"
-                disabled={!ready}
-               
-              />
-              <span>5,000원 쿠폰 적용</span>
-            </label>
-          </div>
-        </div> */}
-
         {/* 결제하기 버튼 */}
-        <button
-          className="button"
+        <Button
+          width="100%"
+          size="lg"
           disabled={!ready}
           onClick={async () => {
             if (!widgets) return;
@@ -100,20 +90,20 @@ export function CheckoutPage() {
               await widgets.requestPayment({
                 orderId: "gJ1LMtuu7B058tomBexFv",
                 orderName: "토스 티셔츠 외 2건",
-                successUrl: window.location.origin + "/success",
-                failUrl: window.location.origin + "/fail",
+                successUrl: window.location.origin + "/payment-result/success",
+                failUrl: window.location.origin + "/payment-result/fail",
                 customerEmail: "customer123@gmail.com",
                 customerName: "김토스",
                 customerMobilePhone: "01012341234",
               });
             } catch (error) {
               // 에러 처리하기
-              console.error(error);
+              console.log(error);
             }
           }}
         >
           결제하기
-        </button>
+        </Button>
       </div>
     </div>
   );

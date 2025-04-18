@@ -4,9 +4,12 @@ import PaymentMethod from "./Method";
 import PaymentPlanList from "./PlanList";
 import style from "./style.module.scss";
 import { Button } from "@/components/Styled";
+import { useNavigate } from "react-router-dom";
 
 const SettingPayment = () => {
     const { planList, selectedPlan, setSelectedPlan } = usePayment();
+    const route = useNavigate();
+
     function getFutureDate(monthsToAdd: number) {
         const futureDate = new Date();
         futureDate.setMonth(futureDate.getMonth() + monthsToAdd);
@@ -38,7 +41,7 @@ const SettingPayment = () => {
         </>
         }
         <div>
-        <Button width="100%" size="lg" className={style.UpgradeButton} onClick={() => {}}>
+        <Button width="100%" size="lg" className={style.UpgradeButton} onClick={() => route("/toss-payment")}>
             결제하기
         </Button>
         </div>
