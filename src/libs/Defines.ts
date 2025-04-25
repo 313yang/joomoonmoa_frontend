@@ -43,6 +43,7 @@ export interface LoginPayload {
 /** 스토어 리스트 */
 export enum StoreListType {
     "NAVER" = "스마트스토어",
+    "NAVER_SOLUTION" = "스마트스토어",
     "COUPANG" = "쿠팡"
 }
 
