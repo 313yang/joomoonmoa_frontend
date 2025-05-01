@@ -7,6 +7,7 @@ import { DashboardItems, PlaceOrderStatuesMarket, PlaceOrderStatuses, PlaceOrder
 import { RequestGet } from "@/libs/Function";
 import { TutorialContainer } from "@/components/Layout/Tutorial";
 import { useTutorialStep, useTutorialStepAction } from "@/libs/store/useTutorialStore";
+import { getStatus } from "@/libs/api/subscriptions";
 
 
 const Main = () => {
@@ -16,17 +17,20 @@ const Main = () => {
   }>({ order: PlaceOrderStatusesInit, market: [] });
   const { tutorialStep } = useTutorialStep();
   const { setTutorialStep } = useTutorialStepAction();
+  const [status, setStatus] = useState();
 
   const getAllData = async () => {
     const orderRes = await RequestGet(getDashboardOrder) || PlaceOrderStatusesInit;
     const marketRes = await RequestGet(getDashboardOrderMarket);
-
     (marketRes && marketRes.length === 0) && setTutorialStep(TutorialStepType.HOME);
+    const res = await RequestGet(getStatus);
+    setStatus(res);
     setData({
       order: orderRes,
       market: marketRes || [],
     });
   };
+
   useEffect(() => {
     getAllData();
   }, []);
