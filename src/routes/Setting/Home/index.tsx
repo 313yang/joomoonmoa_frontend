@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { useSettingStore } from "../hooks";
 import { PlaceOrderStatuesMarket, StoreListType } from "@/libs/Defines";
 import { setToken } from "@/libs/api";
+import { usePayType } from "@/libs/store/useBizWallet";
+import PaymentStatus from "../Payment/Status";
 
 interface SettingMainProps {
     phoneNumber: string;
@@ -17,7 +19,7 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
     const [isAutoLogin, setAutoLogin] = useState<boolean>(getIsAutoLogin());
     const { deleteMarketHandler, getMarket, market } = useSettingStore();
     const [deleteMarketId, setDeleteMarketId] = useState<number | null>(null);
-
+    const {payType} = usePayType()
     /** 로그아웃 */
     const handleLogout = () => {
         setToken("");
@@ -40,6 +42,9 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
         route("/setting/addStore");
     };
 
+    const moveToNaverSolution = () =>{
+        window.open("https://solution.smartstore.naver.com/ko/solution/SOL_4rmIpjUK3OLfx1MmrVwVbR/detail", "naver-solution", "target=_blank");
+    }
     useEffect(() => {
         getMarket();
     }, []);
@@ -107,9 +112,12 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
                 </div>
             </article>
         </Box>
-        <Button width="100%" size="lg" className={style.UpgradeButton} onClick={() => route("/setting/payment")}>
+        {payType !== 'none' ? 
+        <Button width="100%" size="lg" className={style.UpgradeButton} onClick={moveToNaverSolution}>
             프로 버전 업그레이드
-        </Button>
+        </Button> : 
+        <PaymentStatus />
+        }
         <div className={style.Buttons}>
             <button onClick={handleCS} className={BuildClass(style.Logout, "text-primary")}>고객센터</button>
             <button onClick={handleLogout} className={BuildClass(style.Logout, "text-primary")}>로그아웃</button>
