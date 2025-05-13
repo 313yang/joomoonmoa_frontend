@@ -2,13 +2,14 @@ import { Chevron } from "@/components/Icons";
 import { Box, Switch, Button, Confirm } from "@/components/Styled";
 import style from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
-import { BuildClass, formatPhoneNumber, getIsAutoLogin, setIsAutoLogin } from "@/libs/Function";
+import { BuildClass, formatPhoneNumber, getIsAutoLogin, openToWindow, RequestGet, setIsAutoLogin } from "@/libs/Function";
 import { useEffect, useState } from "react";
 import { useSettingStore } from "../hooks";
 import { PlaceOrderStatuesMarket, StoreListType } from "@/libs/Defines";
 import { setToken } from "@/libs/api";
-import { usePayType } from "@/libs/store/useBizWallet";
+import { useSubscription, useSubscriptionAction } from "@/libs/store/useSubscription";
 import PaymentStatus from "../Payment/Status";
+import { getStatus } from "@/libs/api/subscriptions";
 
 interface SettingMainProps {
     phoneNumber: string;
@@ -19,17 +20,12 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
     const [isAutoLogin, setAutoLogin] = useState<boolean>(getIsAutoLogin());
     const { deleteMarketHandler, getMarket, market } = useSettingStore();
     const [deleteMarketId, setDeleteMarketId] = useState<number | null>(null);
-    const {payType} = usePayType()
+    const { subscriptsion } = useSubscription();
+    const { setSubscription } = useSubscriptionAction();
     /** 로그아웃 */
     const handleLogout = () => {
         setToken("");
         window.location.href = "/";
-    };
-
-
-    /** 고객센터 */
-    const handleCS = () => {
-        window.open("https://open.kakao.com/o/gs0uS37g", "settingcs", "target=_blank");
     };
 
     const onClickSetAutoLogin = (val: boolean) => {
@@ -42,13 +38,24 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
         route("/setting/addStore");
     };
 
-    const moveToNaverSolution = () =>{
-        window.open("https://solution.smartstore.naver.com/ko/solution/SOL_4rmIpjUK3OLfx1MmrVwVbR/detail", "naver-solution", "target=_blank");
-    }
+    /** 구독 정보를 불러옵니다. */
+    const getSubscription = async () => {
+        try {
+            const res = await getStatus();
+            if (res.status === 200)
+                setSubscription(res.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    useEffect(() => {
+        getSubscription();
+    }, []);
+
     useEffect(() => {
         getMarket();
     }, []);
-
     return <>
         {!!deleteMarketId && <Confirm
             content="정말 채널을 삭제하실건가요?"
@@ -112,14 +119,24 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
                 </div>
             </article>
         </Box>
-        {payType !== 'none' ? 
-        <Button width="100%" size="lg" className={style.UpgradeButton} onClick={moveToNaverSolution}>
-            프로 버전 업그레이드
-        </Button> : 
-        <PaymentStatus />
+        {subscriptsion && subscriptsion.status === 'SUBSCRIBING' ?
+            <PaymentStatus subscriptsion={subscriptsion} /> :
+            <Button
+                width="100%"
+                size="lg"
+                className={style.UpgradeButton}
+                onClick={() => openToWindow("https://solution.smartstore.naver.com/ko/solution/SOL_4rmIpjUK3OLfx1MmrVwVbR/detail", "naver-solution")}
+            >
+                프로 버전 업그레이드
+            </Button>
         }
         <div className={style.Buttons}>
-            <button onClick={handleCS} className={BuildClass(style.Logout, "text-primary")}>고객센터</button>
+            <button
+                onClick={() => openToWindow("https://open.kakao.com/o/gs0uS37g", "settingcs")}
+                className={BuildClass(style.Logout, "text-primary")}
+            >
+                고객센터
+            </button>
             <button onClick={handleLogout} className={BuildClass(style.Logout, "text-primary")}>로그아웃</button>
         </div>
     </>;

@@ -41,9 +41,9 @@ const SettingPayment = () => {
         </>
         }
         <div>
-        {/* <Button width="100%" size="lg" className={style.UpgradeButton} onClick={() => route("/toss-payment")}>
+        <Button width="100%" size="lg" className={style.UpgradeButton} onClick={() => route("/toss-payment")}>
             결제하기
-        </Button> */}
+        </Button>
         </div>
     </>;
 };

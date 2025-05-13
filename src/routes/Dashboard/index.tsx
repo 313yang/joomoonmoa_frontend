@@ -17,14 +17,12 @@ const Main = () => {
   }>({ order: PlaceOrderStatusesInit, market: [] });
   const { tutorialStep } = useTutorialStep();
   const { setTutorialStep } = useTutorialStepAction();
-  const [status, setStatus] = useState();
 
   const getAllData = async () => {
     const orderRes = await RequestGet(getDashboardOrder) || PlaceOrderStatusesInit;
     const marketRes = await RequestGet(getDashboardOrderMarket);
     (marketRes && marketRes.length === 0) && setTutorialStep(TutorialStepType.HOME);
-    const res = await RequestGet(getStatus);
-    setStatus(res);
+   
     setData({
       order: orderRes,
       market: marketRes || [],

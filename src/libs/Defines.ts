@@ -66,6 +66,14 @@ export interface PlanType {
     servingPrice: number;
     durationMonths: number;
 }
+
+/** 스마스스토어 솔루션 구독내역 */
+export interface SubscriptionType {
+    status : string;
+    roundStartDate: Date
+    roundEndDate: Date
+}
+
 export const notLoginPath = ["/", "/password", "/join"];
 
 export interface DispatchItemListType {
