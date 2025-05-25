@@ -3,17 +3,17 @@
     align-items: center;
     justify-content: space-between;
 
-    &:not(:last-child) {
-        border-bottom: 1px solid #BCC4CC;
+    &:not(:first-child) {
+        border-top: 1px solid var(--gray20);
     }
 
     &:not(:first-child),
     &:not(:last-child) {
-        padding: 16px 0;
+        padding: 10px 0;
     }
 
     &:first-child {
-        padding-bottom: 16px;
+        padding-bottom: 10px;
     }
 
     p {
@@ -21,6 +21,12 @@
     }
 }
 .unsubscribe {
+    padding: 12px 16px;
+    border-radius: 4px;
+    background-color: var(--purple50);
+    margin: 0 38%;
+    margin-top: 14px;
+    // border: 1px solid #BCC4CC;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,6 +36,7 @@
 }
 .dropdown {
     width: fit-content;
+    top: 10px;
     &:global(.dropdown) {
         position: absolute;
         right: 0;

@@ -31,13 +31,13 @@ const PaymentHistory = () => {
                 <p>2025.01.01 프로플랜</p>
                 <p>9,900원</p>
             </div>
-        </Box>
         <button
                 className={BuildClass(style.unsubscribe, "text-primary")}
                 onClick={() => setIsUnsubscribe(true)}
             >
                 구독 취소
             </button>
+        </Box>
             {/* <Button
                 className={BuildClass(style.unsubscribe, "text-primary")}
                 onClick={() => setIsUnsubscribe(true)}
