@@ -14,6 +14,7 @@ import SettingPayment from "./Payment";
 import style from "./style.module.scss";
 import { TossPayment } from "./Payment/TossPayment";
 import PaymentResult from "./Payment/Result";
+import PaymentHistory from "./PaymentHistory";
 
 let fetch = false;
 /** 설정 페이지 메인컴포넌트 */
@@ -50,6 +51,8 @@ const Setting = () => {
                 return <SettingChangePhoneNumber phoneNumber={phoneNumber} />;
             case "/payment":
                 return <SettingPayment />;
+            case "/paymentHistory":
+                return <PaymentHistory />;
 
             default:
                 return <SettingMain phoneNumber={phoneNumber} setSelectedMarket={setSelectedMarket} />;

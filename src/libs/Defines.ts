@@ -68,7 +68,7 @@ export interface PlanType {
 }
 
 /** 스마스스토어 솔루션 구독내역 */
-export interface SubscriptionType {
+export interface SubscribeType {
     status : string;
     roundStartDate: Date
     roundEndDate: Date

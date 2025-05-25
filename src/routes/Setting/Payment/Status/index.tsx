@@ -1,9 +1,9 @@
 import { Box } from "@/components/Styled";
 import style from "./style.module.scss";
-import { SubscriptionType } from "@/libs/Defines";
+import { SubscribeType } from "@/libs/Defines";
 import { formatDateToDotFormat } from "@/libs/Function";
 
-export const PaymentStatus = ({ subscriptsion }: { subscriptsion: SubscriptionType; }) => {
+export const PaymentStatus = ({ subscriptsion }: { subscriptsion: SubscribeType; }) => {
     return <Box color="white">
         <div className={style.content}>
             <p>구독상태</p>

@@ -1,26 +1,49 @@
-import { FormatNumberToPrice } from "@/libs/Function";
 
+import { Box, Button, Confirm } from "@/components/Styled";
 import style from "./style.module.scss";
-import { Button } from "@/components/Styled";
-import { useNavigate } from "react-router-dom";
+import { BuildClass } from "@/libs/Function";
+import { useState } from "react";
+import Dropdown from "@/components/Styled/Dropdown";
 
 const PaymentHistory = () => {
-    // const { planList, selectedPlan, setSelectedPlan } = usePayment();
-    const route = useNavigate();
-
-    function getFutureDate(monthsToAdd: number) {
-        const futureDate = new Date();
-        futureDate.setMonth(futureDate.getMonth() + monthsToAdd);
-
-        const year = futureDate.getFullYear();
-        const month = futureDate.getMonth() + 1; // 월은 0부터 시작하므로 +1
-        const day = futureDate.getDate();
-
-        return `${year}년 ${month}월 ${day}일`;
-    }
+    const [isUnsubscribe, setIsUnsubscribe] = useState<boolean>(false);
+    //  formatDateToDotFormat
 
     return <>
-       
+        {isUnsubscribe && <Confirm
+            content="구독을 취소하시겠습니까?"
+            onClickConfirm={() => { }}
+            onClose={() => setIsUnsubscribe(false)}
+            confirmText="구독 취소"
+            cancelText="닫기"
+        />}
+        <Dropdown className={style.dropdown} items={[{ name: "2025", value: "2025" },]} value="2025" />
+        <Box color="white">
+            <div className={style.content}>
+                <p>2025.01.01 - 프로플랜</p>
+                <p>9,900원</p>
+            </div>
+            <div className={style.content}>
+                <p>2025.01.01 프로플랜</p>
+                <p>9,900원</p>
+            </div>
+            <div className={style.content}>
+                <p>2025.01.01 프로플랜</p>
+                <p>9,900원</p>
+            </div>
+        </Box>
+        <button
+                className={BuildClass(style.unsubscribe, "text-primary")}
+                onClick={() => setIsUnsubscribe(true)}
+            >
+                구독 취소
+            </button>
+            {/* <Button
+                className={BuildClass(style.unsubscribe, "text-primary")}
+                onClick={() => setIsUnsubscribe(true)}
+            >
+                구독 취소
+            </Button> */}
     </>;
 };
 export default PaymentHistory;

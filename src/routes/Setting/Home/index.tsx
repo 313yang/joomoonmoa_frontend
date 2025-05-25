@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useSettingStore } from "../hooks";
 import { PlaceOrderStatuesMarket, StoreListType } from "@/libs/Defines";
 import { setToken } from "@/libs/api";
-import { useSubscription, useSubscriptionAction } from "@/libs/store/useSubscription";
+import { useSubscribe, useSubscribeAction } from "@/libs/store/useSubscribe";
 import PaymentStatus from "../Payment/Status";
 import { getStatus } from "@/libs/api/subscriptions";
 
@@ -20,8 +20,8 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
     const [isAutoLogin, setAutoLogin] = useState<boolean>(getIsAutoLogin());
     const { deleteMarketHandler, getMarket, market } = useSettingStore();
     const [deleteMarketId, setDeleteMarketId] = useState<number | null>(null);
-    const { subscriptsion } = useSubscription();
-    const { setSubscription } = useSubscriptionAction();
+    const { subscriptsion } = useSubscribe();
+    const { setSubscribe } = useSubscribeAction();
     /** 로그아웃 */
     const handleLogout = () => {
         setToken("");
@@ -39,18 +39,18 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
     };
 
     /** 구독 정보를 불러옵니다. */
-    const getSubscription = async () => {
+    const getSubscribe = async () => {
         try {
             const res = await getStatus();
             if (res.status === 200)
-                setSubscription(res.data);
+                setSubscribe(res.data);
         } catch (err) {
             console.log(err);
         }
     };
 
     useEffect(() => {
-        getSubscription();
+        getSubscribe();
     }, []);
 
     useEffect(() => {
@@ -130,6 +130,9 @@ const SettingMain = ({ phoneNumber, setSelectedMarket }: SettingMainProps) => {
                 프로 버전 업그레이드
             </Button>
         }
+        <button style={{ marginBottom: 60 }} className={BuildClass(style.Logout, "text-primary")} onClick={() => route("/setting/paymentHistory")} >
+            결제내역 조회
+        </button>
         <div className={style.Buttons}>
             <button
                 onClick={() => openToWindow("https://open.kakao.com/o/gs0uS37g", "settingcs")}
